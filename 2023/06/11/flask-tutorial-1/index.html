@@ -6,27 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Hexo Github Deployment for Personal Blogs | Hexo</title>
+  <title>flask-tutorial-1 | Hexo</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="This is the very first blog for myself. So I would rather begin with the process of how to deploy personal hexo blogs on Github. Hexo is a light-weighted blog framework, supporting theme customization">
+  <meta name="description" content="This series of post will introduce the details of how to implement a basic flask web page. The tutorial I’m following is given here. PreparationsTo begin with, create a .gitignore file to exclude unne">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo Github Deployment for Personal Blogs">
-<meta property="og:url" content="http://example.com/2023/06/06/hexo-deploy/index.html">
+<meta property="og:title" content="flask-tutorial-1">
+<meta property="og:url" content="http://example.com/2023/06/11/flask-tutorial-1/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="This is the very first blog for myself. So I would rather begin with the process of how to deploy personal hexo blogs on Github. Hexo is a light-weighted blog framework, supporting theme customization">
+<meta property="og:description" content="This series of post will introduce the details of how to implement a basic flask web page. The tutorial I’m following is given here. PreparationsTo begin with, create a .gitignore file to exclude unne">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2023/06/06/hexo-deploy/public.png">
-<meta property="og:image" content="http://example.com/2023/06/06/hexo-deploy/insertimage.png">
-<meta property="og:image" content="http://example.com/2023/06/06/hexo-deploy/finaldemo.png">
-<meta property="article:published_time" content="2023-06-06T02:03:56.000Z">
-<meta property="article:modified_time" content="2023-06-08T09:05:19.859Z">
+<meta property="article:published_time" content="2023-06-11T11:14:23.000Z">
+<meta property="article:modified_time" content="2023-06-12T02:59:45.655Z">
 <meta property="article:author" content="Shensong Zhao">
-<meta property="article:tag" content="hexo">
 <meta property="article:tag" content="tech">
+<meta property="article:tag" content="flask">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2023/06/06/hexo-deploy/public.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -188,22 +184,22 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-hexo-deploy" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-flask-tutorial-1" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
   
   
     <h1 class="article-title" itemprop="name">
-      Hexo Github Deployment for Personal Blogs
+      flask-tutorial-1
     </h1>
   
 
 
   
   
-<a href="/2023/06/06/hexo-deploy/" class="archive-article-date">
-        <time datetime="2023-06-06T02:03:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-06-06</time>
+<a href="/2023/06/11/flask-tutorial-1/" class="archive-article-date">
+        <time datetime="2023-06-11T11:14:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-06-11</time>
 </a>
 
   
@@ -216,7 +212,7 @@
       <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
       <i class="icon-statistics"></i>
       <span class="post-meta-item-text"> Word Count:</span>
-      <span class="post-count">569</span>
+      <span class="post-count">831</span>
     </span>
   </span>
 
@@ -225,7 +221,7 @@
     <span class="post-meta-item-icon">
       <i class="icon-book icon"></i>
       <span class="post-meta-item-text"> Reading time ≈</span>
-      <span class="post-count">3min</span>
+      <span class="post-count">5min</span>
     </span>
   </span>
 </div>
@@ -236,76 +232,70 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <p>This is the very first blog for myself. So I would rather begin with the process of how to deploy personal hexo blogs on Github. Hexo is a light-weighted blog framework, supporting theme customizations. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info.</p>
-<h2 id="Preparations"><a href="#Preparations" class="headerlink" title="Preparations"></a>Preparations</h2><h3 id="Basic-packages"><a href="#Basic-packages" class="headerlink" title="Basic packages"></a>Basic packages</h3><p>Install <code>Git</code> and <code>NodeJS</code> in local environment.</p>
-<h3 id="Create-and-clone-Github-repository"><a href="#Create-and-clone-Github-repository" class="headerlink" title="Create and clone Github repository"></a>Create and clone Github repository</h3><p>Create a new <code>repository</code> on Github. The format of the repository name should be <code>&lt;username&gt;.github.io</code>. Use <code>Github Pages</code> to check if the website of the repository can be visited.</p>
-<h2 id="Install-Hexo"><a href="#Install-Hexo" class="headerlink" title="Install Hexo"></a>Install Hexo</h2><p>Install <code>Hexo</code>. <code>npm install</code> tends to require root access.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ (sudo) npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+    <p>This series of post will introduce the details of how to implement a basic flask web page. The tutorial I’m following is given <a target="_blank" rel="noopener" href="https://tutorial.helloflask.com/">here</a>.</p>
+<h2 id="Preparations"><a href="#Preparations" class="headerlink" title="Preparations"></a>Preparations</h2><p>To begin with, create a <code>.gitignore</code> file to exclude unnecessary files when pushing to Github. </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ nano .gitignore</span><br></pre></td></tr></table></figure>
 
-<p>For China users, <code>npm install</code> command can be very slow. Common solution of using mirror sites of <code>taobao</code> have been deprecated. Refer to the <a target="_blank" rel="noopener" href="https://github.com/npm/cli/issues/4876">github issue</a>.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ npm cache clear --force</span><br><span class="line">$ npm config <span class="built_in">set</span> registry https://registry.npmmirror.com</span><br></pre></td></tr></table></figure>
+<p>The file content should be as following.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">*.pyc</span><br><span class="line">*~</span><br><span class="line">__pycache__</span><br><span class="line">.DS_Store</span><br><span class="line">.env</span><br><span class="line">*.db</span><br><span class="line">htmlcov/</span><br><span class="line">.coverage</span><br></pre></td></tr></table></figure>
 
-<p>Check the whether Hexo is installed and the current version.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo -v</span><br></pre></td></tr></table></figure>
+<p>The whole tutorial will be conducted in <code>conda</code> environment for easier package management.</p>
+<h2 id="Manage-Environment-Variable"><a href="#Manage-Environment-Variable" class="headerlink" title="Manage Environment Variable"></a>Manage Environment Variable</h2><p>First <code>python-dotenv</code> needs to be installed, which will make <code>flask</code> automatically read environment variable from <code>.flaskenv</code> and <code>.env</code> file in the root directory.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conda install python-dotenv</span><br></pre></td></tr></table></figure>
 
-<p>Create a new directory <code>hexo-blog</code> and initialize.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init hexo-blog</span><br><span class="line">$ <span class="built_in">cd</span> hexo-blog</span><br></pre></td></tr></table></figure>
+<p>Then in the file <code>.flaskenv</code>, we need to write the following code.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">FLASK_DEBUG=1</span><br><span class="line">FLASK_APP=watchlist</span><br></pre></td></tr></table></figure>
 
-<p>Launch the blog page locally.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ (sudo) npm install</span><br><span class="line">$ hexo generate</span><br><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>The first line setting <code>FLASK_DEBUG</code> to 1 will enable debug mode. In this mode, refreshing the browser will display the changes once the codes are modified. Otherwise the whole application needs to be rerun.</p>
+<p>The default web application file is <code>app.py</code>. If the actual name is <code>hello.py</code>, then <code>FLASK_APP</code> needs to be set as <code>hello.py</code>. In this case, <em>watchlist</em> is the package name of the web application.</p>
+<h2 id="Run-the-Application"><a href="#Run-the-Application" class="headerlink" title="Run the Application."></a>Run the Application.</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">hello</span>():</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;Welcome to My Watchlist!&#x27;</span></span><br></pre></td></tr></table></figure>
 
-<p>Or the abbreviated code is</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo g &amp;&amp; hexo s</span><br></pre></td></tr></table></figure>
+<p>Then in the root directory,</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ flask run</span><br></pre></td></tr></table></figure>
 
-<p>Use the browser to visit <a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000/</a>. One should get access to the Hexo blog page with default theme.</p>
-<h2 id="Deploy-to-Github"><a href="#Deploy-to-Github" class="headerlink" title="Deploy to Github"></a>Deploy to Github</h2><p>Stay in the root directory of the blog folder and install <code>hexo-deployer-git</code>.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ (sudo) npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
 
-<p>Then modify the configure file <code>_config.yml</code> in the root directory, where <code>token</code> is the <code>Personal Access Token</code> for <code>Github</code>.</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">https://github.com/sal-szhao/sal-szhao.github.io.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">main</span></span><br><span class="line">  <span class="attr">token:</span> <span class="string">your_personal_access_token</span></span><br></pre></td></tr></table></figure>
+<h2 id="View-Functions"><a href="#View-Functions" class="headerlink" title="View Functions"></a>View Functions</h2><p>View functions are often used to deal requests given by template pages, often needed to be bound with urls by <code>app.route()</code>.</p>
+<h3 id="URL-rules"><a href="#URL-rules" class="headerlink" title="URL rules"></a>URL rules</h3><p>One view function can be registered multiple URLs.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/index&#x27;</span></span>)</span></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/home&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">hello</span>():</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;Welcome to My Watchlist!&#x27;</span></span><br></pre></td></tr></table></figure>
 
-<p>Then run the following code to deploy the website.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo g</span><br><span class="line">$ hexo deploy / hexo d</span><br></pre></td></tr></table></figure>
+<p>Variables can be integrated in urls. <code>escape()</code> can escape special characters in the url. Also, users can specify the variable type in the url by calling <code>&lt;int:xxx&gt;</code>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> markupsafe <span class="keyword">import</span> escape</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/user/&lt;string:name&gt;&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">user_page</span>(<span class="params">name</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="string">f&#x27;User: <span class="subst">&#123;escape(name)&#125;</span>&#x27;</span></span><br></pre></td></tr></table></figure>
 
-<p>Notice that running <code>hexo d</code> will generate a <code>public</code> folder, which is consistent with the folder pushed to <code>Github repository</code>.</p>
-<p><img src="/2023/06/06/hexo-deploy/public.png" alt="public folder"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br></pre></td></tr></table></figure>
+<p>It is also possible to generate url from a view function.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> url_for</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(url_for(<span class="string">&#x27;hello&#x27;</span>))</span><br><span class="line"><span class="comment"># /</span></span><br><span class="line"><span class="built_in">print</span>(url_for(<span class="string">&#x27;user_page&#x27;</span>, name=<span class="string">&#x27;peter&#x27;</span>))</span><br><span class="line"><span class="comment"># /user/peter</span></span><br><span class="line"><span class="built_in">print</span>(url_for(<span class="string">&#x27;test_url_for&#x27;</span>, num=<span class="number">2</span>))</span><br><span class="line"><span class="comment"># /test?num=2</span></span><br></pre></td></tr></table></figure>
 
-<p>Cleans the cache file <code>db.json</code> and generated folder <code>public</code>.</p>
-<h2 id="Additional-Hexo-Usage"><a href="#Additional-Hexo-Usage" class="headerlink" title="Additional Hexo Usage"></a>Additional Hexo Usage</h2><h3 id="Update-blog-on-new-machines"><a href="#Update-blog-on-new-machines" class="headerlink" title="Update blog on new machines"></a>Update blog on new machines</h3><p>Since the codes generated for rendering the page are different from the original codes, they could be stored in different branches.</p>
-<p>The <code>public</code> folder is stored in <code>main</code> branch of the repository.</p>
-<p>The original codes are stored in <code>hexo</code> branch of the repository.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> -b hexo git@github.com:JoeyBling/hexo-theme-yilia-plus.git</span><br></pre></td></tr></table></figure>
 
-<p>Only clone the hexo branch and rerun</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ (sudo) npm install</span><br><span class="line">$ hexo g &amp;&amp; hexo s</span><br></pre></td></tr></table></figure>
 
-<h3 id="New-post"><a href="#New-post" class="headerlink" title="New post"></a>New post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new post testing</span><br></pre></td></tr></table></figure>
-<p>creates a new post.</p>
-<h3 id="Add-image-to-post"><a href="#Add-image-to-post" class="headerlink" title="Add image to post"></a>Add image to post</h3><p>Install <code>hexo-renderer-marked</code>.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ (sudo) npm install hexo-renderer-marked --save</span><br></pre></td></tr></table></figure>
+<h2 id="Templates"><a href="#Templates" class="headerlink" title="Templates"></a>Templates</h2><h3 id="Template-writing"><a href="#Template-writing" class="headerlink" title="Template writing"></a>Template writing</h3><p>The HTML page rendering is often written in <code>Jinja2</code>.</p>
+<figure class="highlight jinja"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span></span><span class="template-variable">&#123;&#123; username &#125;&#125;</span><span class="language-xml">的个人主页<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">if</span></span> bio %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><span class="template-variable">&#123;&#123; bio &#125;&#125;</span><span class="language-xml"><span class="tag">&lt;/<span class="name">p</span>&gt;</span>  </span><span class="comment">&#123;# Indent is not a must #&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">else</span></span> %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Self introduction.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><span class="template-variable">&#123;&#123; movies|<span class="name">length</span> &#125;&#125;</span><span class="language-xml"> Titles<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">endif</span></span> %&#125;</span></span><br></pre></td></tr></table></figure>
 
-<p>Modify the <code>_config.yml</code> file in the root directory.</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">marked:</span></span><br><span class="line">  <span class="attr">prependRoot:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">postAsset:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>&#123;&#123; ... &#125;&#125;</code> to introduce variable in the template.</li>
+<li><code>&#123;% ... %&#125;</code> to mark special condition sentence.</li>
+<li>&#96;&#96; to write annotations.</li>
+</ul>
+<p>There exists a way of dealing with variables inside the HTML code – <code>&#123;&#123; variable|filter &#125;&#125;</code>. An exmaple is <code>&#123;&#123; movies|length &#125;&#125;</code>, which is equivalent to <code>len(movies)</code> in python.</p>
+<h3 id="Template-rendering"><a href="#Template-rendering" class="headerlink" title="Template rendering"></a>Template rendering</h3><p>Then to render the page, one can follow the following code using <code>render_template()</code>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, render_template</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">index</span>():</span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">&#x27;index.html&#x27;</span>, name=name, movies=movies)</span><br></pre></td></tr></table></figure>
 
-<p>Setting <code>post_asset_folder</code> to be <code>true</code> will create a folder with the same name as the post when creating a new post.</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![<span class="string">alt text</span>](<span class="link">GithubPage.png</span>)</span><br></pre></td></tr></table></figure>
-<p>will add image to the post.</p>
-<p><img src="/2023/06/06/hexo-deploy/insertimage.png" alt="insert image"></p>
-<h3 id="Change-theme"><a href="#Change-theme" class="headerlink" title="Change theme"></a>Change theme</h3><p>Here is a simple tutorial for how to change the default theme to <a target="_blank" rel="noopener" href="https://github.com/JoeyBling/hexo-theme-yilia-plus">yilia-plus</a> theme.</p>
-<p>Clone the repository to the <code>themes</code> folder.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/JoeyBling/hexo-theme-yilia-plus.git</span><br></pre></td></tr></table></figure>
+<p>Variables in the templates can be passed as keyword variables.</p>
+<h3 id="Context-view-functions"><a href="#Context-view-functions" class="headerlink" title="Context view functions"></a>Context view functions</h3><p>For variables that will be used in multiple templates, define a <code>app.context_processor</code> decorator will come in handy.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.context_processor</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">inject_user</span>():  <span class="comment"># Can take an arbitrary function name.</span></span><br><span class="line">    user = User.query.first()</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">dict</span>(user=user)  <span class="comment"># same as return &#123;&#x27;user&#x27;: user&#125;</span></span><br></pre></td></tr></table></figure>
 
-<p>Or try the following if cloning is too slow.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://gitclone.com/github.com/JoeyBling/hexo-theme-yilia-plus.git</span><br></pre></td></tr></table></figure>
+<p>The function should return <code>dict</code> objects. The variable <code>user</code> can be directly used in all the template files without being passed as keyword variables when rendering templates.</p>
+<h3 id="Handling-errors"><a href="#Handling-errors" class="headerlink" title="Handling errors"></a>Handling errors</h3><p>Use <code>app.errorhandler()</code> decorator to handle error pages.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.errorhandler(<span class="params"><span class="number">404</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">page_not_found</span>(<span class="params">e</span>):</span><br><span class="line">    user = User.query.first()</span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">&#x27;404.html&#x27;</span>, user=user), <span class="number">404</span></span><br></pre></td></tr></table></figure>
 
-<p>Modify the <code>_config.yml</code> file in the root directory.</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">theme:</span> <span class="string">yilia-plus</span></span><br></pre></td></tr></table></figure>
+<p>Apart from returning the rendered template, the error code needs to be returned as well. For normal view functions, the default error code is <code>200</code> indicating success, which does not need to specify.</p>
+<h3 id="Template-inheriting"><a href="#Template-inheriting" class="headerlink" title="Template inheriting"></a>Template inheriting</h3><p>To do inheritance in templates, a <code>base.html</code> needs to be written at first. </p>
+<figure class="highlight jinja"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="language-xml">...</span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    ...</span></span><br><span class="line"><span class="language-xml">    </span><span class="template-tag">&#123;% <span class="name"><span class="name">block</span></span> head %&#125;</span><span class="template-tag">&#123;% <span class="name"><span class="name">endblock</span></span> %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">    ...</span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    ...</span></span><br><span class="line"><span class="language-xml">    </span><span class="template-tag">&#123;% <span class="name"><span class="name">block</span></span> content %&#125;</span><span class="template-tag">&#123;% <span class="name"><span class="name">endblock</span></span> %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">    ...</span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
 
-<p><font color='red' size=5>Delete all the <code>.git</code> folders inside the cloned themes folder! ! !</font></p>
-<p>Otherwise there will be conflicts when pusing into the repository.</p>
-<p><img src="/2023/06/06/hexo-deploy/finaldemo.png" alt="final demo"></p>
+<p>The child templates can insert content into <code>block head</code> &amp; <code>block content</code> as following,</p>
+<figure class="highlight jinja"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="template-tag">&#123;% <span class="name"><span class="name">extends</span></span> &#x27;base.html&#x27; %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">block</span></span> content %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><span class="template-variable">&#123;&#123; movies|<span class="name">length</span> &#125;&#125;</span><span class="language-xml"> Titles<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">endblock</span></span> %&#125;</span></span><br></pre></td></tr></table></figure>
 
+<p>The first line is to declare which template to inherit. Then writing contents inside <code>block content</code> will add contents to <code>block content</code> in the base template.</p>
+<h2 id="Static-files"><a href="#Static-files" class="headerlink" title="Static files"></a>Static files</h2><p>Files like images or gifs should be stored in <code>static</code> folder. The code for importing images is displayed as following,</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;&#123;&#123; url_for(&#x27;static&#x27;, filename=&#x27;foo.jpg&#x27;) &#125;&#125;&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
     
 
     
@@ -321,11 +311,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tech</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tech</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">flask</a>
         		</li>
       		
 		</ul>
@@ -344,15 +334,20 @@
 
 <nav id="article-nav">
   
-    <a href="/2023/06/07/python-tutorial-official-1/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2023/06/12/flask-tutorial-2/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Python Official Tutorial 1
+          flask-tutorial-2
         
       </div>
     </a>
   
+  
+    <a href="/2023/06/08/python-tutorial-official-4/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Python Official Tutorial 4</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 
@@ -377,7 +372,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Preparations"><span class="toc-number">1.</span> <span class="toc-text">Preparations</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Basic-packages"><span class="toc-number">1.1.</span> <span class="toc-text">Basic packages</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-and-clone-Github-repository"><span class="toc-number">1.2.</span> <span class="toc-text">Create and clone Github repository</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Install-Hexo"><span class="toc-number">2.</span> <span class="toc-text">Install Hexo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Deploy-to-Github"><span class="toc-number">3.</span> <span class="toc-text">Deploy to Github</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Additional-Hexo-Usage"><span class="toc-number">4.</span> <span class="toc-text">Additional Hexo Usage</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Update-blog-on-new-machines"><span class="toc-number">4.1.</span> <span class="toc-text">Update blog on new machines</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#New-post"><span class="toc-number">4.2.</span> <span class="toc-text">New post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Add-image-to-post"><span class="toc-number">4.3.</span> <span class="toc-text">Add image to post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Change-theme"><span class="toc-number">4.4.</span> <span class="toc-text">Change theme</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Preparations"><span class="toc-number">1.</span> <span class="toc-text">Preparations</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Manage-Environment-Variable"><span class="toc-number">2.</span> <span class="toc-text">Manage Environment Variable</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Run-the-Application"><span class="toc-number">3.</span> <span class="toc-text">Run the Application.</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#View-Functions"><span class="toc-number">4.</span> <span class="toc-text">View Functions</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#URL-rules"><span class="toc-number">4.1.</span> <span class="toc-text">URL rules</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Templates"><span class="toc-number">5.</span> <span class="toc-text">Templates</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Template-writing"><span class="toc-number">5.1.</span> <span class="toc-text">Template writing</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Template-rendering"><span class="toc-number">5.2.</span> <span class="toc-text">Template rendering</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Context-view-functions"><span class="toc-number">5.3.</span> <span class="toc-text">Context view functions</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Handling-errors"><span class="toc-number">5.4.</span> <span class="toc-text">Handling errors</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Template-inheriting"><span class="toc-number">5.5.</span> <span class="toc-text">Template inheriting</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Static-files"><span class="toc-number">6.</span> <span class="toc-text">Static files</span></a></li></ol>
                     </div>
                 </span>
             </div>

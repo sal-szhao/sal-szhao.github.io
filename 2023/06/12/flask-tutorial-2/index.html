@@ -6,27 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Hexo Github Deployment for Personal Blogs | Hexo</title>
+  <title>flask-tutorial-2 | Hexo</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="This is the very first blog for myself. So I would rather begin with the process of how to deploy personal hexo blogs on Github. Hexo is a light-weighted blog framework, supporting theme customization">
+  <meta name="description" content="DatabaseSQLAlchemy will turn a database&#x2F;table into a python class. First install flask-sqlalchemy to integrate sqlalchemy and flask. 1$ conda install flask-sqlalchemy&#x3D;&#x3D;2.5.1 sqlalchemy&#x3D;&#x3D;1.4.47  I">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo Github Deployment for Personal Blogs">
-<meta property="og:url" content="http://example.com/2023/06/06/hexo-deploy/index.html">
+<meta property="og:title" content="flask-tutorial-2">
+<meta property="og:url" content="http://example.com/2023/06/12/flask-tutorial-2/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="This is the very first blog for myself. So I would rather begin with the process of how to deploy personal hexo blogs on Github. Hexo is a light-weighted blog framework, supporting theme customization">
+<meta property="og:description" content="DatabaseSQLAlchemy will turn a database&#x2F;table into a python class. First install flask-sqlalchemy to integrate sqlalchemy and flask. 1$ conda install flask-sqlalchemy&#x3D;&#x3D;2.5.1 sqlalchemy&#x3D;&#x3D;1.4.47  I">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2023/06/06/hexo-deploy/public.png">
-<meta property="og:image" content="http://example.com/2023/06/06/hexo-deploy/insertimage.png">
-<meta property="og:image" content="http://example.com/2023/06/06/hexo-deploy/finaldemo.png">
-<meta property="article:published_time" content="2023-06-06T02:03:56.000Z">
-<meta property="article:modified_time" content="2023-06-08T09:05:19.859Z">
+<meta property="article:published_time" content="2023-06-12T03:01:09.000Z">
+<meta property="article:modified_time" content="2023-06-12T07:42:47.661Z">
 <meta property="article:author" content="Shensong Zhao">
 <meta property="article:tag" content="hexo">
-<meta property="article:tag" content="tech">
+<meta property="article:tag" content="flask">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2023/06/06/hexo-deploy/public.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -188,22 +184,22 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-hexo-deploy" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-flask-tutorial-2" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
   
   
     <h1 class="article-title" itemprop="name">
-      Hexo Github Deployment for Personal Blogs
+      flask-tutorial-2
     </h1>
   
 
 
   
   
-<a href="/2023/06/06/hexo-deploy/" class="archive-article-date">
-        <time datetime="2023-06-06T02:03:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-06-06</time>
+<a href="/2023/06/12/flask-tutorial-2/" class="archive-article-date">
+        <time datetime="2023-06-12T03:01:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-06-12</time>
 </a>
 
   
@@ -216,7 +212,7 @@
       <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
       <i class="icon-statistics"></i>
       <span class="post-meta-item-text"> Word Count:</span>
-      <span class="post-count">569</span>
+      <span class="post-count">919</span>
     </span>
   </span>
 
@@ -225,7 +221,7 @@
     <span class="post-meta-item-icon">
       <i class="icon-book icon"></i>
       <span class="post-meta-item-text"> Reading time ≈</span>
-      <span class="post-count">3min</span>
+      <span class="post-count">5min</span>
     </span>
   </span>
 </div>
@@ -236,75 +232,71 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <p>This is the very first blog for myself. So I would rather begin with the process of how to deploy personal hexo blogs on Github. Hexo is a light-weighted blog framework, supporting theme customizations. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info.</p>
-<h2 id="Preparations"><a href="#Preparations" class="headerlink" title="Preparations"></a>Preparations</h2><h3 id="Basic-packages"><a href="#Basic-packages" class="headerlink" title="Basic packages"></a>Basic packages</h3><p>Install <code>Git</code> and <code>NodeJS</code> in local environment.</p>
-<h3 id="Create-and-clone-Github-repository"><a href="#Create-and-clone-Github-repository" class="headerlink" title="Create and clone Github repository"></a>Create and clone Github repository</h3><p>Create a new <code>repository</code> on Github. The format of the repository name should be <code>&lt;username&gt;.github.io</code>. Use <code>Github Pages</code> to check if the website of the repository can be visited.</p>
-<h2 id="Install-Hexo"><a href="#Install-Hexo" class="headerlink" title="Install Hexo"></a>Install Hexo</h2><p>Install <code>Hexo</code>. <code>npm install</code> tends to require root access.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ (sudo) npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+    <h2 id="Database"><a href="#Database" class="headerlink" title="Database"></a>Database</h2><p><code>SQLAlchemy</code> will turn a database&#x2F;table into a python class. First install <code>flask-sqlalchemy</code> to integrate <code>sqlalchemy</code> and <code>flask</code>.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conda install flask-sqlalchemy==2.5.1 sqlalchemy==1.4.47</span><br></pre></td></tr></table></figure>
 
-<p>For China users, <code>npm install</code> command can be very slow. Common solution of using mirror sites of <code>taobao</code> have been deprecated. Refer to the <a target="_blank" rel="noopener" href="https://github.com/npm/cli/issues/4876">github issue</a>.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ npm cache clear --force</span><br><span class="line">$ npm config <span class="built_in">set</span> registry https://registry.npmmirror.com</span><br></pre></td></tr></table></figure>
+<h3 id="Initialization"><a href="#Initialization" class="headerlink" title="Initialization"></a>Initialization</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask_sqlalchemy <span class="keyword">import</span> SQLAlchemy</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line">db = SQLAlchemy(app)</span><br></pre></td></tr></table></figure>
 
-<p>Check the whether Hexo is installed and the current version.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo -v</span><br></pre></td></tr></table></figure>
+<p>Besides, the configuration parameters needs to be set as well. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">WIN = sys.platform.startswith(<span class="string">&#x27;win&#x27;</span>)</span><br><span class="line"><span class="keyword">if</span> WIN:</span><br><span class="line">    prefix = <span class="string">&#x27;sqlite:///&#x27;</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    prefix = <span class="string">&#x27;sqlite:////&#x27;</span></span><br><span class="line"></span><br><span class="line">app.config[<span class="string">&#x27;SQLALCHEMY_DATABASE_URI&#x27;</span>] = prefix + os.path.join(os.path.dirname(app.root_path), os.getenv(<span class="string">&#x27;DATABASE_FILE&#x27;</span>, <span class="string">&#x27;data.db&#x27;</span>))</span><br><span class="line">app.config[<span class="string">&#x27;SQLALCHEMY_TRACK_MODIFICATIONS&#x27;</span>] = <span class="literal">False</span> </span><br></pre></td></tr></table></figure>
 
-<p>Create a new directory <code>hexo-blog</code> and initialize.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init hexo-blog</span><br><span class="line">$ <span class="built_in">cd</span> hexo-blog</span><br></pre></td></tr></table></figure>
+<p>The first config is the path is the storage path of the database. <code>os.getenv</code> method will get environment variable first. If it doesn’t exist, then use the second value in the parenthesis.</p>
+<h3 id="Create-tables"><a href="#Create-tables" class="headerlink" title="Create tables"></a>Create tables</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">User</span>(db.Model): </span><br><span class="line">    <span class="built_in">id</span> = db.Column(db.Integer, primary_key=<span class="literal">True</span>)</span><br><span class="line">    name = db.Column(db.String(<span class="number">20</span>)) </span><br></pre></td></tr></table></figure>
 
-<p>Launch the blog page locally.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ (sudo) npm install</span><br><span class="line">$ hexo generate</span><br><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>Each class should inherit <code>db.Model</code>. Each field should be instantiated by <code>db.Column()</code>. Additional parameters for <code>db.Column()</code> include <code>primary_key</code>, <code>nullable</code>, <code>unique</code>, <code>default</code>. Common fields include <code>db.Integer</code>, <code>db.String (size)</code>, <code>db.Text</code>, <code>db.DateTime</code>, <code>db.Float</code>, <code>db.Boolean</code>.</p>
+<h3 id="Command-registration"><a href="#Command-registration" class="headerlink" title="Command registration"></a>Command registration</h3><p>Users can create customized flask commands by using <code>click</code>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> click</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.cli.command() </span></span><br><span class="line"><span class="meta">@click.option(<span class="params"><span class="string">&#x27;--drop&#x27;</span>, is_flag=<span class="literal">True</span>, <span class="built_in">help</span>=<span class="string">&#x27;Create after drop.&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">initdb</span>(<span class="params">drop</span>):</span><br><span class="line">    <span class="keyword">if</span> drop:</span><br><span class="line">        db.drop_all()</span><br><span class="line">    db.create_all()</span><br><span class="line">    click.echo(<span class="string">&#x27;Initialized database.&#x27;</span>)    <span class="comment"># print to stdout in cmd</span></span><br></pre></td></tr></table></figure>
 
-<p>Or the abbreviated code is</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo g &amp;&amp; hexo s</span><br></pre></td></tr></table></figure>
+<p><code>db.create_all()</code> will create all the table schema in the database. <code>db.drop_all()</code> will drop everything in the database. <code>click.echo</code> will print the output to <code>stdout</code>.</p>
+<h3 id="Query"><a href="#Query" class="headerlink" title="Query"></a>Query</h3><p>There are manifold ways of selecting entries from tables in the database.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>movie = Movie.query.first()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>movie.title</span><br><span class="line"><span class="string">&#x27;Leon&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Movie.query.<span class="built_in">all</span>()</span><br><span class="line">[&lt;Movie <span class="number">1</span>&gt;, &lt;Movie <span class="number">2</span>&gt;]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Movie.query.count()</span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Movie.query.get(<span class="number">1</span>)  <span class="comment"># Get record whose primary_key=1</span></span><br><span class="line">&lt;Movie <span class="number">1</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Movie.query.filter_by(title=<span class="string">&#x27;Mahjong&#x27;</span>).first()  <span class="comment"># Get record where title field is &#x27;Mahjong&#x27;.</span></span><br><span class="line">&lt;Movie <span class="number">2</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Movie.query.<span class="built_in">filter</span>(Movie.title==<span class="string">&#x27;Mahjong&#x27;</span>).first()</span><br><span class="line">&lt;Movie <span class="number">2</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>db.session.query(Movie).filter_by(title=<span class="string">&#x27;Mahjong&#x27;</span>).<span class="built_in">all</span>()</span><br><span class="line">&lt;Movie <span class="number">2</span>&gt;</span><br></pre></td></tr></table></figure>
 
-<p>Use the browser to visit <a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000/</a>. One should get access to the Hexo blog page with default theme.</p>
-<h2 id="Deploy-to-Github"><a href="#Deploy-to-Github" class="headerlink" title="Deploy to Github"></a>Deploy to Github</h2><p>Stay in the root directory of the blog folder and install <code>hexo-deployer-git</code>.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ (sudo) npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+<p>Here <code>filter_by</code> or <code>filter</code> will return all the entries that match the filter condition by calling method <code>.all()</code>.</p>
+<h3 id="Insertion-update-and-deletion"><a href="#Insertion-update-and-deletion" class="headerlink" title="Insertion, update and deletion"></a>Insertion, update and deletion</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Insert an entry to the table.</span></span><br><span class="line">user = User(name=name)</span><br><span class="line">db.session.add(user)</span><br><span class="line">db.session.commit()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Update an entry in the table.</span></span><br><span class="line">movie = Movie.query.get(<span class="number">2</span>)</span><br><span class="line">movie.title = <span class="string">&#x27;WALL-E&#x27;</span></span><br><span class="line">movie.year = <span class="string">&#x27;2008&#x27;</span></span><br><span class="line">db.session.commit()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Delete an entry from the table.</span></span><br><span class="line">movie = Movie.query.get(<span class="number">1</span>)</span><br><span class="line">db.session.delete(movie)</span><br><span class="line">db.session.commit()</span><br></pre></td></tr></table></figure>
 
-<p>Then modify the configure file <code>_config.yml</code> in the root directory, where <code>token</code> is the <code>Personal Access Token</code> for <code>Github</code>.</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">https://github.com/sal-szhao/sal-szhao.github.io.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">main</span></span><br><span class="line">  <span class="attr">token:</span> <span class="string">your_personal_access_token</span></span><br></pre></td></tr></table></figure>
+<p><code>commit()</code> needs to be called everytime the database is changed.</p>
+<h2 id="Form-posts"><a href="#Form-posts" class="headerlink" title="Form posts"></a>Form posts</h2><p>Create a new form post.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt;&#123;&#123; movies|length &#125;&#125; Titles&lt;/p&gt;</span><br><span class="line">&lt;form method=<span class="string">&quot;post&quot;</span>&gt;</span><br><span class="line">    Name &lt;<span class="built_in">input</span> <span class="built_in">type</span>=<span class="string">&quot;text&quot;</span> name=<span class="string">&quot;title&quot;</span> autocomplete=<span class="string">&quot;off&quot;</span> required&gt;</span><br><span class="line">    Year &lt;<span class="built_in">input</span> <span class="built_in">type</span>=<span class="string">&quot;text&quot;</span> name=<span class="string">&quot;year&quot;</span> autocomplete=<span class="string">&quot;off&quot;</span> required&gt;</span><br><span class="line">    &lt;<span class="built_in">input</span> <span class="keyword">class</span>=<span class="string">&quot;btn&quot;</span> <span class="built_in">type</span>=<span class="string">&quot;submit&quot;</span> name=<span class="string">&quot;submit&quot;</span> value=<span class="string">&quot;Add&quot;</span>&gt;</span><br><span class="line">&lt;/form&gt;</span><br></pre></td></tr></table></figure>
 
-<p>Then run the following code to deploy the website.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo g</span><br><span class="line">$ hexo deploy / hexo d</span><br></pre></td></tr></table></figure>
+<p><code>&lt;input&gt;</code> should specify <code>name</code> field.</p>
+<p>To deal with <code>post</code> requests, the <code>app.route</code> decorator should be changed.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> request</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>, <span class="string">&#x27;POST&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">index</span>():</span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">&#x27;POST&#x27;</span>:</span><br><span class="line">        <span class="comment"># Get form values.</span></span><br><span class="line">        title = request.form.get(<span class="string">&#x27;title&#x27;</span>) </span><br><span class="line">        year = request.form.get(<span class="string">&#x27;year&#x27;</span>)</span><br></pre></td></tr></table></figure>
 
-<p>Notice that running <code>hexo d</code> will generate a <code>public</code> folder, which is consistent with the folder pushed to <code>Github repository</code>.</p>
-<p><img src="/2023/06/06/hexo-deploy/public.png" alt="public folder"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br></pre></td></tr></table></figure>
+<p><code>request.form</code> is used to retrieve the form data.</p>
+<h2 id="Flash-Messages"><a href="#Flash-Messages" class="headerlink" title="Flash Messages"></a>Flash Messages</h2><p><code>flash</code> is used in view functions to send messages to templates. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> flash</span><br><span class="line"></span><br><span class="line">flash(<span class="string">&#x27;Item Created.&#x27;</span>)</span><br></pre></td></tr></table></figure>
 
-<p>Cleans the cache file <code>db.json</code> and generated folder <code>public</code>.</p>
-<h2 id="Additional-Hexo-Usage"><a href="#Additional-Hexo-Usage" class="headerlink" title="Additional Hexo Usage"></a>Additional Hexo Usage</h2><h3 id="Update-blog-on-new-machines"><a href="#Update-blog-on-new-machines" class="headerlink" title="Update blog on new machines"></a>Update blog on new machines</h3><p>Since the codes generated for rendering the page are different from the original codes, they could be stored in different branches.</p>
-<p>The <code>public</code> folder is stored in <code>main</code> branch of the repository.</p>
-<p>The original codes are stored in <code>hexo</code> branch of the repository.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> -b hexo git@github.com:JoeyBling/hexo-theme-yilia-plus.git</span><br></pre></td></tr></table></figure>
+<p><code>get_flashed_messages()</code> can be used in templates to get messages sent by view functions.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% <span class="keyword">for</span> message <span class="keyword">in</span> get_flashed_messages() %&#125;</span><br><span class="line">    &lt;div <span class="keyword">class</span>=<span class="string">&quot;alert&quot;</span>&gt;&#123;&#123; message &#125;&#125;&lt;/div&gt;</span><br><span class="line">&#123;% endfor %&#125;</span><br></pre></td></tr></table></figure>
 
-<p>Only clone the hexo branch and rerun</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ (sudo) npm install</span><br><span class="line">$ hexo g &amp;&amp; hexo s</span><br></pre></td></tr></table></figure>
+<p>We need to set a new config here. The secret key will protect the application from being attacked by external codes.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">app.config[<span class="string">&#x27;SECRET_KEY&#x27;</span>] = os.getenv(<span class="string">&#x27;SECRET_KEY&#x27;</span>, <span class="string">&#x27;dev&#x27;</span>)</span><br></pre></td></tr></table></figure>
 
-<h3 id="New-post"><a href="#New-post" class="headerlink" title="New post"></a>New post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new post testing</span><br></pre></td></tr></table></figure>
-<p>creates a new post.</p>
-<h3 id="Add-image-to-post"><a href="#Add-image-to-post" class="headerlink" title="Add image to post"></a>Add image to post</h3><p>Install <code>hexo-renderer-marked</code>.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ (sudo) npm install hexo-renderer-marked --save</span><br></pre></td></tr></table></figure>
+<h2 id="Redirect"><a href="#Redirect" class="headerlink" title="Redirect"></a>Redirect</h2><p><code>redirect</code> will make a new request to the target url.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> redirect(url_for(<span class="string">&#x27;index&#x27;</span>)) </span><br></pre></td></tr></table></figure>
 
-<p>Modify the <code>_config.yml</code> file in the root directory.</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">marked:</span></span><br><span class="line">  <span class="attr">prependRoot:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">postAsset:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
 
-<p>Setting <code>post_asset_folder</code> to be <code>true</code> will create a folder with the same name as the post when creating a new post.</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![<span class="string">alt text</span>](<span class="link">GithubPage.png</span>)</span><br></pre></td></tr></table></figure>
-<p>will add image to the post.</p>
-<p><img src="/2023/06/06/hexo-deploy/insertimage.png" alt="insert image"></p>
-<h3 id="Change-theme"><a href="#Change-theme" class="headerlink" title="Change theme"></a>Change theme</h3><p>Here is a simple tutorial for how to change the default theme to <a target="_blank" rel="noopener" href="https://github.com/JoeyBling/hexo-theme-yilia-plus">yilia-plus</a> theme.</p>
-<p>Clone the repository to the <code>themes</code> folder.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/JoeyBling/hexo-theme-yilia-plus.git</span><br></pre></td></tr></table></figure>
+<h2 id="User-Authentication"><a href="#User-Authentication" class="headerlink" title="User Authentication"></a>User Authentication</h2><h3 id="Password-hash-codes"><a href="#Password-hash-codes" class="headerlink" title="Password hash codes"></a>Password hash codes</h3><p><code>werkzeug</code> can be used to generate hash codes from plain English.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> werkzeug.security <span class="keyword">import</span> generate_password_hash, check_password_hash</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">User</span>(db.Model):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">set_password</span>(<span class="params">self, password</span>):</span><br><span class="line">        self.password_hash = generate_password_hash(password) </span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">validate_password</span>(<span class="params">self, password</span>):</span><br><span class="line">        <span class="keyword">return</span> check_password_hash(self.password_hash, password)</span><br></pre></td></tr></table></figure>
 
-<p>Or try the following if cloning is too slow.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://gitclone.com/github.com/JoeyBling/hexo-theme-yilia-plus.git</span><br></pre></td></tr></table></figure>
+<h3 id="Initialization-1"><a href="#Initialization-1" class="headerlink" title="Initialization"></a>Initialization</h3><p><code>flask-login</code> package can be used to realize user authentication.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conda install flask-login</span><br></pre></td></tr></table></figure>
 
-<p>Modify the <code>_config.yml</code> file in the root directory.</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">theme:</span> <span class="string">yilia-plus</span></span><br></pre></td></tr></table></figure>
+<p>Then the <code>flask-login</code> can be initialized.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask_login <span class="keyword">import</span> LoginManager</span><br><span class="line"></span><br><span class="line">login_manager = LoginManager(app)</span><br><span class="line"></span><br><span class="line"><span class="meta">@login_manager.user_loader</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">load_user</span>(<span class="params">user_id</span>):</span><br><span class="line">    user = User.query.get(<span class="built_in">int</span>(user_id))</span><br><span class="line">    <span class="keyword">return</span> user</span><br></pre></td></tr></table></figure>
 
-<p><font color='red' size=5>Delete all the <code>.git</code> folders inside the cloned themes folder! ! !</font></p>
-<p>Otherwise there will be conflicts when pusing into the repository.</p>
-<p><img src="/2023/06/06/hexo-deploy/finaldemo.png" alt="final demo"></p>
+<p>Besides, <code>User</code> class model should inherit from <code>UserMixin</code> to enable authentication features. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask_login <span class="keyword">import</span> UserMixin</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">User</span>(db.Model, UserMixin):</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<h3 id="User-login-and-logout"><a href="#User-login-and-logout" class="headerlink" title="User login and logout"></a>User login and logout</h3><p>Then the user can be logged in and logged out using the following code,</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask_login <span class="keyword">import</span> login_user, logout_user</span><br><span class="line"></span><br><span class="line">login_user(user)</span><br><span class="line">logout_user()</span><br></pre></td></tr></table></figure>
+
+<p><code>@login_required</code> decorator can be used for <code>view protections</code>. To be more specific, the page can only be accessed when logged in.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/logout&#x27;</span></span>)</span></span><br><span class="line"><span class="meta">@login_required</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">logout</span>():</span><br><span class="line">    logout_user() </span><br></pre></td></tr></table></figure>
+
+<p><code>current_user.is_authenticated</code> will be <code>true</code> if user has logged in, which can be used for <code>template content protections</code>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% <span class="keyword">if</span> current_user.is_authenticated %&#125;&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
+
 
     
 
@@ -325,7 +317,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tech</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">flask</a>
         		</li>
       		
 		</ul>
@@ -344,15 +336,20 @@
 
 <nav id="article-nav">
   
-    <a href="/2023/06/07/python-tutorial-official-1/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2023/06/12/flask-tutorial-3/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Python Official Tutorial 1
+          flask-tutorial-3
         
       </div>
     </a>
   
+  
+    <a href="/2023/06/11/flask-tutorial-1/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">flask-tutorial-1</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 
@@ -377,7 +374,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Preparations"><span class="toc-number">1.</span> <span class="toc-text">Preparations</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Basic-packages"><span class="toc-number">1.1.</span> <span class="toc-text">Basic packages</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-and-clone-Github-repository"><span class="toc-number">1.2.</span> <span class="toc-text">Create and clone Github repository</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Install-Hexo"><span class="toc-number">2.</span> <span class="toc-text">Install Hexo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Deploy-to-Github"><span class="toc-number">3.</span> <span class="toc-text">Deploy to Github</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Additional-Hexo-Usage"><span class="toc-number">4.</span> <span class="toc-text">Additional Hexo Usage</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Update-blog-on-new-machines"><span class="toc-number">4.1.</span> <span class="toc-text">Update blog on new machines</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#New-post"><span class="toc-number">4.2.</span> <span class="toc-text">New post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Add-image-to-post"><span class="toc-number">4.3.</span> <span class="toc-text">Add image to post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Change-theme"><span class="toc-number">4.4.</span> <span class="toc-text">Change theme</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Database"><span class="toc-number">1.</span> <span class="toc-text">Database</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Initialization"><span class="toc-number">1.1.</span> <span class="toc-text">Initialization</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-tables"><span class="toc-number">1.2.</span> <span class="toc-text">Create tables</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Command-registration"><span class="toc-number">1.3.</span> <span class="toc-text">Command registration</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Query"><span class="toc-number">1.4.</span> <span class="toc-text">Query</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Insertion-update-and-deletion"><span class="toc-number">1.5.</span> <span class="toc-text">Insertion, update and deletion</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Form-posts"><span class="toc-number">2.</span> <span class="toc-text">Form posts</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flash-Messages"><span class="toc-number">3.</span> <span class="toc-text">Flash Messages</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Redirect"><span class="toc-number">4.</span> <span class="toc-text">Redirect</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#User-Authentication"><span class="toc-number">5.</span> <span class="toc-text">User Authentication</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Password-hash-codes"><span class="toc-number">5.1.</span> <span class="toc-text">Password hash codes</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Initialization-1"><span class="toc-number">5.2.</span> <span class="toc-text">Initialization</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#User-login-and-logout"><span class="toc-number">5.3.</span> <span class="toc-text">User login and logout</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
