@@ -44,20 +44,23 @@ class WatchlistTestCase(unittest.TestCase):
 
 The class should be inherited from `unittest.TestCase`. `setUp` will be called before the testing starts while `tearDown` will be called after the test is finished. 
 
-`app.test_client()` is used to test templates and view functions using `get` while `app.test_cli_runner()` is used to test commands using `invoke`.
+`app.test_client()` is used to test templates and view functions using `get` while `app.test_cli_runner()` is used to test commands using `invoke`. If the command has click options, the user can use a list to pass command arguments into `invoke`.
 
 ``` python
 def test_404_page(self):
     response = self.client.get('/nothing')  # target URL
     data = response.get_data(as_text=True)
     self.assertIn('Page Not Found - 404', data)
-    self.assertIn('Go Back', data)
     self.assertEqual(response.status_code, 404)
 
 def test_forge_command(self):
     result = self.runner.invoke(forge)
     self.assertIn('Done.', result.output)
-    self.assertNotEqual(Movie.query.count(), 0)    
+    self.assertNotEqual(Movie.query.count(), 0)
+
+ def test_forge_command_count(self):
+    result = self.runner.invoke(forge, ['--count', '40'])
+    self.assertEqual(Message.query.count(), 40)    
 ```
 
 
@@ -69,6 +72,28 @@ def login(self):
         username='test',
         password='123'
     ), follow_redirects=True)
+```
+
+However, for `WTForms` in `flask`, one additional code needs to be added to `setUp()`. Because `WTForms` will automatically add a CSRF token to the post, which will forbid the test code from posting.
+
+``` python
+app.config["WTF_CSRF_ENABLED"] = False
+```
+
+There is also another way of generating error pages using `abort`.
+
+``` python
+def test_500_page(self):
+    from flask import abort
+
+    @app.route('/500')
+    def throw_500_error():
+        abort(500)
+
+    response = self.client.get('/500')
+    data = response.get_data(as_text=True)
+    self.assertIn('Internal Server Error', data)
+    self.assertEqual(response.status_code, 500)
 ```
 
 Then add the following code to the end of the test file.
