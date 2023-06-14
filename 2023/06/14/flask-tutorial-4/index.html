@@ -6,16 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Tag: python | Hexo</title>
+  <title>flask-tutorial-4 | Hexo</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/tags/python/index.html">
+  <meta name="description" content="Flask-WTFWTFormsFlask can make forms implemented as a class by using Flask-WTF. The form classes can be stored in forms.py 123456789from flask_wtf import FlaskFormfrom wtforms import StringField, Text">
+<meta property="og:type" content="article">
+<meta property="og:title" content="flask-tutorial-4">
+<meta property="og:url" content="http://example.com/2023/06/14/flask-tutorial-4/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Flask-WTFWTFormsFlask can make forms implemented as a class by using Flask-WTF. The form classes can be stored in forms.py 123456789from flask_wtf import FlaskFormfrom wtforms import StringField, Text">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-06-14T03:21:02.000Z">
+<meta property="article:modified_time" content="2023-06-14T05:45:05.595Z">
 <meta property="article:author" content="Shensong Zhao">
+<meta property="article:tag" content="tech">
+<meta property="article:tag" content="flask">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -178,41 +184,90 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-flask-tutorial-4" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2023" class="archive-year">2023</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/06/08/python-tutorial-official-4/" class="archive-article-date">
-        <time datetime="2023-06-08T06:07:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-06-08</time>
-</a>
-
-        </div>
-    	 
+      <header class="article-header">
   
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/06/08/python-tutorial-official-4/" target="_blank">Python Official Tutorial 4</a>
   
+    <h1 class="article-title" itemprop="name">
+      flask-tutorial-4
     </h1>
   
 
 
-        <div class="article-info info-on-right">
-          
+  
+  
+<a href="/2023/06/14/flask-tutorial-4/" class="archive-article-date">
+        <time datetime="2023-06-14T03:21:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-06-14</time>
+</a>
+
+  
+  
+    
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> Word Count:</span>
+      <span class="post-count">420</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> Reading time ≈</span>
+      <span class="post-count">2min</span>
+    </span>
+  </span>
+</div>
+
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h2 id="Flask-WTF"><a href="#Flask-WTF" class="headerlink" title="Flask-WTF"></a>Flask-WTF</h2><h3 id="WTForms"><a href="#WTForms" class="headerlink" title="WTForms"></a>WTForms</h3><p>Flask can make forms implemented as a class by using <code>Flask-WTF</code>. The form classes can be stored in <code>forms.py</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask_wtf <span class="keyword">import</span> FlaskForm</span><br><span class="line"><span class="keyword">from</span> wtforms <span class="keyword">import</span> StringField, TextAreaField, SubmitField</span><br><span class="line"><span class="keyword">from</span> wtforms.validators <span class="keyword">import</span> DataRequired, Length, ValidationError</span><br><span class="line">        </span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MessageForm</span>(<span class="title class_ inherited__">FlaskForm</span>):</span><br><span class="line">    name = StringField(<span class="string">&#x27;Name&#x27;</span>, validators=[</span><br><span class="line">                DataRequired(), </span><br><span class="line">                Length(<span class="number">1</span>, <span class="number">20</span>)])</span><br><span class="line">    submit = SubmitField(<span class="string">&#x27;Submit&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>The class should inherit from <code>FlaskForm</code>. Each input is defined as a field in the class. There are various <code>validators</code> to restrict the input format. </p>
+<h3 id="Customized-validator"><a href="#Customized-validator" class="headerlink" title="Customized validator"></a>Customized validator</h3><p>It is also possible to define a customized validator.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">command_check</span>(<span class="params">form, field</span>):</span><br><span class="line">    <span class="keyword">if</span> field.data != <span class="string">u&#x27;宝塔镇河妖&#x27;</span>:</span><br><span class="line">        <span class="keyword">raise</span> ValidationError(<span class="string">&#x27;The captcha value must be &quot;宝塔镇河妖&quot;.&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MessageForm</span>(<span class="title class_ inherited__">FlaskForm</span>):</span><br><span class="line">    password = StringField(<span class="string">u&#x27;天王盖地虎&#x27;</span>, validators=[  </span><br><span class="line">                    DataRequired(),</span><br><span class="line">                    command_check])</span><br></pre></td></tr></table></figure>
+
+<h3 id="Bootstrap-and-Flask"><a href="#Bootstrap-and-Flask" class="headerlink" title="Bootstrap and Flask"></a>Bootstrap and Flask</h3><p>To render the form in the HTML templates, <code>bootstrap</code> is needed. There are two versions of methods to render the forms.</p>
+<p>The first one is to install <code>flask-bootstrap</code>. </p>
+<figure class="highlight jinja"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="template-tag">&#123;% <span class="name">import</span> &quot;bootstrap/wtf.html&quot; <span class="keyword">as</span> wtf %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span><span class="template-variable">&#123;&#123; wtf.quick_form(form) &#125;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>The second is to install <code>bootstrap-flask</code>. Note that this package can only be installed through <code>pip</code> inside <code>conda</code>.</p>
+<figure class="highlight jinja"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="template-tag">&#123;% <span class="name">from</span> &#x27;bootstrap/form.html&#x27; import render_form %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span><span class="template-variable">&#123;&#123; render_form(form) &#125;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>flask-bootstrap</code> will conflict with <code>bootstrap-flask</code> so only one package can be installed and used. But both packages needs initialization as following,</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask_bootstrap <span class="keyword">import</span> Bootstrap5</span><br><span class="line">bootstrap = Bootstrap5(app)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Bootstrap-jquery-class"><a href="#Bootstrap-jquery-class" class="headerlink" title="Bootstrap jquery class"></a>Bootstrap jquery class</h2><p>There are useful <code>jqueries</code> that can be easy implemented by <code>Bootstrap</code> classes.</p>
+<p><code>data-dismiss</code> can be used to delete elements within specific classes. </p>
+<figure class="highlight jinja"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">class</span>=<span class="string">&quot;close&quot;</span> <span class="attr">data-dismiss</span>=<span class="string">&quot;alert&quot;</span>&gt;</span><span class="symbol">&amp;times;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p><code>data-toggle</code> set to <code>tooltip</code> can be used to display tooltips when the mouse is hovering certain items.</p>
+<figure class="highlight jinja"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">p</span> <span class="attr">data-toggle</span>=<span class="string">&quot;tooltip&quot;</span> <span class="attr">data-placement</span>=<span class="string">&quot;top&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">   <span class="attr">data-timestamp</span>=<span class="string">&quot;</span></span></span><span class="template-variable">&#123;&#123; message.time.strftime(&#x27;%Y-%m-%dT%H:%M:%SZ&#x27;) &#125;&#125;</span><span class="language-xml"><span class="tag"><span class="string">&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">   <span class="attr">data-delay</span>=<span class="string">&quot;500&quot;</span>&gt;</span> </span><span class="template-variable">&#123;&#123; moment(message.time).fromNow(refresh=True) &#125;&#125;</span><span class="language-xml"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>However, these functions can only take effect if the following script is placed at first among all the scripts.</p>
+<figure class="highlight jinja"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&quot;</span></span></span><span class="template-variable">&#123;&#123; url_for(&#x27;static&#x27;, filename=&#x27;js/jquery-3.2.1.slim.min.js&#x27;) &#125;&#125;</span><span class="language-xml"><span class="tag"><span class="string">&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -222,166 +277,74 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">flask</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+    
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/06/08/python-tutorial-official-3/" class="archive-article-date">
-        <time datetime="2023-06-08T02:27:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-06-08</time>
-</a>
 
+
+<nav id="article-nav">
+  
+  
+    <a href="/2023/06/12/flask-tutorial-3/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">flask-tutorial-3</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/06/08/python-tutorial-official-3/" target="_blank">Python Official Tutorial 3</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tech</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Flask-WTF"><span class="toc-number">1.</span> <span class="toc-text">Flask-WTF</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#WTForms"><span class="toc-number">1.1.</span> <span class="toc-text">WTForms</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Customized-validator"><span class="toc-number">1.2.</span> <span class="toc-text">Customized validator</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bootstrap-and-Flask"><span class="toc-number">1.3.</span> <span class="toc-text">Bootstrap and Flask</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bootstrap-jquery-class"><span class="toc-number">2.</span> <span class="toc-text">Bootstrap jquery class</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/06/07/python-tutorial-official-2/" class="archive-article-date">
-        <time datetime="2023-06-07T09:09:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-06-07</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/06/07/python-tutorial-official-2/" target="_blank">Python Official Tutorial 2</a>
-  
-    </h1>
-  
+        
+    </div>
+</aside>
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tech</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/06/07/python-tutorial-official-1/" class="archive-article-date">
-        <time datetime="2023-06-07T03:24:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-06-07</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/06/07/python-tutorial-official-1/" target="_blank">Python Official Tutorial 1</a>
-  
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tech</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
 
-    
+
+
+
+
+
 
 
           </div>
@@ -422,9 +385,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,

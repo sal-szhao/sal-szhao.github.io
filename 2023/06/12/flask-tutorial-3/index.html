@@ -18,9 +18,9 @@
 <meta property="og:description" content="Testing web pagesunittest is used for automatic testing. A sample testing method is as following. 12345678910111213141516171819202122232425262728293031import unittestfrom app import app, db, Movie, Us">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-06-12T06:38:48.000Z">
-<meta property="article:modified_time" content="2023-06-12T07:25:02.749Z">
+<meta property="article:modified_time" content="2023-06-14T05:47:12.483Z">
 <meta property="article:author" content="Shensong Zhao">
-<meta property="article:tag" content="python">
+<meta property="article:tag" content="tech">
 <meta property="article:tag" content="flask">
 <meta name="twitter:card" content="summary">
   
@@ -212,7 +212,7 @@
       <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
       <i class="icon-statistics"></i>
       <span class="post-meta-item-text"> Word Count:</span>
-      <span class="post-count">374</span>
+      <span class="post-count">584</span>
     </span>
   </span>
 
@@ -221,7 +221,7 @@
     <span class="post-meta-item-icon">
       <i class="icon-book icon"></i>
       <span class="post-meta-item-text"> Reading time ≈</span>
-      <span class="post-count">2min</span>
+      <span class="post-count">3min</span>
     </span>
   </span>
 </div>
@@ -258,6 +258,32 @@
 <h2 id="Deploy"><a href="#Deploy" class="headerlink" title="Deploy"></a>Deploy</h2><p>As the <a target="_blank" rel="noopener" href="https://tutorial.helloflask.com/deploy/">tutorial</a> suggests, the deployment can be conducted on <a target="_blank" rel="noopener" href="https://www.pythonanywhere.com/">PythonAnywhere</a>. However, there is one <strong>important</strong> thing to notice here.</p>
 <p>The <code>venv</code> environment created in PythonAnywhere should be at least <code>python 3.7</code>. But <code>python 3.10</code> will not work.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python3.7 -m venv <span class="built_in">env</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Some-Symbols-in-HTML"><a href="#Some-Symbols-in-HTML" class="headerlink" title="Some Symbols in HTML"></a>Some Symbols in HTML</h2><p>There are special symbols encoded in HTML ending with <code>;</code>.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">&amp;times;</span>     # Close </span><br><span class="line"><span class="symbol">&amp;uarr;</span>      # Up arrow</span><br><span class="line"><span class="symbol">&amp;darr;</span>      # Down arrow</span><br></pre></td></tr></table></figure>
+
+<h2 id="Flask-Moment"><a href="#Flask-Moment" class="headerlink" title="Flask Moment"></a>Flask Moment</h2><p>Flask moment can be used to render <code>timestamps</code>. It can be used to generate <code>... minutes ago</code>.</p>
+<p>First it needs initialization.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask_moment <span class="keyword">import</span> Moment</span><br><span class="line">moment = Moment(app)</span><br></pre></td></tr></table></figure>
+
+<p>Then inside the <code>&lt;head&gt;</code> section, the following codes are needed to use the extension.</p>
+<figure class="highlight jinja"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="template-variable">&#123;&#123; moment.include_moment() &#125;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>Then to record time from now, use the following code.</p>
+<figure class="highlight jinja"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="template-variable">&#123;&#123; moment(message.time).fromNow(refresh=True) &#125;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>fromNow()</code> will calculate the time difference between <code>messsage.time</code> and <code>now()</code>. With <code>refresh</code> set to <code>True</code>, the difference will autmatically refresh itself. </p>
+<p>The output can be various depending on the time difference.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a few seconds ago</span><br><span class="line">2 minutes ago</span><br><span class="line">an hour ago</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>Set a field in the model to record the current timestamp by using <code>datetime.utcnow()</code>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line">time = db.Column(db.DateTime, default=datetime.utcnow)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Faker"><a href="#Faker" class="headerlink" title="Faker"></a>Faker</h2><p><code>faker</code> package can be used to generate fake messages to insert into the database for testing.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> faker <span class="keyword">import</span> Faker</span><br><span class="line"></span><br><span class="line">fake = Faker()</span><br><span class="line"></span><br><span class="line">message = Message(</span><br><span class="line">    name=fake.name(),</span><br><span class="line">    body=fake.sentence(),</span><br><span class="line">    timestamp=fake.date_time_this_year()</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">db.session.add(message)</span><br><span class="line">db.session.commit()</span><br></pre></td></tr></table></figure>
+
+<p>For instance, <code>fake.name()</code> can generate a random fake name. </p>
+
     
 
     
@@ -273,7 +299,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tech</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
@@ -295,6 +321,15 @@
 
 
 <nav id="article-nav">
+  
+    <a href="/2023/06/14/flask-tutorial-4/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          flask-tutorial-4
+        
+      </div>
+    </a>
   
   
     <a href="/2023/06/12/flask-tutorial-2/" id="article-nav-older" class="article-nav-link-wrap">
@@ -325,7 +360,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Testing-web-pages"><span class="toc-number">1.</span> <span class="toc-text">Testing web pages</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Deploy"><span class="toc-number">2.</span> <span class="toc-text">Deploy</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Testing-web-pages"><span class="toc-number">1.</span> <span class="toc-text">Testing web pages</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Deploy"><span class="toc-number">2.</span> <span class="toc-text">Deploy</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Some-Symbols-in-HTML"><span class="toc-number">3.</span> <span class="toc-text">Some Symbols in HTML</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flask-Moment"><span class="toc-number">4.</span> <span class="toc-text">Flask Moment</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Faker"><span class="toc-number">5.</span> <span class="toc-text">Faker</span></a></li></ol>
                     </div>
                 </span>
             </div>
