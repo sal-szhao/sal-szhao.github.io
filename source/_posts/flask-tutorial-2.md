@@ -1,7 +1,7 @@
 ---
 title: flask-tutorial-2
 date: 2023-06-12 11:01:09
-tags: [flask, hexo]
+tags: [flask, tech]
 ---
 
 ## Database
@@ -21,6 +21,7 @@ app = Flask(__name__)
 db = SQLAlchemy(app)
 ```
 
+### Configuration
 Besides, the configuration parameters needs to be set as well. 
 
 ``` python
@@ -35,6 +36,20 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 ``` 
 
 The first config is the path is the storage path of the database. `os.getenv` method will get environment variable first. If it doesn't exist, then use the second value in the parenthesis.
+
+One thing to notice is that `app.config` can be written in a separate file `settings.py` by captialized variables.
+
+``` python
+SECRET_KEY = os.getenv('SECRET_KEY', 'secret string')
+SQLALCHEMY_TRACK_MODIFICATIONS = False
+SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URI', dev_db)
+```
+
+Then in the `__init__.py`, all the `app.config` can be loaded by `from_pyfile()`.
+
+``` python
+app.config.from_pyfile('settings.py')
+```
 
 ### Create tables
 
@@ -85,9 +100,10 @@ There are manifold ways of selecting entries from tables in the database.
 <Movie 2>
 >>> db.session.query(Movie).filter_by(title='Mahjong').all()
 <Movie 2>
+>>> db.session.query(Message).order_by(Message.time.desc()).all()
 ```
 
-Here `filter_by` or `filter` will return all the entries that match the filter condition by calling method `.all()`.
+Here `filter_by` or `filter` will return all the entries that match the filter condition by calling method `.all()`. `order_by()` can be used to order the entries in the table.
 
 
 

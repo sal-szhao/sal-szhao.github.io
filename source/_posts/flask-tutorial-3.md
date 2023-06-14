@@ -1,7 +1,7 @@
 ---
 title: flask-tutorial-3
 date: 2023-06-12 14:38:48
-tags: [flask, python]
+tags: [flask, tech]
 ---
 
 ## Testing web pages
@@ -105,3 +105,75 @@ The `venv` environment created in PythonAnywhere should be at least `python 3.7`
 ``` bash
 $ python3.7 -m venv env
 ```
+
+## Some Symbols in HTML
+
+There are special symbols encoded in HTML ending with `;`.
+
+``` html
+&times;     # Close 
+&uarr;      # Up arrow
+&darr;      # Down arrow
+```
+
+## Flask Moment
+
+Flask moment can be used to render `timestamps`. It can be used to generate `... minutes ago`.
+
+First it needs initialization.
+
+``` python
+from flask_moment import Moment
+moment = Moment(app)
+```
+
+Then inside the `<head>` section, the following codes are needed to use the extension.
+
+``` jinja
+{{ moment.include_moment() }}
+```
+
+Then to record time from now, use the following code.
+
+``` jinja
+{{ moment(message.time).fromNow(refresh=True) }}
+```
+
+`fromNow()` will calculate the time difference between `messsage.time` and `now()`. With `refresh` set to `True`, the difference will autmatically refresh itself. 
+
+The output can be various depending on the time difference.
+
+```
+a few seconds ago
+2 minutes ago
+an hour ago
+...
+```
+
+Set a field in the model to record the current timestamp by using `datetime.utcnow()`.
+
+``` python
+from datetime import datetime
+time = db.Column(db.DateTime, default=datetime.utcnow)
+```
+
+## Faker
+
+`faker` package can be used to generate fake messages to insert into the database for testing.
+
+``` python
+from faker import Faker
+
+fake = Faker()
+
+message = Message(
+    name=fake.name(),
+    body=fake.sentence(),
+    timestamp=fake.date_time_this_year()
+)
+
+db.session.add(message)
+db.session.commit()
+```
+
+For instance, `fake.name()` can generate a random fake name. 
