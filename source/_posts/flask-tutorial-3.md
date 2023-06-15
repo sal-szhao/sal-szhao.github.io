@@ -76,7 +76,7 @@ def login(self):
     ), follow_redirects=True)
 ```
 
-However, for `WTForms` in `flask`, one additional code needs to be added to `setUp()`. Because `WTForms` will automatically add a CSRF token to the post, which will forbid the test code from posting.
+However, for `WTForms` in `flask`, one additional code needs to be added to `setUp()`. Because `WTForms` will automatically add a CSRF token to the post, which will forbid the test code from posting. Some debug tips: watch out for the output of the assertion.
 
 ``` python
 app.config["WTF_CSRF_ENABLED"] = False
