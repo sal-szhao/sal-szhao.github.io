@@ -42,7 +42,9 @@ class WatchlistTestCase(unittest.TestCase):
         self.assertTrue(app.config['TESTING'])
 ```
 
-The class should be inherited from `unittest.TestCase`. `setUp` will be called before the testing starts while `tearDown` will be called after the test is finished. 
+The class should be inherited from `unittest.TestCase`. `setUp` will be called before the testing starts while `tearDown` will be called after the test is finished.
+
+In the test mode, the database path is set to `sqlite:///:memory:`, which will create an in-memory database that has a faster speed to access.
 
 `app.test_client()` is used to test templates and view functions using `get` while `app.test_cli_runner()` is used to test commands using `invoke`.
 
