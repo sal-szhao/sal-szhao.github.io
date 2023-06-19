@@ -6,16 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Tag: python | Hexo</title>
+  <title>fastapi-tutorial-1 | Hexo</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/tags/python/index.html">
+  <meta name="description" content="These series of blogs will introduce basic usage of FastAPI. The official tutorial is given as this site. StartingsThe first part will be a simple demo of a working site using FastAPI. 1234567from fas">
+<meta property="og:type" content="article">
+<meta property="og:title" content="fastapi-tutorial-1">
+<meta property="og:url" content="http://example.com/2023/06/15/fastapi-tutorial-1/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="These series of blogs will introduce basic usage of FastAPI. The official tutorial is given as this site. StartingsThe first part will be a simple demo of a working site using FastAPI. 1234567from fas">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-06-15T13:07:16.000Z">
+<meta property="article:modified_time" content="2023-06-19T01:55:09.979Z">
 <meta property="article:author" content="Shensong Zhao">
+<meta property="article:tag" content="tech">
+<meta property="article:tag" content="fastapi">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -178,41 +184,118 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-fastapi-tutorial-1" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2023" class="archive-year">2023</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/06/08/python-tutorial-official-4/" class="archive-article-date">
-        <time datetime="2023-06-08T06:07:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-06-08</time>
-</a>
-
-        </div>
-    	 
+      <header class="article-header">
   
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/06/08/python-tutorial-official-4/" target="_blank">Python Official Tutorial 4</a>
   
+    <h1 class="article-title" itemprop="name">
+      fastapi-tutorial-1
     </h1>
   
 
 
-        <div class="article-info info-on-right">
-          
+  
+  
+<a href="/2023/06/15/fastapi-tutorial-1/" class="archive-article-date">
+        <time datetime="2023-06-15T13:07:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-06-15</time>
+</a>
+
+  
+  
+    
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> Word Count:</span>
+      <span class="post-count">821</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> Reading time ≈</span>
+      <span class="post-count">5min</span>
+    </span>
+  </span>
+</div>
+
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>These series of blogs will introduce basic usage of <code>FastAPI</code>. The official tutorial is given as this <a target="_blank" rel="noopener" href="https://fastapi.tiangolo.com/tutorial/">site</a>.</p>
+<h2 id="Startings"><a href="#Startings" class="headerlink" title="Startings"></a>Startings</h2><p>The first part will be a simple demo of a working site using FastAPI.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> fastapi <span class="keyword">import</span> FastAPI</span><br><span class="line"></span><br><span class="line">app = FastAPI()</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.get(<span class="params"><span class="string">&quot;/&quot;</span></span>)</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">root</span>():</span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="string">&quot;message&quot;</span>: <span class="string">&quot;Hello World&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>To see the site, run the following code in the terminal.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ uvicorn main:app --reload</span><br></pre></td></tr></table></figure>
+
+<p>An alternative way is to add the code to <code>main.py</code>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> uvicorn</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    uvicorn.run(app, host=<span class="string">&quot;127.0.0.1&quot;</span>, port=<span class="number">8000</span>)</span><br></pre></td></tr></table></figure>
+
+<p>Then the file can be run directly using the code.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python main.py</span><br></pre></td></tr></table></figure>
+
+<p>The web page can be visited at <a target="_blank" rel="noopener" href="http://127.0.0.1:8000/">http://127.0.0.1:8000</a>. A useful local debug method is to visit <a target="_blank" rel="noopener" href="http://127.0.0.1:8000/docs">http://127.0.0.1:8000/docs</a>, which has the documentation for all the routes. </p>
+<h2 id="Path-Parameters"><a href="#Path-Parameters" class="headerlink" title="Path Parameters"></a>Path Parameters</h2><h3 id="Basics"><a href="#Basics" class="headerlink" title="Basics"></a>Basics</h3><p>Path parameters are sent in by variables in URL. One can specify the type of path parameters by <code>&#123;user_id: str&#125;</code>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.get(<span class="params"><span class="string">&quot;/users/me&quot;</span></span>)</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">read_user_me</span>():</span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="string">&quot;user_id&quot;</span>: <span class="string">&quot;the current user&quot;</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.get(<span class="params"><span class="string">&quot;/users/&#123;user_id&#125;&quot;</span></span>)</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">read_user</span>(<span class="params">user_id: <span class="built_in">str</span></span>):</span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="string">&quot;user_id&quot;</span>: user_id&#125;</span><br></pre></td></tr></table></figure>
+
+<p>The <em>path operations</em> are evaluated in order. Switching the order of the two path operaions will result in not being able to visit <code>/users/me</code>. Similary, one cannot redefine a path operation because the first one will always be used.</p>
+<h3 id="Predefined-values"><a href="#Predefined-values" class="headerlink" title="Predefined values"></a>Predefined values</h3><p>It is possible to use Python <code>enumerations</code> to serve as the type for the path parameters. For the enumeration class, focus on the new values assigned to the original parameters.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> enum <span class="keyword">import</span> Enum</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ModelName</span>(<span class="built_in">str</span>, Enum):</span><br><span class="line">    alexnet = <span class="string">&quot;alexnet&quot;</span></span><br><span class="line">    lenet = <span class="string">&quot;lenet&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.get(<span class="params"><span class="string">&quot;/models/&#123;model_name&#125;&quot;</span></span>)</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">get_model</span>(<span class="params">model_name: ModelName</span>):</span><br><span class="line">    <span class="keyword">if</span> model_name <span class="keyword">is</span> ModelName.alexnet:</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="string">&quot;model_name&quot;</span>: model_name, <span class="string">&quot;message&quot;</span>: <span class="string">&quot;Deep Learning FTW!&quot;</span>&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> model_name == <span class="string">&quot;lenet&quot;</span>:</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="string">&quot;model_name&quot;</span>: model_name, <span class="string">&quot;message&quot;</span>: <span class="string">&quot;LeCNN all the images&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Query-Parameters"><a href="#Query-Parameters" class="headerlink" title="Query Parameters"></a>Query Parameters</h2><h3 id="Basics-1"><a href="#Basics-1" class="headerlink" title="Basics"></a>Basics</h3><p>Path and query parameters can be combined with type specified.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Union</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.get(<span class="params"><span class="string">&quot;/items/&#123;item_id&#125;&quot;</span></span>)</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">read_item</span>(<span class="params">item_id: <span class="built_in">str</span>, q: <span class="type">Union</span>[<span class="built_in">str</span>, <span class="literal">None</span>] = <span class="literal">None</span>, short: <span class="built_in">bool</span> = <span class="literal">False</span>, needy: <span class="built_in">str</span></span>):</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+
+<p>The query parameters will be demonstrated in URL by </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1:8000/items/foo?q=apple&amp;short=True</span><br></pre></td></tr></table></figure>
+
+<p>To set the default value as <code>None</code>, use <code>Union[str, None] = None</code>. To set other default values, one can assign the default value directly. If the default value is set, the corresponding parameter will be an <code>optional</code> one. In this case, <code>q</code> and <code>short</code> are optional parameters and <code>needy</code> is a required parameter.</p>
+<h3 id="Query-parameter-list"><a href="#Query-parameter-list" class="headerlink" title="Query parameter list"></a>Query parameter list</h3><p>Another thing to notice is the query parameter list.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">List</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">read_items</span>(<span class="params">q: Annotated[<span class="type">Union</span>[<span class="type">List</span>[<span class="built_in">str</span>], <span class="literal">None</span>], Query(<span class="params"></span>)] = <span class="literal">None</span></span>):</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+
+<p>Or simply</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">read_items</span>(<span class="params">q: Annotated[<span class="built_in">list</span>, Query(<span class="params"></span>)] = []</span>):</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+
+
+<p>Then visiting the following website and pass the query parameter list.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:8000/items/?q=foo&amp;q=bar</span><br></pre></td></tr></table></figure>
+
+<h2 id="Request-Body-Parameters"><a href="#Request-Body-Parameters" class="headerlink" title="Request Body Parameters"></a>Request Body Parameters</h2><p>The data model can be implemented as a class that inherits from <code>Pydantic BaseModel</code>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pydantic <span class="keyword">import</span> BaseModel</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Item</span>(<span class="title class_ inherited__">BaseModel</span>):</span><br><span class="line">    name: <span class="built_in">str</span></span><br><span class="line">    description: <span class="type">Union</span>[<span class="built_in">str</span>, <span class="literal">None</span>] = <span class="literal">None</span></span><br><span class="line">    price: <span class="built_in">float</span></span><br><span class="line">    tax: <span class="type">Union</span>[<span class="built_in">float</span>, <span class="literal">None</span>] = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.put(<span class="params"><span class="string">&quot;/items/&#123;item_id&#125;&quot;</span></span>)</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">create_item</span>(<span class="params">item_id: <span class="built_in">int</span>, item: Item</span>):</span><br><span class="line">    item_dict = item.<span class="built_in">dict</span>()</span><br><span class="line">    <span class="keyword">if</span> item.tax:</span><br><span class="line">        price_with_tax = item.price + item.tax</span><br><span class="line">        item_dict.update(&#123;<span class="string">&quot;price_with_tax&quot;</span>: price_with_tax&#125;)</span><br><span class="line">    <span class="keyword">return</span> item_dict</span><br></pre></td></tr></table></figure>
+
+<p>The attributes in the data model can be directly called like <code>item.price</code>. The pydantic model can be converted to dictionary by <code>dict()</code> and use <code>update()</code> to update the values in the dictionary.</p>
+<h2 id="Validations"><a href="#Validations" class="headerlink" title="Validations"></a>Validations</h2><h3 id="String-validation"><a href="#String-validation" class="headerlink" title="String validation"></a>String validation</h3><p>Additional validation requirements can be added to the query parameters by <code>Query()</code>. One can even add <code>regex</code> as a validation. <code>title</code>, <code>description</code> and <code>deprecated</code> can be seen in <code>docs</code>. <code>alias</code> will demonstate the alias name in the URL. Using <code>Annotated</code> is preferred when it comes to default values.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> fastapi <span class="keyword">import</span> Query</span><br><span class="line"><span class="keyword">from</span> typing_extensions <span class="keyword">import</span> Annotated</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.get(<span class="params"><span class="string">&quot;/items/&quot;</span></span>)</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">read_items</span>(<span class="params"></span></span><br><span class="line"><span class="params">    q: Annotated[</span></span><br><span class="line"><span class="params">        <span class="type">Union</span>[<span class="built_in">str</span>, <span class="literal">None</span>], </span></span><br><span class="line"><span class="params">        Query(<span class="params"></span></span></span><br><span class="line"><span class="params"><span class="params">            title=<span class="string">&quot;Query string&quot;</span>,</span></span></span><br><span class="line"><span class="params"><span class="params">            description=<span class="string">&quot;Query string for the items to search in the database&quot;</span>,</span></span></span><br><span class="line"><span class="params"><span class="params">            max_length=<span class="number">50</span>, </span></span></span><br><span class="line"><span class="params"><span class="params">            regex=<span class="string">&quot;^fixedquery$&quot;</span>,</span></span></span><br><span class="line"><span class="params"><span class="params">            alias=<span class="string">&quot;item-query&quot;</span>,</span></span></span><br><span class="line"><span class="params"><span class="params">            deprecated=<span class="literal">True</span></span></span></span><br><span class="line"><span class="params"><span class="params">        </span>)</span></span><br><span class="line"><span class="params">    ] = <span class="literal">None</span></span></span><br><span class="line"><span class="params"></span>):</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+
+<h3 id="Numeric-validation"><a href="#Numeric-validation" class="headerlink" title="Numeric validation"></a>Numeric validation</h3><p>For path parameters, the validations can be added in a similar way. Number validations can be added as following.</p>
+<ul>
+<li><code>gt</code>: greater than</li>
+<li><code>le</code>: less than or equal</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.get(<span class="params"><span class="string">&quot;/items/&#123;item_id&#125;&quot;</span></span>)</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">read_items</span>(<span class="params"></span></span><br><span class="line"><span class="params">    item_id: Annotated[<span class="built_in">int</span>, Path(<span class="params">title=<span class="string">&quot;The ID of the item to get&quot;</span>, ge=<span class="number">1</span></span>)]</span></span><br><span class="line"><span class="params"></span>):</span><br><span class="line">  ...</span><br></pre></td></tr></table></figure>
+
+<p>Like query and path parameters, users can add <code>Body()</code> to a parameter to declare it as a body parameter.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.put(<span class="params"><span class="string">&quot;/items/&#123;item_id&#125;&quot;</span></span>)</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">update_item</span>(<span class="params"></span></span><br><span class="line"><span class="params">    item_id: <span class="built_in">int</span>, importance: Annotated[<span class="built_in">int</span>, Body(<span class="params">gt=<span class="number">0</span></span>)]</span></span><br><span class="line"><span class="params"></span>):</span><br></pre></td></tr></table></figure>
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -222,166 +305,83 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">fastapi</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+    
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/06/08/python-tutorial-official-3/" class="archive-article-date">
-        <time datetime="2023-06-08T02:27:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-06-08</time>
-</a>
 
+
+<nav id="article-nav">
+  
+    <a href="/2023/06/18/fastapi-tutorial-2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          fastapi-tutorial-2
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/06/14/flask-tutorial-4/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">flask-tutorial-4</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/06/08/python-tutorial-official-3/" target="_blank">Python Official Tutorial 3</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tech</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Startings"><span class="toc-number">1.</span> <span class="toc-text">Startings</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Path-Parameters"><span class="toc-number">2.</span> <span class="toc-text">Path Parameters</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Basics"><span class="toc-number">2.1.</span> <span class="toc-text">Basics</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Predefined-values"><span class="toc-number">2.2.</span> <span class="toc-text">Predefined values</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Query-Parameters"><span class="toc-number">3.</span> <span class="toc-text">Query Parameters</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Basics-1"><span class="toc-number">3.1.</span> <span class="toc-text">Basics</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Query-parameter-list"><span class="toc-number">3.2.</span> <span class="toc-text">Query parameter list</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Request-Body-Parameters"><span class="toc-number">4.</span> <span class="toc-text">Request Body Parameters</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Validations"><span class="toc-number">5.</span> <span class="toc-text">Validations</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#String-validation"><span class="toc-number">5.1.</span> <span class="toc-text">String validation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Numeric-validation"><span class="toc-number">5.2.</span> <span class="toc-text">Numeric validation</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/06/07/python-tutorial-official-2/" class="archive-article-date">
-        <time datetime="2023-06-07T09:09:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-06-07</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/06/07/python-tutorial-official-2/" target="_blank">Python Official Tutorial 2</a>
-  
-    </h1>
-  
+        
+    </div>
+</aside>
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tech</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/06/07/python-tutorial-official-1/" class="archive-article-date">
-        <time datetime="2023-06-07T03:24:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-06-07</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/06/07/python-tutorial-official-1/" target="_blank">Python Official Tutorial 1</a>
-  
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tech</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
 
-    
+
+
+
+
+
 
 
           </div>
@@ -422,9 +422,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,

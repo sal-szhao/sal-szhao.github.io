@@ -6,16 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Tag: python | Hexo</title>
+  <title>fastapi-tutorial-4 | Hexo</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/tags/python/index.html">
+  <meta name="description" content="DatabaseIn this part, we will see how to use FastAPI to work with SQLAlchemy ORM.  database.pyFirst we will have the database.py to store basic parameters for the whole database. 123456789101112from s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="fastapi-tutorial-4">
+<meta property="og:url" content="http://example.com/2023/06/18/fastapi-tutorial-4/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="DatabaseIn this part, we will see how to use FastAPI to work with SQLAlchemy ORM.  database.pyFirst we will have the database.py to store basic parameters for the whole database. 123456789101112from s">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-06-18T02:31:27.000Z">
+<meta property="article:modified_time" content="2023-06-19T01:55:09.983Z">
 <meta property="article:author" content="Shensong Zhao">
+<meta property="article:tag" content="tech">
+<meta property="article:tag" content="fastapi">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -178,41 +184,92 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-fastapi-tutorial-4" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2023" class="archive-year">2023</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/06/08/python-tutorial-official-4/" class="archive-article-date">
-        <time datetime="2023-06-08T06:07:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-06-08</time>
-</a>
-
-        </div>
-    	 
+      <header class="article-header">
   
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/06/08/python-tutorial-official-4/" target="_blank">Python Official Tutorial 4</a>
   
+    <h1 class="article-title" itemprop="name">
+      fastapi-tutorial-4
     </h1>
   
 
 
-        <div class="article-info info-on-right">
-          
+  
+  
+<a href="/2023/06/18/fastapi-tutorial-4/" class="archive-article-date">
+        <time datetime="2023-06-18T02:31:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-06-18</time>
+</a>
+
+  
+  
+    
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> Word Count:</span>
+      <span class="post-count">535</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> Reading time ≈</span>
+      <span class="post-count">3min</span>
+    </span>
+  </span>
+</div>
+
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h2 id="Database"><a href="#Database" class="headerlink" title="Database"></a>Database</h2><p>In this part, we will see how to use <code>FastAPI</code> to work with <code>SQLAlchemy ORM</code>. </p>
+<h3 id="database-py"><a href="#database-py" class="headerlink" title="database.py"></a>database.py</h3><p>First we will have the <code>database.py</code> to store basic parameters for the whole database.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> create_engine</span><br><span class="line"><span class="keyword">from</span> sqlalchemy.ext.declarative <span class="keyword">import</span> declarative_base</span><br><span class="line"><span class="keyword">from</span> sqlalchemy.orm <span class="keyword">import</span> sessionmaker</span><br><span class="line"></span><br><span class="line">SQLALCHEMY_DATABASE_URL = <span class="string">&quot;sqlite:///./sql_app.db&quot;</span></span><br><span class="line"></span><br><span class="line">engine = create_engine(</span><br><span class="line">    SQLALCHEMY_DATABASE_URL, connect_args=&#123;<span class="string">&quot;check_same_thread&quot;</span>: <span class="literal">False</span>&#125;</span><br><span class="line">)</span><br><span class="line">SessionLocal = sessionmaker(autocommit=<span class="literal">False</span>, autoflush=<span class="literal">False</span>, bind=engine)</span><br><span class="line"></span><br><span class="line">Base = declarative_base()</span><br></pre></td></tr></table></figure>
+
+<p>Notice that <code>check_same_thread</code> is only set when <code>sqlite</code> is being used.</p>
+<h3 id="models-py"><a href="#models-py" class="headerlink" title="models.py"></a>models.py</h3><p>Details of the data models (tables) in the database will be stored in <code>models.py</code>. These models are all <code>SQLAlchemy</code> models.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> Boolean, Column, ForeignKey, Integer, String</span><br><span class="line"><span class="keyword">from</span> sqlalchemy.orm <span class="keyword">import</span> relationship</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> .database <span class="keyword">import</span> Base</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">User</span>(<span class="title class_ inherited__">Base</span>):</span><br><span class="line">    __tablename__ = <span class="string">&quot;users&quot;</span></span><br><span class="line">    ...</span><br><span class="line">    items = relationship(<span class="string">&quot;Item&quot;</span>, back_populates=<span class="string">&quot;owner&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Item</span>(<span class="title class_ inherited__">Base</span>):</span><br><span class="line">    __tablename__ = <span class="string">&quot;items&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">id</span> = Column(Integer, primary_key=<span class="literal">True</span>, index=<span class="literal">True</span>)</span><br><span class="line">    title = Column(String, index=<span class="literal">True</span>)</span><br><span class="line">    description = Column(String, index=<span class="literal">True</span>)</span><br><span class="line">    owner_id = Column(Integer, ForeignKey(<span class="string">&quot;users.id&quot;</span>))</span><br><span class="line"></span><br><span class="line">    owner = relationship(<span class="string">&quot;User&quot;</span>, back_populates=<span class="string">&quot;items&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>To relate the two tables, a <code>ForeignKey</code> needs to be defined in of the two tables. Then in each table, there needs to be a row defined by <code>relationship</code>.</p>
+<h3 id="schemas-py"><a href="#schemas-py" class="headerlink" title="schemas.py"></a>schemas.py</h3><p>The file will store models that will be used in <code>FastAPI</code> files instead of the database side. These models are all <code>Pydantic</code> models.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pydantic <span class="keyword">import</span> BaseModel</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ItemBase</span>(<span class="title class_ inherited__">BaseModel</span>):</span><br><span class="line">    title: <span class="built_in">str</span></span><br><span class="line">    description: <span class="type">Union</span>[<span class="built_in">str</span>, <span class="literal">None</span>] = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ItemCreate</span>(<span class="title class_ inherited__">ItemBase</span>):</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Item</span>(<span class="title class_ inherited__">ItemBase</span>):</span><br><span class="line">    <span class="built_in">id</span>: <span class="built_in">int</span></span><br><span class="line">    owner_id: <span class="built_in">int</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">Config</span>:</span><br><span class="line">        orm_mode = <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+
+<p><code>orm_mode</code> needs to be set to <code>True</code>. It will allow Pydantic model to read ORM models, enabling relationship between Pydantic models.</p>
+<h3 id="crud-py"><a href="#crud-py" class="headerlink" title="crud.py"></a>crud.py</h3><p>In this part, we will store resuable utility functions to interact the data in the database. CRUD comes from: Create, Read, Update, and Delete.</p>
+<p>To read and create data,</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sqlalchemy.orm <span class="keyword">import</span> Session</span><br><span class="line"><span class="keyword">from</span> . <span class="keyword">import</span> models, schemas</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_user_by_email</span>(<span class="params">db: Session, email: <span class="built_in">str</span></span>):</span><br><span class="line">    <span class="keyword">return</span> db.query(models.User).<span class="built_in">filter</span>(models.User.email == email).first()</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">create_user</span>(<span class="params">db: Session, user: schemas.UserCreate</span>):</span><br><span class="line">    fake_hashed_password = user.password + <span class="string">&quot;notreallyhashed&quot;</span></span><br><span class="line">    db_user = models.User(email=user.email, hashed_password=fake_hashed_password)</span><br><span class="line">    db.add(db_user)</span><br><span class="line">    db.commit()</span><br><span class="line">    db.refresh(db_user)</span><br><span class="line">    <span class="keyword">return</span> db_user</span><br></pre></td></tr></table></figure>
+
+<p><code>refresh</code> refreshes your instance (so that it contains any new data from the database, like the generated ID).</p>
+<h3 id="main-py"><a href="#main-py" class="headerlink" title="main.py"></a>main.py</h3><p>We then combine everything inside <code>main.py</code>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sqlalchemy.orm <span class="keyword">import</span> Session</span><br><span class="line"><span class="keyword">from</span> . <span class="keyword">import</span> crud, models, schemas</span><br><span class="line"><span class="keyword">from</span> .database <span class="keyword">import</span> SessionLocal, engine</span><br><span class="line"></span><br><span class="line">models.Base.metadata.create_all(bind=engine)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_db</span>():</span><br><span class="line">    db = SessionLocal()</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">yield</span> db</span><br><span class="line">    <span class="keyword">finally</span>:</span><br><span class="line">        db.close()</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.post(<span class="params"><span class="string">&quot;/users/&quot;</span>, response_model=schemas.User</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">create_user</span>(<span class="params">user: schemas.UserCreate, db: Session = Depends(<span class="params">get_db</span>)</span>):</span><br><span class="line">    db_user = crud.get_user_by_email(db, email=user.email)</span><br><span class="line">    <span class="keyword">if</span> db_user:</span><br><span class="line">        <span class="keyword">raise</span> HTTPException(status_code=<span class="number">400</span>, detail=<span class="string">&quot;Email already registered&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> crud.create_user(db=db, user=user)</span><br></pre></td></tr></table></figure>
+
+<p><code>models.Base.metadata.create_all(bind=engine)</code> is used to create all the tables in the database. </p>
+<p><code>get_db()</code> is used to create an independent database session&#x2F;connection (SessionLocal) per request, use the same session through all the request and then close it after the request is finished.</p>
+<h2 id="Run-the-database-file-structure"><a href="#Run-the-database-file-structure" class="headerlink" title="Run the database file structure"></a>Run the database file structure</h2><p>Then one can run the command in the top directory.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ uvicorn sqlapp.main:app --reload</span><br></pre></td></tr></table></figure>
+
+<p>Then the code will automatically generate a database file in the top directory.</p>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -222,166 +279,74 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">fastapi</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+    
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/06/08/python-tutorial-official-3/" class="archive-article-date">
-        <time datetime="2023-06-08T02:27:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-06-08</time>
-</a>
 
+
+<nav id="article-nav">
+  
+  
+    <a href="/2023/06/18/fastapi-tutorial-3/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">fastapi-tutorial-3</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/06/08/python-tutorial-official-3/" target="_blank">Python Official Tutorial 3</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tech</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Database"><span class="toc-number">1.</span> <span class="toc-text">Database</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#database-py"><span class="toc-number">1.1.</span> <span class="toc-text">database.py</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#models-py"><span class="toc-number">1.2.</span> <span class="toc-text">models.py</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#schemas-py"><span class="toc-number">1.3.</span> <span class="toc-text">schemas.py</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#crud-py"><span class="toc-number">1.4.</span> <span class="toc-text">crud.py</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#main-py"><span class="toc-number">1.5.</span> <span class="toc-text">main.py</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Run-the-database-file-structure"><span class="toc-number">2.</span> <span class="toc-text">Run the database file structure</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/06/07/python-tutorial-official-2/" class="archive-article-date">
-        <time datetime="2023-06-07T09:09:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-06-07</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/06/07/python-tutorial-official-2/" target="_blank">Python Official Tutorial 2</a>
-  
-    </h1>
-  
+        
+    </div>
+</aside>
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tech</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/06/07/python-tutorial-official-1/" class="archive-article-date">
-        <time datetime="2023-06-07T03:24:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-06-07</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/06/07/python-tutorial-official-1/" target="_blank">Python Official Tutorial 1</a>
-  
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tech</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
 
-    
+
+
+
+
+
 
 
           </div>
@@ -422,9 +387,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,

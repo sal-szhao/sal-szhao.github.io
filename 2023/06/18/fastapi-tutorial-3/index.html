@@ -6,16 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Tag: python | Hexo</title>
+  <title>fastapi-tutorial-3 | Hexo</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/tags/python/index.html">
+  <meta name="description" content="DependencyDependency in common parametersThe first usage of Depends will be common parameter inputs of the functions. 123456789101112131415161718from fastapi import Dependsasync def common_parameters(">
+<meta property="og:type" content="article">
+<meta property="og:title" content="fastapi-tutorial-3">
+<meta property="og:url" content="http://example.com/2023/06/18/fastapi-tutorial-3/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="DependencyDependency in common parametersThe first usage of Depends will be common parameter inputs of the functions. 123456789101112131415161718from fastapi import Dependsasync def common_parameters(">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-06-17T23:51:11.000Z">
+<meta property="article:modified_time" content="2023-06-19T01:55:09.981Z">
 <meta property="article:author" content="Shensong Zhao">
+<meta property="article:tag" content="tech">
+<meta property="article:tag" content="fastapi">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -178,41 +184,109 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-fastapi-tutorial-3" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2023" class="archive-year">2023</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/06/08/python-tutorial-official-4/" class="archive-article-date">
-        <time datetime="2023-06-08T06:07:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-06-08</time>
-</a>
-
-        </div>
-    	 
+      <header class="article-header">
   
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/06/08/python-tutorial-official-4/" target="_blank">Python Official Tutorial 4</a>
   
+    <h1 class="article-title" itemprop="name">
+      fastapi-tutorial-3
     </h1>
   
 
 
-        <div class="article-info info-on-right">
-          
+  
+  
+<a href="/2023/06/18/fastapi-tutorial-3/" class="archive-article-date">
+        <time datetime="2023-06-17T23:51:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-06-18</time>
+</a>
+
+  
+  
+    
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> Word Count:</span>
+      <span class="post-count">607</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> Reading time ≈</span>
+      <span class="post-count">3min</span>
+    </span>
+  </span>
+</div>
+
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h2 id="Dependency"><a href="#Dependency" class="headerlink" title="Dependency"></a>Dependency</h2><h3 id="Dependency-in-common-parameters"><a href="#Dependency-in-common-parameters" class="headerlink" title="Dependency in common parameters"></a>Dependency in common parameters</h3><p>The first usage of <code>Depends</code> will be common parameter inputs of the functions.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> fastapi <span class="keyword">import</span> Depends</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">common_parameters</span>(<span class="params"></span></span><br><span class="line"><span class="params">    q: <span class="type">Union</span>[<span class="built_in">str</span>, <span class="literal">None</span>] = <span class="literal">None</span>, </span></span><br><span class="line"><span class="params">    skip: <span class="built_in">int</span> = <span class="number">0</span>, </span></span><br><span class="line"><span class="params">    limit: <span class="built_in">int</span> = <span class="number">100</span></span></span><br><span class="line"><span class="params"></span>):</span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="string">&quot;q&quot;</span>: q, <span class="string">&quot;skip&quot;</span>: skip, <span class="string">&quot;limit&quot;</span>: limit&#125;</span><br><span class="line"></span><br><span class="line">CommonsDep = Annotated[<span class="built_in">dict</span>, Depends(common_parameters)]</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.get(<span class="params"><span class="string">&quot;/items/&quot;</span></span>)</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">read_items</span>(<span class="params">commons: CommonsDep</span>):</span><br><span class="line">    <span class="keyword">return</span> commons</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.get(<span class="params"><span class="string">&quot;/users/&quot;</span></span>)</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">read_users</span>(<span class="params">commons: CommonsDep</span>):</span><br><span class="line">    <span class="keyword">return</span> commons</span><br></pre></td></tr></table></figure>
+
+<h3 id="Dependency-in-class"><a href="#Dependency-in-class" class="headerlink" title="Dependency in class"></a>Dependency in class</h3><p>Another form of dependency using class as common parameters.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CommonQueryParams</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, q: <span class="type">Union</span>[<span class="built_in">str</span>, <span class="literal">None</span>] = <span class="literal">None</span>, skip: <span class="built_in">int</span> = <span class="number">0</span>, limit: <span class="built_in">int</span> = <span class="number">100</span></span>):</span><br><span class="line">        self.q = q</span><br><span class="line">        self.skip = skip</span><br><span class="line">        self.limit = limit</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.get(<span class="params"><span class="string">&quot;/items/&quot;</span></span>)</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">read_items</span>(<span class="params">commons: Annotated[CommonQueryParams, Depends(<span class="params">CommonQueryParams</span>)]</span>):</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="Dependency-in-path-operations"><a href="#Dependency-in-path-operations" class="headerlink" title="Dependency in path operations"></a>Dependency in path operations</h3><p>The dependencies do not need to have return values. They can be only the functions that needed to be executed.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.get(<span class="params"><span class="string">&quot;/items/&quot;</span>, dependencies=[Depends(<span class="params">verify_token</span>), Depends(<span class="params">verify_key</span>)]</span>)</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">read_items</span>():</span><br><span class="line">    <span class="keyword">return</span> [&#123;<span class="string">&quot;item&quot;</span>: <span class="string">&quot;Foo&quot;</span>&#125;, &#123;<span class="string">&quot;item&quot;</span>: <span class="string">&quot;Bar&quot;</span>&#125;]</span><br></pre></td></tr></table></figure>
+
+<h3 id="Global-dependencies"><a href="#Global-dependencies" class="headerlink" title="Global dependencies"></a>Global dependencies</h3><p>Global dependencies can be defined as following,</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">app = FastAPI(dependencies=[Depends(verify_token), Depends(verify_key)])</span><br></pre></td></tr></table></figure>
+
+<h3 id="Yield-dependencies"><a href="#Yield-dependencies" class="headerlink" title="Yield dependencies"></a>Yield dependencies</h3><p>Only the code prior to and including the <code>yield</code> statement is executed before sending a response. The code following the <code>yield</code> statement is executed after the response has been delivered. So that each database session will be ensured to be closed.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">get_db</span>():</span><br><span class="line">    db = DBSession()</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">yield</span> db</span><br><span class="line">    <span class="keyword">finally</span>:</span><br><span class="line">        db.close()</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Security"><a href="#Security" class="headerlink" title="Security"></a>Security</h2><p>The whole security codes are too long to display here. One can refer to the <a target="_blank" rel="noopener" href="https://fastapi.tiangolo.com/tutorial/security/">link</a>.</p>
+<p>In the login page,</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> fastapi.security <span class="keyword">import</span> OAuth2PasswordBearer, OAuth2PasswordRequestForm</span><br><span class="line"></span><br><span class="line">oauth2_scheme = OAuth2PasswordBearer(tokenUrl=<span class="string">&quot;token&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.post(<span class="params"><span class="string">&quot;/token&quot;</span>, response_model=Token</span>)</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">login_for_access_token</span>(<span class="params"></span></span><br><span class="line"><span class="params">    form_data: Annotated[OAuth2PasswordRequestForm, Depends(<span class="params"></span>)]</span></span><br><span class="line"><span class="params"></span>):</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="string">&quot;access_token&quot;</span>: access_token, <span class="string">&quot;token_type&quot;</span>: <span class="string">&quot;bearer&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>OAuth2PasswordBearer(tokenUrl=&quot;token&quot;)</code> will be specifying which URL for the user to send username and password to. In the page <code>/token</code>, the user should be expected to get a token with type to be <code>bearer</code>.</p>
+<p>Then the security system needs a function to generate access token from <code>username</code>, <code>secret key</code> and <code>algorithm</code>. In this case, we will be using <code>JWT tokens</code>. Hence, we need to install the following package to get JWT tokens.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pip install <span class="string">&quot;python-jose[cryptography]&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>The secret key can be generated by the bash command.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ openssl rand -hex 32</span><br></pre></td></tr></table></figure>
+
+<p>Then we can define the following parameters and generate the token.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> jose <span class="keyword">import</span> JWTError, jwt</span><br><span class="line"></span><br><span class="line">SECRET_KEY = <span class="string">&quot;09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7&quot;</span></span><br><span class="line">ALGORITHM = <span class="string">&quot;HS256&quot;</span></span><br><span class="line">data=&#123;<span class="string">&quot;sub&quot;</span>: user.username&#125;</span><br><span class="line"></span><br><span class="line">encoded_jwt = jwt.encode(data, SECRET_KEY, algorithm=ALGORITHM)</span><br></pre></td></tr></table></figure>
+
+<p>After getting the token, functions and pages need to verify the user is authenticated with the token by <code>Depends(oauth2_scheme)</code>. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">get_current_user</span>(<span class="params">token: Annotated[<span class="built_in">str</span>, Depends(<span class="params">oauth2_scheme</span>)]</span>):</span><br><span class="line">   ...</span><br></pre></td></tr></table></figure>
+
+<p>Often, it is necessary to do a second verification that the token is valid and user encoded in the token is a valid user.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])</span><br><span class="line">username: <span class="built_in">str</span> = payload.get(<span class="string">&quot;sub&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>Furthermore, we need to pay attention to the hashing of the passwords. We use <code>passlib</code> here to handle the hashing. The algorithm used here is <code>bcrypt</code>.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pip install <span class="string">&quot;passlib[bcrypt]&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>To use <code>passlib</code>, one needs first instantiate <code>CryptContext</code>, Then using <code>hash()</code> to generate the hashed password from the plain password. <code>verify()</code> can be used to check whether a plain password matches the hashed password.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> passlib.context <span class="keyword">import</span> CryptContext</span><br><span class="line"></span><br><span class="line">pwd_context = CryptContext(schemes=[<span class="string">&quot;bcrypt&quot;</span>], deprecated=<span class="string">&quot;auto&quot;</span>)</span><br><span class="line"></span><br><span class="line">pwd_context.<span class="built_in">hash</span>(password)</span><br><span class="line">pwd_context.verify(plain_password, hashed_password)</span><br></pre></td></tr></table></figure>
+
+<p>Notice that a plain password can have several corresponding hashed passwords.</p>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -222,166 +296,83 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">fastapi</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+    
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/06/08/python-tutorial-official-3/" class="archive-article-date">
-        <time datetime="2023-06-08T02:27:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-06-08</time>
-</a>
 
+
+<nav id="article-nav">
+  
+    <a href="/2023/06/18/fastapi-tutorial-4/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          fastapi-tutorial-4
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/06/18/fastapi-tutorial-2/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">fastapi-tutorial-2</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/06/08/python-tutorial-official-3/" target="_blank">Python Official Tutorial 3</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tech</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Dependency"><span class="toc-number">1.</span> <span class="toc-text">Dependency</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Dependency-in-common-parameters"><span class="toc-number">1.1.</span> <span class="toc-text">Dependency in common parameters</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dependency-in-class"><span class="toc-number">1.2.</span> <span class="toc-text">Dependency in class</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dependency-in-path-operations"><span class="toc-number">1.3.</span> <span class="toc-text">Dependency in path operations</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Global-dependencies"><span class="toc-number">1.4.</span> <span class="toc-text">Global dependencies</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Yield-dependencies"><span class="toc-number">1.5.</span> <span class="toc-text">Yield dependencies</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Security"><span class="toc-number">2.</span> <span class="toc-text">Security</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/06/07/python-tutorial-official-2/" class="archive-article-date">
-        <time datetime="2023-06-07T09:09:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-06-07</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/06/07/python-tutorial-official-2/" target="_blank">Python Official Tutorial 2</a>
-  
-    </h1>
-  
+        
+    </div>
+</aside>
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tech</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/06/07/python-tutorial-official-1/" class="archive-article-date">
-        <time datetime="2023-06-07T03:24:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-06-07</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/06/07/python-tutorial-official-1/" target="_blank">Python Official Tutorial 1</a>
-  
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tech</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
 
-    
+
+
+
+
+
 
 
           </div>
@@ -422,9 +413,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,

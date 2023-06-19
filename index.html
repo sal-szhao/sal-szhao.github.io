@@ -185,6 +185,523 @@
             
 
   
+    <article id="post-fastapi-tutorial-4" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/06/18/fastapi-tutorial-4/" target="_blank">fastapi-tutorial-4</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/06/18/fastapi-tutorial-4/" class="archive-article-date">
+        <time datetime="2023-06-18T02:31:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-06-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h2 id="Database"><a href="#Database" class="headerlink" title="Database"></a>Database</h2><p>In this part, we will see how to use <code>FastAPI</code> to work with <code>SQLAlchemy ORM</code>. </p>
+<h3 id="database-py"><a href="#database-py" class="headerlink" title="database.py"></a>database.py</h3><p>First we will have the <code>database.py</code> to store basic parameters for the whole database.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> create_engine</span><br><span class="line"><span class="keyword">from</span> sqlalchemy.ext.declarative <span class="keyword">import</span> declarative_base</span><br><span class="line"><span class="keyword">from</span> sqlalchemy.orm <span class="keyword">import</span> sessionmaker</span><br><span class="line"></span><br><span class="line">SQLALCHEMY_DATABASE_URL = <span class="string">&quot;sqlite:///./sql_app.db&quot;</span></span><br><span class="line"></span><br><span class="line">engine = create_engine(</span><br><span class="line">    SQLALCHEMY_DATABASE_URL, connect_args=&#123;<span class="string">&quot;check_same_thread&quot;</span>: <span class="literal">False</span>&#125;</span><br><span class="line">)</span><br><span class="line">SessionLocal = sessionmaker(autocommit=<span class="literal">False</span>, autoflush=<span class="literal">False</span>, bind=engine)</span><br><span class="line"></span><br><span class="line">Base = declarative_base()</span><br></pre></td></tr></table></figure>
+
+<p>Notice that <code>check_same_thread</code> is only set when <code>sqlite</code> is being used.</p>
+<h3 id="models-py"><a href="#models-py" class="headerlink" title="models.py"></a>models.py</h3><p>Details of the data models (tables) in the database will be stored in <code>models.py</code>. These models are all <code>SQLAlchemy</code> models.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> Boolean, Column, ForeignKey, Integer, String</span><br><span class="line"><span class="keyword">from</span> sqlalchemy.orm <span class="keyword">import</span> relationship</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> .database <span class="keyword">import</span> Base</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">User</span>(<span class="title class_ inherited__">Base</span>):</span><br><span class="line">    __tablename__ = <span class="string">&quot;users&quot;</span></span><br><span class="line">    ...</span><br><span class="line">    items = relationship(<span class="string">&quot;Item&quot;</span>, back_populates=<span class="string">&quot;owner&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Item</span>(<span class="title class_ inherited__">Base</span>):</span><br><span class="line">    __tablename__ = <span class="string">&quot;items&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">id</span> = Column(Integer, primary_key=<span class="literal">True</span>, index=<span class="literal">True</span>)</span><br><span class="line">    title = Column(String, index=<span class="literal">True</span>)</span><br><span class="line">    description = Column(String, index=<span class="literal">True</span>)</span><br><span class="line">    owner_id = Column(Integer, ForeignKey(<span class="string">&quot;users.id&quot;</span>))</span><br><span class="line"></span><br><span class="line">    owner = relationship(<span class="string">&quot;User&quot;</span>, back_populates=<span class="string">&quot;items&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>To relate the two tables, a <code>ForeignKey</code> needs to be defined in of the two tables. Then in each table, there needs to be a row defined by <code>relationship</code>.</p>
+<h3 id="schemas-py"><a href="#schemas-py" class="headerlink" title="schemas.py"></a>schemas.py</h3><p>The file will store models that will be used in <code>FastAPI</code> files instead of the database side. These models are all <code>Pydantic</code> models.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pydantic <span class="keyword">import</span> BaseModel</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ItemBase</span>(<span class="title class_ inherited__">BaseModel</span>):</span><br><span class="line">    title: <span class="built_in">str</span></span><br><span class="line">    description: <span class="type">Union</span>[<span class="built_in">str</span>, <span class="literal">None</span>] = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ItemCreate</span>(<span class="title class_ inherited__">ItemBase</span>):</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Item</span>(<span class="title class_ inherited__">ItemBase</span>):</span><br><span class="line">    <span class="built_in">id</span>: <span class="built_in">int</span></span><br><span class="line">    owner_id: <span class="built_in">int</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">Config</span>:</span><br><span class="line">        orm_mode = <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+
+<p><code>orm_mode</code> needs to be set to <code>True</code>. It will allow Pydantic model to read ORM models, enabling relationship between Pydantic models.</p>
+<h3 id="crud-py"><a href="#crud-py" class="headerlink" title="crud.py"></a>crud.py</h3><p>In this part, we will store resuable utility functions to interact the data in the database. CRUD comes from: Create, Read, Update, and Delete.</p>
+<p>To read and create data,</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sqlalchemy.orm <span class="keyword">import</span> Session</span><br><span class="line"><span class="keyword">from</span> . <span class="keyword">import</span> models, schemas</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_user_by_email</span>(<span class="params">db: Session, email: <span class="built_in">str</span></span>):</span><br><span class="line">    <span class="keyword">return</span> db.query(models.User).<span class="built_in">filter</span>(models.User.email == email).first()</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">create_user</span>(<span class="params">db: Session, user: schemas.UserCreate</span>):</span><br><span class="line">    fake_hashed_password = user.password + <span class="string">&quot;notreallyhashed&quot;</span></span><br><span class="line">    db_user = models.User(email=user.email, hashed_password=fake_hashed_password)</span><br><span class="line">    db.add(db_user)</span><br><span class="line">    db.commit()</span><br><span class="line">    db.refresh(db_user)</span><br><span class="line">    <span class="keyword">return</span> db_user</span><br></pre></td></tr></table></figure>
+
+<p><code>refresh</code> refreshes your instance (so that it contains any new data from the database, like the generated ID).</p>
+<h3 id="main-py"><a href="#main-py" class="headerlink" title="main.py"></a>main.py</h3><p>We then combine everything inside <code>main.py</code>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sqlalchemy.orm <span class="keyword">import</span> Session</span><br><span class="line"><span class="keyword">from</span> . <span class="keyword">import</span> crud, models, schemas</span><br><span class="line"><span class="keyword">from</span> .database <span class="keyword">import</span> SessionLocal, engine</span><br><span class="line"></span><br><span class="line">models.Base.metadata.create_all(bind=engine)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_db</span>():</span><br><span class="line">    db = SessionLocal()</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">yield</span> db</span><br><span class="line">    <span class="keyword">finally</span>:</span><br><span class="line">        db.close()</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.post(<span class="params"><span class="string">&quot;/users/&quot;</span>, response_model=schemas.User</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">create_user</span>(<span class="params">user: schemas.UserCreate, db: Session = Depends(<span class="params">get_db</span>)</span>):</span><br><span class="line">    db_user = crud.get_user_by_email(db, email=user.email)</span><br><span class="line">    <span class="keyword">if</span> db_user:</span><br><span class="line">        <span class="keyword">raise</span> HTTPException(status_code=<span class="number">400</span>, detail=<span class="string">&quot;Email already registered&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> crud.create_user(db=db, user=user)</span><br></pre></td></tr></table></figure>
+
+<p><code>models.Base.metadata.create_all(bind=engine)</code> is used to create all the tables in the database. </p>
+<p><code>get_db()</code> is used to create an independent database session&#x2F;connection (SessionLocal) per request, use the same session through all the request and then close it after the request is finished.</p>
+<h2 id="Run-the-database-file-structure"><a href="#Run-the-database-file-structure" class="headerlink" title="Run the database file structure"></a>Run the database file structure</h2><p>Then one can run the command in the top directory.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ uvicorn sqlapp.main:app --reload</span><br></pre></td></tr></table></figure>
+
+<p>Then the code will automatically generate a database file in the top directory.</p>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tech</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">fastapi</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/06/18/fastapi-tutorial-4/">Expand to view full text >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-fastapi-tutorial-3" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/06/18/fastapi-tutorial-3/" target="_blank">fastapi-tutorial-3</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/06/18/fastapi-tutorial-3/" class="archive-article-date">
+        <time datetime="2023-06-17T23:51:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-06-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h2 id="Dependency"><a href="#Dependency" class="headerlink" title="Dependency"></a>Dependency</h2><h3 id="Dependency-in-common-parameters"><a href="#Dependency-in-common-parameters" class="headerlink" title="Dependency in common parameters"></a>Dependency in common parameters</h3><p>The first usage of <code>Depends</code> will be common parameter inputs of the functions.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> fastapi <span class="keyword">import</span> Depends</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">common_parameters</span>(<span class="params"></span></span><br><span class="line"><span class="params">    q: <span class="type">Union</span>[<span class="built_in">str</span>, <span class="literal">None</span>] = <span class="literal">None</span>, </span></span><br><span class="line"><span class="params">    skip: <span class="built_in">int</span> = <span class="number">0</span>, </span></span><br><span class="line"><span class="params">    limit: <span class="built_in">int</span> = <span class="number">100</span></span></span><br><span class="line"><span class="params"></span>):</span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="string">&quot;q&quot;</span>: q, <span class="string">&quot;skip&quot;</span>: skip, <span class="string">&quot;limit&quot;</span>: limit&#125;</span><br><span class="line"></span><br><span class="line">CommonsDep = Annotated[<span class="built_in">dict</span>, Depends(common_parameters)]</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.get(<span class="params"><span class="string">&quot;/items/&quot;</span></span>)</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">read_items</span>(<span class="params">commons: CommonsDep</span>):</span><br><span class="line">    <span class="keyword">return</span> commons</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.get(<span class="params"><span class="string">&quot;/users/&quot;</span></span>)</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">read_users</span>(<span class="params">commons: CommonsDep</span>):</span><br><span class="line">    <span class="keyword">return</span> commons</span><br></pre></td></tr></table></figure>
+
+<h3 id="Dependency-in-class"><a href="#Dependency-in-class" class="headerlink" title="Dependency in class"></a>Dependency in class</h3><p>Another form of dependency using class as common parameters.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CommonQueryParams</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, q: <span class="type">Union</span>[<span class="built_in">str</span>, <span class="literal">None</span>] = <span class="literal">None</span>, skip: <span class="built_in">int</span> = <span class="number">0</span>, limit: <span class="built_in">int</span> = <span class="number">100</span></span>):</span><br><span class="line">        self.q = q</span><br><span class="line">        self.skip = skip</span><br><span class="line">        self.limit = limit</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.get(<span class="params"><span class="string">&quot;/items/&quot;</span></span>)</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">read_items</span>(<span class="params">commons: Annotated[CommonQueryParams, Depends(<span class="params">CommonQueryParams</span>)]</span>):</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="Dependency-in-path-operations"><a href="#Dependency-in-path-operations" class="headerlink" title="Dependency in path operations"></a>Dependency in path operations</h3><p>The dependencies do not need to have return values. They can be only the functions that needed to be executed.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.get(<span class="params"><span class="string">&quot;/items/&quot;</span>, dependencies=[Depends(<span class="params">verify_token</span>), Depends(<span class="params">verify_key</span>)]</span>)</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">read_items</span>():</span><br><span class="line">    <span class="keyword">return</span> [&#123;<span class="string">&quot;item&quot;</span>: <span class="string">&quot;Foo&quot;</span>&#125;, &#123;<span class="string">&quot;item&quot;</span>: <span class="string">&quot;Bar&quot;</span>&#125;]</span><br></pre></td></tr></table></figure>
+
+<h3 id="Global-dependencies"><a href="#Global-dependencies" class="headerlink" title="Global dependencies"></a>Global dependencies</h3><p>Global dependencies can be defined as following,</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">app = FastAPI(dependencies=[Depends(verify_token), Depends(verify_key)])</span><br></pre></td></tr></table></figure>
+
+<h3 id="Yield-dependencies"><a href="#Yield-dependencies" class="headerlink" title="Yield dependencies"></a>Yield dependencies</h3><p>Only the code prior to and including the <code>yield</code> statement is executed before sending a response. The code following the <code>yield</code> statement is executed after the response has been delivered. So that each database session will be ensured to be closed.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">get_db</span>():</span><br><span class="line">    db = DBSession()</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">yield</span> db</span><br><span class="line">    <span class="keyword">finally</span>:</span><br><span class="line">        db.close()</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Security"><a href="#Security" class="headerlink" title="Security"></a>Security</h2><p>The whole security codes are too long to display here. One can refer to the <a target="_blank" rel="noopener" href="https://fastapi.tiangolo.com/tutorial/security/">link</a>.</p>
+<p>In the login page,</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> fastapi.security <span class="keyword">import</span> OAuth2PasswordBearer, OAuth2PasswordRequestForm</span><br><span class="line"></span><br><span class="line">oauth2_scheme = OAuth2PasswordBearer(tokenUrl=<span class="string">&quot;token&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.post(<span class="params"><span class="string">&quot;/token&quot;</span>, response_model=Token</span>)</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">login_for_access_token</span>(<span class="params"></span></span><br><span class="line"><span class="params">    form_data: Annotated[OAuth2PasswordRequestForm, Depends(<span class="params"></span>)]</span></span><br><span class="line"><span class="params"></span>):</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="string">&quot;access_token&quot;</span>: access_token, <span class="string">&quot;token_type&quot;</span>: <span class="string">&quot;bearer&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>OAuth2PasswordBearer(tokenUrl=&quot;token&quot;)</code> will be specifying which URL for the user to send username and password to. In the page <code>/token</code>, the user should be expected to get a token with type to be <code>bearer</code>.</p>
+<p>Then the security system needs a function to generate access token from <code>username</code>, <code>secret key</code> and <code>algorithm</code>. In this case, we will be using <code>JWT tokens</code>. Hence, we need to install the following package to get JWT tokens.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pip install <span class="string">&quot;python-jose[cryptography]&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>The secret key can be generated by the bash command.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ openssl rand -hex 32</span><br></pre></td></tr></table></figure>
+
+<p>Then we can define the following parameters and generate the token.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> jose <span class="keyword">import</span> JWTError, jwt</span><br><span class="line"></span><br><span class="line">SECRET_KEY = <span class="string">&quot;09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7&quot;</span></span><br><span class="line">ALGORITHM = <span class="string">&quot;HS256&quot;</span></span><br><span class="line">data=&#123;<span class="string">&quot;sub&quot;</span>: user.username&#125;</span><br><span class="line"></span><br><span class="line">encoded_jwt = jwt.encode(data, SECRET_KEY, algorithm=ALGORITHM)</span><br></pre></td></tr></table></figure>
+
+<p>After getting the token, functions and pages need to verify the user is authenticated with the token by <code>Depends(oauth2_scheme)</code>. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">get_current_user</span>(<span class="params">token: Annotated[<span class="built_in">str</span>, Depends(<span class="params">oauth2_scheme</span>)]</span>):</span><br><span class="line">   ...</span><br></pre></td></tr></table></figure>
+
+<p>Often, it is necessary to do a second verification that the token is valid and user encoded in the token is a valid user.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])</span><br><span class="line">username: <span class="built_in">str</span> = payload.get(<span class="string">&quot;sub&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>Furthermore, we need to pay attention to the hashing of the passwords. We use <code>passlib</code> here to handle the hashing. The algorithm used here is <code>bcrypt</code>.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pip install <span class="string">&quot;passlib[bcrypt]&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>To use <code>passlib</code>, one needs first instantiate <code>CryptContext</code>, Then using <code>hash()</code> to generate the hashed password from the plain password. <code>verify()</code> can be used to check whether a plain password matches the hashed password.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> passlib.context <span class="keyword">import</span> CryptContext</span><br><span class="line"></span><br><span class="line">pwd_context = CryptContext(schemes=[<span class="string">&quot;bcrypt&quot;</span>], deprecated=<span class="string">&quot;auto&quot;</span>)</span><br><span class="line"></span><br><span class="line">pwd_context.<span class="built_in">hash</span>(password)</span><br><span class="line">pwd_context.verify(plain_password, hashed_password)</span><br></pre></td></tr></table></figure>
+
+<p>Notice that a plain password can have several corresponding hashed passwords.</p>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tech</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">fastapi</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/06/18/fastapi-tutorial-3/">Expand to view full text >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-fastapi-tutorial-2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/06/18/fastapi-tutorial-2/" target="_blank">fastapi-tutorial-2</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/06/18/fastapi-tutorial-2/" class="archive-article-date">
+        <time datetime="2023-06-17T22:14:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-06-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h2 id="Example-Data"><a href="#Example-Data" class="headerlink" title="Example Data"></a>Example Data</h2><p>You can declare an <code>example</code> for a Pydantic model using <code>Config</code> and <code>schema_extra</code>, which will be displayed in docs. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Item</span>(<span class="title class_ inherited__">BaseModel</span>):</span><br><span class="line">    name: <span class="built_in">str</span></span><br><span class="line">    description: <span class="type">Union</span>[<span class="built_in">str</span>, <span class="literal">None</span>] = <span class="literal">None</span></span><br><span class="line">    price: <span class="built_in">float</span></span><br><span class="line">    tax: <span class="type">Union</span>[<span class="built_in">float</span>, <span class="literal">None</span>] = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">Config</span>:</span><br><span class="line">        schema_extra = &#123;</span><br><span class="line">            <span class="string">&quot;example&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;name&quot;</span>: <span class="string">&quot;Foo&quot;</span>,</span><br><span class="line">                <span class="string">&quot;description&quot;</span>: <span class="string">&quot;A very nice Item&quot;</span>,</span><br><span class="line">                <span class="string">&quot;price&quot;</span>: <span class="number">35.4</span>,</span><br><span class="line">                <span class="string">&quot;tax&quot;</span>: <span class="number">3.2</span>,</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p>Multiple examples can also be added to each individual attribute in the class using keyword <code>examples</code>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">update_item</span>(<span class="params"></span></span><br><span class="line"><span class="params">    item_id: <span class="built_in">int</span>,</span></span><br><span class="line"><span class="params">    item: Annotated[</span></span><br><span class="line"><span class="params">        Item,</span></span><br><span class="line"><span class="params">        Body(<span class="params"></span></span></span><br><span class="line"><span class="params"><span class="params">            examples=&#123;</span></span></span><br><span class="line"><span class="params"><span class="params">                <span class="string">&quot;normal&quot;</span>: &#123;</span></span></span><br><span class="line"><span class="params"><span class="params">                    <span class="string">&quot;summary&quot;</span>: <span class="string">&quot;A normal example&quot;</span>,</span></span></span><br><span class="line"><span class="params"><span class="params">                    <span class="string">&quot;description&quot;</span>: <span class="string">&quot;A **normal** item works correctly.&quot;</span>,</span></span></span><br><span class="line"><span class="params"><span class="params">                    <span class="string">&quot;value&quot;</span>: &#123;</span></span></span><br><span class="line"><span class="params"><span class="params">                        <span class="string">&quot;name&quot;</span>: <span class="string">&quot;Foo&quot;</span>,</span></span></span><br><span class="line"><span class="params"><span class="params">                        <span class="string">&quot;description&quot;</span>: <span class="string">&quot;A very nice Item&quot;</span>,</span></span></span><br><span class="line"><span class="params"><span class="params">                    &#125;,</span></span></span><br><span class="line"><span class="params"><span class="params">                &#125;,</span></span></span><br><span class="line"><span class="params"><span class="params">                <span class="string">&quot;converted&quot;</span>: &#123;</span></span></span><br><span class="line"><span class="params"><span class="params">                    <span class="string">&quot;summary&quot;</span>: <span class="string">&quot;An example with converted data&quot;</span>,</span></span></span><br><span class="line"><span class="params"><span class="params">                    <span class="string">&quot;description&quot;</span>: <span class="string">&quot;FastAPI can convert price `strings` to actual `numbers`&quot;</span>,</span></span></span><br><span class="line"><span class="params"><span class="params">                    <span class="string">&quot;value&quot;</span>: &#123;</span></span></span><br><span class="line"><span class="params"><span class="params">                        <span class="string">&quot;name&quot;</span>: <span class="string">&quot;Bar&quot;</span>,</span></span></span><br><span class="line"><span class="params"><span class="params">                        <span class="string">&quot;price&quot;</span>: <span class="string">&quot;35.4&quot;</span>,</span></span></span><br><span class="line"><span class="params"><span class="params">                    &#125;</span></span></span><br><span class="line"><span class="params"><span class="params">                &#125;</span></span></span><br><span class="line"><span class="params"><span class="params">                ...</span></span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Return-Type"><a href="#Return-Type" class="headerlink" title="Return Type"></a>Return Type</h2><h3 id="Response-model"><a href="#Response-model" class="headerlink" title="Response model"></a>Response model</h3><p><code>response_model</code> is used to define return type of a path operation. It is often preferred becuase it is more flexible than type annotation when dealing with dictionaries.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Any</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.post(<span class="params"><span class="string">&quot;/items/&quot;</span>, response_model=Item</span>)</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">create_item</span>(<span class="params">item: Item</span>) -&gt; <span class="type">Any</span>:</span><br><span class="line">    <span class="keyword">return</span> item</span><br></pre></td></tr></table></figure>
+
+<h3 id="Redirect-response"><a href="#Redirect-response" class="headerlink" title="Redirect response"></a>Redirect response</h3><p>A way to realize <code>redirect</code> is by defining a reponse type.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> fastapi.responses <span class="keyword">import</span> RedirectResponse</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.get(<span class="params"><span class="string">&quot;/teleport&quot;</span>, response_model=RedirectResponse</span>)</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">get_teleport</span>():</span><br><span class="line">    <span class="keyword">return</span> RedirectResponse(url=<span class="string">&quot;https://www.youtube.com/watch?v=dQw4w9WgXcQ&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Dict"><a href="#Dict" class="headerlink" title="Dict"></a>Dict</h2><p><code>**dict</code> will unwrap the values in a dictionary when passing into a function. The unwrapped output will be key-value arguments.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UserInDB(**user_dict)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Response-Status-Code"><a href="#Response-Status-Code" class="headerlink" title="Response Status Code"></a>Response Status Code</h2><p><code>status_code</code> keyword can be used to generate a status code for the page.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.post(<span class="params"><span class="string">&quot;/items/&quot;</span>, status_code=<span class="number">201</span></span>)</span></span><br></pre></td></tr></table></figure>
+
+<p>A short cut for more detailed status is as following,</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> fastapi <span class="keyword">import</span> status</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.post(<span class="params"><span class="string">&quot;/items/&quot;</span>, status_code=status.HTTP_201_CREATED</span>)</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Handling-Errors"><a href="#Handling-Errors" class="headerlink" title="Handling Errors"></a>Handling Errors</h2><p>Users can raise exceptions inside the path operations with customized headers.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> fastapi <span class="keyword">import</span> HTTPException</span><br><span class="line"></span><br><span class="line">items = &#123;<span class="string">&quot;foo&quot;</span>: <span class="string">&quot;The Foo Wrestlers&quot;</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.get(<span class="params"><span class="string">&quot;/items-header/&#123;item_id&#125;&quot;</span></span>)</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">read_item_header</span>(<span class="params">item_id: <span class="built_in">str</span></span>):</span><br><span class="line">    <span class="keyword">if</span> item_id <span class="keyword">not</span> <span class="keyword">in</span> items:</span><br><span class="line">        <span class="keyword">raise</span> HTTPException(</span><br><span class="line">            status_code=<span class="number">404</span>,</span><br><span class="line">            detail=<span class="string">&quot;Item not found&quot;</span>,</span><br><span class="line">            headers=&#123;<span class="string">&quot;X-Error&quot;</span>: <span class="string">&quot;There goes my error&quot;</span>&#125;,</span><br><span class="line">        )</span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="string">&quot;item&quot;</span>: items[item_id]&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Or define customer exceptions and handlers.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">UnicornException</span>(<span class="title class_ inherited__">Exception</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name: <span class="built_in">str</span></span>):</span><br><span class="line">        self.name = name</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.exception_handler(<span class="params">UnicornException</span>)</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">unicorn_exception_handler</span>(<span class="params">request: Request, exc: UnicornException</span>):</span><br><span class="line">    <span class="keyword">return</span> JSONResponse(</span><br><span class="line">        status_code=<span class="number">418</span>,</span><br><span class="line">        content=&#123;<span class="string">&quot;message&quot;</span>: <span class="string">f&quot;Oops! <span class="subst">&#123;exc.name&#125;</span> did something. There goes a rainbow...&quot;</span>&#125;,</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.get(<span class="params"><span class="string">&quot;/unicorns/&#123;name&#125;&quot;</span></span>)</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">read_unicorn</span>(<span class="params">name: <span class="built_in">str</span></span>):</span><br><span class="line">    <span class="keyword">if</span> name == <span class="string">&quot;yolo&quot;</span>:</span><br><span class="line">        <span class="keyword">raise</span> UnicornException(name=name)</span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="string">&quot;unicorn_name&quot;</span>: name&#125;</span><br></pre></td></tr></table></figure>
+
+<p>It is allowed to override default exception handlers.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> fastapi.exceptions <span class="keyword">import</span> RequestValidationError</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.exception_handler(<span class="params">RequestValidationError</span>)</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">validation_exception_handler</span>(<span class="params">request, exc</span>):</span><br><span class="line">    <span class="keyword">return</span> PlainTextResponse(<span class="built_in">str</span>(exc), status_code=<span class="number">400</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Tags-amp-Summary"><a href="#Tags-amp-Summary" class="headerlink" title="Tags &amp; Summary"></a>Tags &amp; Summary</h2><p>There are several keywords for configuring path operations.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.post(<span class="params"></span></span></span><br><span class="line"><span class="params"><span class="meta">    <span class="string">&quot;/items/&quot;</span>,</span></span></span><br><span class="line"><span class="params"><span class="meta">    response_model=Item,</span></span></span><br><span class="line"><span class="params"><span class="meta">    summary=<span class="string">&quot;Create an item&quot;</span>,</span></span></span><br><span class="line"><span class="params"><span class="meta">    description=<span class="string">&quot;Create an item with all the information, name, description, price, tax and a set of unique tags&quot;</span>,</span></span></span><br><span class="line"><span class="params"><span class="meta">    tags=[<span class="string">&quot;items&quot;</span>],</span></span></span><br><span class="line"><span class="params"><span class="meta"></span>)</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">create_item</span>(<span class="params">item: Item</span>):</span><br><span class="line">    <span class="keyword">return</span> item</span><br></pre></td></tr></table></figure>
+
+<p>These attributes will be displayed on docs page. For <code>description</code>, there is an alternative way to write by markdown.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.post(<span class="params"><span class="string">&quot;/items/&quot;</span>, response_model=Item, summary=<span class="string">&quot;Create an item&quot;</span>, tags=[<span class="string">&quot;items&quot;</span>]</span>)</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">create_item</span>(<span class="params">item: Item</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Create an item with all the information:</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    - **name**: each item must have a name</span></span><br><span class="line"><span class="string">    - **description**: a long description</span></span><br><span class="line"><span class="string">    - **price**: required</span></span><br><span class="line"><span class="string">    - **tax**: if the item doesn&#x27;t have tax, you can omit this</span></span><br><span class="line"><span class="string">    - **tags**: a set of unique tag strings for this item</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> item</span><br></pre></td></tr></table></figure>
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tech</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">fastapi</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/06/18/fastapi-tutorial-2/">Expand to view full text >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-fastapi-tutorial-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/06/15/fastapi-tutorial-1/" target="_blank">fastapi-tutorial-1</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/06/15/fastapi-tutorial-1/" class="archive-article-date">
+        <time datetime="2023-06-15T13:07:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-06-15</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>These series of blogs will introduce basic usage of <code>FastAPI</code>. The official tutorial is given as this <a target="_blank" rel="noopener" href="https://fastapi.tiangolo.com/tutorial/">site</a>.</p>
+<h2 id="Startings"><a href="#Startings" class="headerlink" title="Startings"></a>Startings</h2><p>The first part will be a simple demo of a working site using FastAPI.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> fastapi <span class="keyword">import</span> FastAPI</span><br><span class="line"></span><br><span class="line">app = FastAPI()</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.get(<span class="params"><span class="string">&quot;/&quot;</span></span>)</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">root</span>():</span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="string">&quot;message&quot;</span>: <span class="string">&quot;Hello World&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>To see the site, run the following code in the terminal.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ uvicorn main:app --reload</span><br></pre></td></tr></table></figure>
+
+<p>An alternative way is to add the code to <code>main.py</code>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> uvicorn</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    uvicorn.run(app, host=<span class="string">&quot;127.0.0.1&quot;</span>, port=<span class="number">8000</span>)</span><br></pre></td></tr></table></figure>
+
+<p>Then the file can be run directly using the code.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python main.py</span><br></pre></td></tr></table></figure>
+
+<p>The web page can be visited at <a target="_blank" rel="noopener" href="http://127.0.0.1:8000/">http://127.0.0.1:8000</a>. A useful local debug method is to visit <a target="_blank" rel="noopener" href="http://127.0.0.1:8000/docs">http://127.0.0.1:8000/docs</a>, which has the documentation for all the routes. </p>
+<h2 id="Path-Parameters"><a href="#Path-Parameters" class="headerlink" title="Path Parameters"></a>Path Parameters</h2><h3 id="Basics"><a href="#Basics" class="headerlink" title="Basics"></a>Basics</h3><p>Path parameters are sent in by variables in URL. One can specify the type of path parameters by <code>&#123;user_id: str&#125;</code>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.get(<span class="params"><span class="string">&quot;/users/me&quot;</span></span>)</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">read_user_me</span>():</span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="string">&quot;user_id&quot;</span>: <span class="string">&quot;the current user&quot;</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.get(<span class="params"><span class="string">&quot;/users/&#123;user_id&#125;&quot;</span></span>)</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">read_user</span>(<span class="params">user_id: <span class="built_in">str</span></span>):</span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="string">&quot;user_id&quot;</span>: user_id&#125;</span><br></pre></td></tr></table></figure>
+
+<p>The <em>path operations</em> are evaluated in order. Switching the order of the two path operaions will result in not being able to visit <code>/users/me</code>. Similary, one cannot redefine a path operation because the first one will always be used.</p>
+<h3 id="Predefined-values"><a href="#Predefined-values" class="headerlink" title="Predefined values"></a>Predefined values</h3><p>It is possible to use Python <code>enumerations</code> to serve as the type for the path parameters. For the enumeration class, focus on the new values assigned to the original parameters.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> enum <span class="keyword">import</span> Enum</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ModelName</span>(<span class="built_in">str</span>, Enum):</span><br><span class="line">    alexnet = <span class="string">&quot;alexnet&quot;</span></span><br><span class="line">    lenet = <span class="string">&quot;lenet&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.get(<span class="params"><span class="string">&quot;/models/&#123;model_name&#125;&quot;</span></span>)</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">get_model</span>(<span class="params">model_name: ModelName</span>):</span><br><span class="line">    <span class="keyword">if</span> model_name <span class="keyword">is</span> ModelName.alexnet:</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="string">&quot;model_name&quot;</span>: model_name, <span class="string">&quot;message&quot;</span>: <span class="string">&quot;Deep Learning FTW!&quot;</span>&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> model_name == <span class="string">&quot;lenet&quot;</span>:</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="string">&quot;model_name&quot;</span>: model_name, <span class="string">&quot;message&quot;</span>: <span class="string">&quot;LeCNN all the images&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Query-Parameters"><a href="#Query-Parameters" class="headerlink" title="Query Parameters"></a>Query Parameters</h2><h3 id="Basics-1"><a href="#Basics-1" class="headerlink" title="Basics"></a>Basics</h3><p>Path and query parameters can be combined with type specified.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Union</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.get(<span class="params"><span class="string">&quot;/items/&#123;item_id&#125;&quot;</span></span>)</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">read_item</span>(<span class="params">item_id: <span class="built_in">str</span>, q: <span class="type">Union</span>[<span class="built_in">str</span>, <span class="literal">None</span>] = <span class="literal">None</span>, short: <span class="built_in">bool</span> = <span class="literal">False</span>, needy: <span class="built_in">str</span></span>):</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+
+<p>The query parameters will be demonstrated in URL by </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1:8000/items/foo?q=apple&amp;short=True</span><br></pre></td></tr></table></figure>
+
+<p>To set the default value as <code>None</code>, use <code>Union[str, None] = None</code>. To set other default values, one can assign the default value directly. If the default value is set, the corresponding parameter will be an <code>optional</code> one. In this case, <code>q</code> and <code>short</code> are optional parameters and <code>needy</code> is a required parameter.</p>
+<h3 id="Query-parameter-list"><a href="#Query-parameter-list" class="headerlink" title="Query parameter list"></a>Query parameter list</h3><p>Another thing to notice is the query parameter list.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">List</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">read_items</span>(<span class="params">q: Annotated[<span class="type">Union</span>[<span class="type">List</span>[<span class="built_in">str</span>], <span class="literal">None</span>], Query(<span class="params"></span>)] = <span class="literal">None</span></span>):</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+
+<p>Or simply</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">read_items</span>(<span class="params">q: Annotated[<span class="built_in">list</span>, Query(<span class="params"></span>)] = []</span>):</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+
+
+<p>Then visiting the following website and pass the query parameter list.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:8000/items/?q=foo&amp;q=bar</span><br></pre></td></tr></table></figure>
+
+<h2 id="Request-Body-Parameters"><a href="#Request-Body-Parameters" class="headerlink" title="Request Body Parameters"></a>Request Body Parameters</h2><p>The data model can be implemented as a class that inherits from <code>Pydantic BaseModel</code>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pydantic <span class="keyword">import</span> BaseModel</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Item</span>(<span class="title class_ inherited__">BaseModel</span>):</span><br><span class="line">    name: <span class="built_in">str</span></span><br><span class="line">    description: <span class="type">Union</span>[<span class="built_in">str</span>, <span class="literal">None</span>] = <span class="literal">None</span></span><br><span class="line">    price: <span class="built_in">float</span></span><br><span class="line">    tax: <span class="type">Union</span>[<span class="built_in">float</span>, <span class="literal">None</span>] = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.put(<span class="params"><span class="string">&quot;/items/&#123;item_id&#125;&quot;</span></span>)</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">create_item</span>(<span class="params">item_id: <span class="built_in">int</span>, item: Item</span>):</span><br><span class="line">    item_dict = item.<span class="built_in">dict</span>()</span><br><span class="line">    <span class="keyword">if</span> item.tax:</span><br><span class="line">        price_with_tax = item.price + item.tax</span><br><span class="line">        item_dict.update(&#123;<span class="string">&quot;price_with_tax&quot;</span>: price_with_tax&#125;)</span><br><span class="line">    <span class="keyword">return</span> item_dict</span><br></pre></td></tr></table></figure>
+
+<p>The attributes in the data model can be directly called like <code>item.price</code>. The pydantic model can be converted to dictionary by <code>dict()</code> and use <code>update()</code> to update the values in the dictionary.</p>
+<h2 id="Validations"><a href="#Validations" class="headerlink" title="Validations"></a>Validations</h2><h3 id="String-validation"><a href="#String-validation" class="headerlink" title="String validation"></a>String validation</h3><p>Additional validation requirements can be added to the query parameters by <code>Query()</code>. One can even add <code>regex</code> as a validation. <code>title</code>, <code>description</code> and <code>deprecated</code> can be seen in <code>docs</code>. <code>alias</code> will demonstate the alias name in the URL. Using <code>Annotated</code> is preferred when it comes to default values.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> fastapi <span class="keyword">import</span> Query</span><br><span class="line"><span class="keyword">from</span> typing_extensions <span class="keyword">import</span> Annotated</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.get(<span class="params"><span class="string">&quot;/items/&quot;</span></span>)</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">read_items</span>(<span class="params"></span></span><br><span class="line"><span class="params">    q: Annotated[</span></span><br><span class="line"><span class="params">        <span class="type">Union</span>[<span class="built_in">str</span>, <span class="literal">None</span>], </span></span><br><span class="line"><span class="params">        Query(<span class="params"></span></span></span><br><span class="line"><span class="params"><span class="params">            title=<span class="string">&quot;Query string&quot;</span>,</span></span></span><br><span class="line"><span class="params"><span class="params">            description=<span class="string">&quot;Query string for the items to search in the database&quot;</span>,</span></span></span><br><span class="line"><span class="params"><span class="params">            max_length=<span class="number">50</span>, </span></span></span><br><span class="line"><span class="params"><span class="params">            regex=<span class="string">&quot;^fixedquery$&quot;</span>,</span></span></span><br><span class="line"><span class="params"><span class="params">            alias=<span class="string">&quot;item-query&quot;</span>,</span></span></span><br><span class="line"><span class="params"><span class="params">            deprecated=<span class="literal">True</span></span></span></span><br><span class="line"><span class="params"><span class="params">        </span>)</span></span><br><span class="line"><span class="params">    ] = <span class="literal">None</span></span></span><br><span class="line"><span class="params"></span>):</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+
+<h3 id="Numeric-validation"><a href="#Numeric-validation" class="headerlink" title="Numeric validation"></a>Numeric validation</h3><p>For path parameters, the validations can be added in a similar way. Number validations can be added as following.</p>
+<ul>
+<li><code>gt</code>: greater than</li>
+<li><code>le</code>: less than or equal</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.get(<span class="params"><span class="string">&quot;/items/&#123;item_id&#125;&quot;</span></span>)</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">read_items</span>(<span class="params"></span></span><br><span class="line"><span class="params">    item_id: Annotated[<span class="built_in">int</span>, Path(<span class="params">title=<span class="string">&quot;The ID of the item to get&quot;</span>, ge=<span class="number">1</span></span>)]</span></span><br><span class="line"><span class="params"></span>):</span><br><span class="line">  ...</span><br></pre></td></tr></table></figure>
+
+<p>Like query and path parameters, users can add <code>Body()</code> to a parameter to declare it as a body parameter.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.put(<span class="params"><span class="string">&quot;/items/&#123;item_id&#125;&quot;</span></span>)</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">update_item</span>(<span class="params"></span></span><br><span class="line"><span class="params">    item_id: <span class="built_in">int</span>, importance: Annotated[<span class="built_in">int</span>, Body(<span class="params">gt=<span class="number">0</span></span>)]</span></span><br><span class="line"><span class="params"></span>):</span><br></pre></td></tr></table></figure>
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tech</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">fastapi</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/06/15/fastapi-tutorial-1/">Expand to view full text >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-flask-tutorial-4" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1039,459 +1556,10 @@
 
 
   
-    <article id="post-python-tutorial-official-2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
   
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/06/07/python-tutorial-official-2/" target="_blank">Python Official Tutorial 2</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/06/07/python-tutorial-official-2/" class="archive-article-date">
-        <time datetime="2023-06-07T09:09:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-06-07</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>This blog post will contain function-related and module-related codes in python.</p>
-<h2 id="Functions"><a href="#Functions" class="headerlink" title="Functions"></a>Functions</h2><h3 id="Default-values"><a href="#Default-values" class="headerlink" title="Default values"></a>Default values</h3><p><strong>Warning</strong>: The default value is evaluated only once. This makes a difference when the default is a mutable object such as a list, dictionary, or instances of most classes. (Default is like a once initialization)</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">f</span>(<span class="params">a, L=[]</span>):</span><br><span class="line">    L.append(a)</span><br><span class="line">    <span class="keyword">return</span> L</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(f(<span class="number">1</span>))</span><br><span class="line"><span class="built_in">print</span>(f(<span class="number">2</span>))</span><br><span class="line"><span class="built_in">print</span>(f(<span class="number">3</span>))</span><br></pre></td></tr></table></figure>
-
-<p>will print</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[1]</span><br><span class="line">[1, 2]</span><br><span class="line">[1, 2, 3]</span><br></pre></td></tr></table></figure>
-
-<p>The solution will be</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">f</span>(<span class="params">a, L=<span class="literal">None</span></span>):</span><br><span class="line">    <span class="keyword">if</span> L <span class="keyword">is</span> <span class="literal">None</span>: L = []</span><br><span class="line">    L.append(a)</span><br><span class="line">    <span class="keyword">return</span> L</span><br></pre></td></tr></table></figure>
-
-<h3 id="Keyword-arguments"><a href="#Keyword-arguments" class="headerlink" title="Keyword arguments"></a>Keyword arguments</h3><p><code>keyword</code> arguments should appear after <code>positional</code> arguments.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">parrot</span>(<span class="params">voltage, state=<span class="string">&#x27;a stiff&#x27;</span>, action=<span class="string">&#x27;voom&#x27;</span>, <span class="built_in">type</span>=<span class="string">&#x27;Norwegian Blue&#x27;</span></span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;-- This parrot wouldn&#x27;t&quot;</span>, action, end=<span class="string">&#x27; &#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;if you put&quot;</span>, voltage, <span class="string">&quot;volts through it.&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;-- Lovely plumage, the&quot;</span>, <span class="built_in">type</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;-- It&#x27;s&quot;</span>, state, <span class="string">&quot;!&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>The following will work.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">parrot(<span class="string">&#x27;a thousand&#x27;</span>, state=<span class="string">&#x27;pushing up the daisies&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>The following will not work.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">parrot(voltage=<span class="number">5.0</span>, <span class="string">&#x27;dead&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="Special-parameters"><a href="#Special-parameters" class="headerlink" title="Special parameters"></a>Special parameters</h3><p>Formal parameter <code>*name</code> receives a <code>tuple</code> containing <code>positional</code> arguments.</p>
-<p>Formal parameter <code>**name</code> receives a <code>dict</code> containing <code>keyword</code> arguments.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">cheeseshop</span>(<span class="params">*positions, **keywords</span>):</span><br><span class="line">    <span class="keyword">for</span> pos <span class="keyword">in</span> positions:</span><br><span class="line">        <span class="built_in">print</span>(pos)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;-&quot;</span> * <span class="number">40</span>)</span><br><span class="line">    <span class="keyword">for</span> kw <span class="keyword">in</span> keywords:</span><br><span class="line">        <span class="built_in">print</span>(kw, <span class="string">&quot;:&quot;</span>, keywords[kw])</span><br><span class="line"></span><br><span class="line">cheeseshop(<span class="string">&quot;It&#x27;s very runny, sir.&quot;</span>,</span><br><span class="line">           <span class="string">&quot;It&#x27;s really very, VERY runny, sir.&quot;</span>,</span><br><span class="line">           shopkeeper=<span class="string">&quot;Michael Palin&quot;</span>,</span><br><span class="line">           client=<span class="string">&quot;John Cleese&quot;</span>,</span><br><span class="line">           sketch=<span class="string">&quot;Cheese Shop Sketch&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>The result will be</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">It<span class="string">&#x27;s very runny, sir.</span></span><br><span class="line"><span class="string">It&#x27;</span>s really very, VERY runny, sir.</span><br><span class="line">----------------------------------------</span><br><span class="line">shopkeeper : Michael Palin</span><br><span class="line">client : John Cleese</span><br><span class="line">sketch : Cheese Shop Sketch</span><br></pre></td></tr></table></figure>
-
-<p>Arguments before <code>/</code> will be <code>positional-only</code> arguments.</p>
-<p>Arguments after <code>*</code> will be <code>keyword-only</code> arguments.</p>
-<p>The following is a sample of how to use <code>/</code> and <code>*</code> in function arguments.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">combined_example</span>(<span class="params">pos_only, /, standard, *, kwd_only</span>):</span><br><span class="line">    <span class="built_in">print</span>(pos_only, standard, kwd_only)</span><br></pre></td></tr></table></figure>
-
-<h3 id="Function-annotations"><a href="#Function-annotations" class="headerlink" title="Function annotations"></a>Function annotations</h3><p><code>__annotations__</code> attribute will print the input type and output type of the function.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">f</span>(<span class="params">ham: <span class="built_in">str</span>, eggs: <span class="built_in">str</span> = <span class="string">&#x27;eggs&#x27;</span></span>) -&gt; <span class="built_in">str</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Annotations:&quot;</span>, f.__annotations__)</span><br><span class="line"></span><br><span class="line">f(<span class="string">&#x27;spam&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>will yield the result:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Annotations: &#123;&#x27;ham&#x27;: &lt;class &#x27;str&#x27;&gt;, &#x27;eggs&#x27;: &lt;class &#x27;str&#x27;&gt;, &#x27;return&#x27;: &lt;class &#x27;str&#x27;&gt;&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Modules-and-Packages"><a href="#Modules-and-Packages" class="headerlink" title="Modules and Packages"></a>Modules and Packages</h2><h3 id="Import-Modules"><a href="#Import-Modules" class="headerlink" title="Import Modules"></a>Import Modules</h3><p>There are serveral ways if importing modules from local python scripts.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> fibo</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> fibo <span class="keyword">import</span> fib, fib2</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> fibo <span class="keyword">import</span> *</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> fibo <span class="keyword">as</span> fib</span><br></pre></td></tr></table></figure>
-
-<h3 id="Search-paths"><a href="#Search-paths" class="headerlink" title="Search paths"></a>Search paths</h3><p>When importing modules, python will search <code>sys.builtin_module_names</code>. If not found, then it will search <code>fibo.py</code> in a list of directories given by <code>sys.path</code>.</p>
-<h3 id="Compiled-cache"><a href="#Compiled-cache" class="headerlink" title="Compiled cache"></a>Compiled cache</h3><p>To speed up loading modules, Python caches the compiled version of each module in the <code>__pycache__</code> directory under the name module.version.pyc.</p>
-<h3 id="Standard-modules"><a href="#Standard-modules" class="headerlink" title="Standard modules"></a>Standard modules</h3><p>First and second prompts:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sys.ps1</span><br><span class="line"><span class="string">&#x27;&gt;&gt;&gt; &#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sys.ps2</span><br><span class="line"><span class="string">&#x27;... &#x27;</span></span><br></pre></td></tr></table></figure>
-
-<p>Add to system path:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> sys</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sys.path.append(<span class="string">&#x27;/ufs/guido/lib/python&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-<p><code>dir()</code> function will show the names that a module defines.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> fibo</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">dir</span>(fibo)</span><br><span class="line">[<span class="string">&#x27;__builtins__&#x27;</span>, <span class="string">&#x27;__cached__&#x27;</span>, <span class="string">&#x27;__doc__&#x27;</span>, <span class="string">&#x27;__file__&#x27;</span>, <span class="string">&#x27;__loader__&#x27;</span>, <span class="string">&#x27;__name__&#x27;</span>, <span class="string">&#x27;__package__&#x27;</span>, <span class="string">&#x27;__spec__&#x27;</span>, <span class="string">&#x27;fib&#x27;</span>, <span class="string">&#x27;fib2&#x27;</span>]</span><br></pre></td></tr></table></figure>
-
-<p>There are also other <code>os</code> commands as following.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> os                                     </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.getcwd()                             <span class="comment"># Return the current working directory</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.chdir(<span class="string">&#x27;/server/accesslogs&#x27;</span>)          <span class="comment"># Change current working directory</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.system(<span class="string">&#x27;mkdir today&#x27;</span>)                <span class="comment"># Run the command mkdir in the system shell</span></span><br></pre></td></tr></table></figure>
-
-
-<h3 id="Import-packages"><a href="#Import-packages" class="headerlink" title="Import packages"></a>Import packages</h3><p>Packages are a way of structuring Python’s module namespace by using “dotted module names”. Packages should have separate folders with <code>__init__.py</code> file.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> fibo.fibo <span class="keyword">import</span> fib, fib2</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(fib(<span class="number">1000</span>))</span><br><span class="line"><span class="number">0</span> <span class="number">1</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">5</span> <span class="number">8</span> <span class="number">13</span> <span class="number">21</span> <span class="number">34</span> <span class="number">55</span> <span class="number">89</span> <span class="number">144</span> <span class="number">233</span> <span class="number">377</span> <span class="number">610</span> <span class="number">987</span> </span><br></pre></td></tr></table></figure>
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tech</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/06/07/python-tutorial-official-2/">Expand to view full text >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-python-tutorial-official-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/06/07/python-tutorial-official-1/" target="_blank">Python Official Tutorial 1</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/06/07/python-tutorial-official-1/" class="archive-article-date">
-        <time datetime="2023-06-07T03:24:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-06-07</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>In this blog, I will follow the official Python <a target="_blank" rel="noopener" href="https://docs.python.org/3/tutorial/">tutorial</a>. Being a coder using Python for several years, I’d like to see if there is anything omitting which I could make up for.</p>
-<h2 id="Some-flags"><a href="#Some-flags" class="headerlink" title="Some flags"></a>Some flags</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ python -c &lt;<span class="built_in">command</span>&gt;</span><br><span class="line">$ python -c <span class="string">&quot;print(3)&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p><code>-c</code> flag will allow running python codes directly in the terminal.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ python -m &lt;module-name&gt;</span><br><span class="line">$ python -m timeit <span class="string">&#x27;3 + 2&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<p><code>-m</code> flag will allow using modules directly in the terminal.</p>
-<h2 id="Source-Code-Encoding"><a href="#Source-Code-Encoding" class="headerlink" title="Source Code Encoding"></a>Source Code Encoding</h2><h3 id="Encoding"><a href="#Encoding" class="headerlink" title="Encoding"></a>Encoding</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding: uft-8 -*-</span><br></pre></td></tr></table></figure>
-
-<p>to declare the encoding of the file.</p>
-<h3 id="Executable-script"><a href="#Executable-script" class="headerlink" title="Executable script"></a>Executable script</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python3</span><br></pre></td></tr></table></figure>
-
-<p>Add the line to the beginning of <code>.py</code> file (should be the first line). Then run</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">chmod</span> +x python-interpreter.py</span><br><span class="line">$ ./python-interpreter.py</span><br></pre></td></tr></table></figure>
-
-<p><code>chmod +x</code> will turn <code>.py</code> file into an excetuable file. Use <code>./</code> to run the executable file.</p>
-<h2 id="Python-I-x2F-O"><a href="#Python-I-x2F-O" class="headerlink" title="Python I&#x2F;O"></a>Python I&#x2F;O</h2><h3 id="Argument-passing"><a href="#Argument-passing" class="headerlink" title="Argument passing"></a>Argument passing</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;sys.argv: &#x27;</span>, sys.argv)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;sys.argv[0]: &#x27;</span>, sys.argv[<span class="number">0</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;sys.argv[1]: &#x27;</span>, sys.argv[<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
-
-<p><code>sys.argv</code> will record all the inputs from the command line.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python python-interpreter.py 1 2</span><br></pre></td></tr></table></figure>
-
-<p>Add the inputs behind the file name.</p>
-<p>Notice that <code>sys.argv[0]</code> will always be the file name. The output will be </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sys.argv:  [&#x27;python-interpreter.py&#x27;, &#x27;1&#x27;, &#x27;2&#x27;]</span><br><span class="line">sys.argv[0]:  python-interpreter.py</span><br><span class="line">sys.argv[1]:  1</span><br></pre></td></tr></table></figure>
-
-<h3 id="Input-from-command-line"><a href="#Input-from-command-line" class="headerlink" title="Input from command line"></a>Input from command line</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">name = <span class="built_in">input</span>(<span class="string">&#x27;Please enter your name: &#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(name)</span><br></pre></td></tr></table></figure>
-
-<p>The built-in function <code>input()</code> will allow users to input a string and store in the variable.</p>
-<h3 id="Reading-and-writing-to-files"><a href="#Reading-and-writing-to-files" class="headerlink" title="Reading and writing to files"></a>Reading and writing to files</h3><p>The first method is to use <code>open</code> keyword. Notice that file needs to be closed by calling <code>close()</code>, otherwise texts may not be written into the disk properly.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">f = <span class="built_in">open</span>(<span class="string">&#x27;workfile&#x27;</span>, <span class="string">&#x27;w&#x27;</span>, encoding=<span class="string">&quot;utf-8&quot;</span>)</span><br><span class="line">f.close()</span><br></pre></td></tr></table></figure>
-
-<p>The second method is to use <code>with</code> keyword, which is a better practice becuase it will automatically close the file after executed.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;workfile&#x27;</span>, encoding=<span class="string">&quot;utf-8&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    read_data = f.read()</span><br></pre></td></tr></table></figure>
-
-<p>There are also different ways of reading the content in the file object.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Read the whole contents in the file.</span></span><br><span class="line">f.read()</span><br><span class="line"><span class="comment"># Read a single line.</span></span><br><span class="line">f.readline()</span><br><span class="line"><span class="comment"># Iterate through the file.</span></span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> f:</span><br><span class="line">    <span class="built_in">print</span>(line, end=<span class="string">&#x27;&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-<h3 id="JSON-file-I-x2F-O"><a href="#JSON-file-I-x2F-O" class="headerlink" title="JSON file I&#x2F;O"></a>JSON file I&#x2F;O</h3><p>One can transform an object to <code>json</code> by <code>json.dumps</code>.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line">x = [<span class="number">1</span>, <span class="string">&#x27;simple&#x27;</span>, <span class="string">&#x27;list&#x27;</span>]</span><br><span class="line"><span class="built_in">print</span>(json.dumps(x))</span><br><span class="line"><span class="comment"># &#x27;[1, &quot;simple&quot;, &quot;list&quot;]&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<p>Or dump&#x2F;load the json into&#x2F;from a specific file by <code>json.dump()</code> and <code>json.load()</code>.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">json.dump(x, f)</span><br><span class="line">x = json.load(f)</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="Zip-function"><a href="#Zip-function" class="headerlink" title="Zip function"></a>Zip function</h2><p><code>zip</code> can be used to aggregate iterables.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">names = [<span class="string">&#x27;Alice&#x27;</span>, <span class="string">&#x27;Bob&#x27;</span>, <span class="string">&#x27;Charlie&#x27;</span>]</span><br><span class="line">ages = [<span class="number">24</span>, <span class="number">50</span>, <span class="number">18</span>]</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">list</span>(<span class="built_in">zip</span>(names, ages)))</span><br><span class="line"><span class="comment"># [(&#x27;Alice&#x27;, 24), (&#x27;Bob&#x27;, 50), (&#x27;Charlie&#x27;, 18)]</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="Looping-techniques"><a href="#Looping-techniques" class="headerlink" title="Looping techniques"></a>Looping techniques</h2><p>Achieve reverse order of <code>range</code>.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="built_in">list</span>(<span class="built_in">range</span>(<span class="number">9</span>, <span class="number">0</span>, -<span class="number">1</span>)))</span><br><span class="line"><span class="comment"># [9, 8, 7, 6, 5, 4, 3, 2, 1]</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">list</span>(<span class="built_in">reversed</span>(<span class="built_in">range</span>(<span class="number">1</span>, <span class="number">10</span>, <span class="number">1</span>))))</span><br><span class="line"><span class="comment"># [9, 8, 7, 6, 5, 4, 3, 2, 1]</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="Comparisons"><a href="#Comparisons" class="headerlink" title="Comparisons"></a>Comparisons</h2><p>Comparisons can be chained. Eg. <code>a &lt; b == c</code> will check <code>a &lt; b</code> and <code>b == c</code>.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="number">1</span> &lt; <span class="number">2</span> == <span class="number">2</span>)</span><br><span class="line"><span class="comment"># True</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="Exceptions-Handling"><a href="#Exceptions-Handling" class="headerlink" title="Exceptions Handling"></a>Exceptions Handling</h2><h3 id="Exceptions-chaining"><a href="#Exceptions-chaining" class="headerlink" title="Exceptions chaining"></a>Exceptions chaining</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="built_in">open</span>(<span class="string">&quot;database.sqlite&quot;</span>)</span><br><span class="line"><span class="keyword">except</span> OSError:</span><br><span class="line">    <span class="keyword">raise</span> RuntimeError(<span class="string">&quot;unable to handle error&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>will give the result</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;&lt;stdin&gt;&quot;, line 2, in &lt;module&gt;</span><br><span class="line">FileNotFoundError: [Errno 2] No such file or directory: &#x27;database.sqlite&#x27;</span><br><span class="line"></span><br><span class="line">During handling of the above exception, another exception occurred:</span><br><span class="line"></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;&lt;stdin&gt;&quot;, line 4, in &lt;module&gt;</span><br><span class="line">RuntimeError: unable to handle error</span><br></pre></td></tr></table></figure>
-
-<h3 id="Clean-up-actions"><a href="#Clean-up-actions" class="headerlink" title="Clean-up actions"></a>Clean-up actions</h3><p><code>finally</code> will be executed even when exceptions are raised.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">raise</span> KeyboardInterrupt</span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Goodbye, world!&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tech</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/06/07/python-tutorial-official-1/">Expand to view full text >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-hexo-deploy" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/06/06/hexo-deploy/" target="_blank">Hexo Github Deployment for Personal Blogs</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/06/06/hexo-deploy/" class="archive-article-date">
-        <time datetime="2023-06-06T02:03:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-06-06</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>This is the very first blog for myself. So I would rather begin with the process of how to deploy personal hexo blogs on Github. Hexo is a light-weighted blog framework, supporting theme customizations. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info.</p>
-<h2 id="Preparations"><a href="#Preparations" class="headerlink" title="Preparations"></a>Preparations</h2><h3 id="Basic-packages"><a href="#Basic-packages" class="headerlink" title="Basic packages"></a>Basic packages</h3><p>Install <code>Git</code> and <code>NodeJS</code> in local environment.</p>
-<h3 id="Create-and-clone-Github-repository"><a href="#Create-and-clone-Github-repository" class="headerlink" title="Create and clone Github repository"></a>Create and clone Github repository</h3><p>Create a new <code>repository</code> on Github. The format of the repository name should be <code>&lt;username&gt;.github.io</code>. Use <code>Github Pages</code> to check if the website of the repository can be visited.</p>
-<h2 id="Install-Hexo"><a href="#Install-Hexo" class="headerlink" title="Install Hexo"></a>Install Hexo</h2><p>Install <code>Hexo</code>. <code>npm install</code> tends to require root access.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ (sudo) npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
-
-<p>For China users, <code>npm install</code> command can be very slow. Common solution of using mirror sites of <code>taobao</code> have been deprecated. Refer to the <a target="_blank" rel="noopener" href="https://github.com/npm/cli/issues/4876">github issue</a>.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ npm cache clear --force</span><br><span class="line">$ npm config <span class="built_in">set</span> registry https://registry.npmmirror.com</span><br></pre></td></tr></table></figure>
-
-<p>Check the whether Hexo is installed and the current version.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo -v</span><br></pre></td></tr></table></figure>
-
-<p>Create a new directory <code>hexo-blog</code> and initialize.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init hexo-blog</span><br><span class="line">$ <span class="built_in">cd</span> hexo-blog</span><br></pre></td></tr></table></figure>
-
-<p>Launch the blog page locally.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ (sudo) npm install</span><br><span class="line">$ hexo generate</span><br><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>Or the abbreviated code is</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo g &amp;&amp; hexo s</span><br></pre></td></tr></table></figure>
-
-<p>Use the browser to visit <a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000/</a>. One should get access to the Hexo blog page with default theme.</p>
-<h2 id="Deploy-to-Github"><a href="#Deploy-to-Github" class="headerlink" title="Deploy to Github"></a>Deploy to Github</h2><p>Stay in the root directory of the blog folder and install <code>hexo-deployer-git</code>.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ (sudo) npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
-
-<p>Then modify the configure file <code>_config.yml</code> in the root directory, where <code>token</code> is the <code>Personal Access Token</code> for <code>Github</code>.</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">https://github.com/sal-szhao/sal-szhao.github.io.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">main</span></span><br><span class="line">  <span class="attr">token:</span> <span class="string">your_personal_access_token</span></span><br></pre></td></tr></table></figure>
-
-<p>Then run the following code to deploy the website.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo g</span><br><span class="line">$ hexo deploy / hexo d</span><br></pre></td></tr></table></figure>
-
-<p>Notice that running <code>hexo d</code> will generate a <code>public</code> folder, which is consistent with the folder pushed to <code>Github repository</code>.</p>
-<p><img src="/2023/06/06/hexo-deploy/public.png" alt="public folder"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br></pre></td></tr></table></figure>
-
-<p>Cleans the cache file <code>db.json</code> and generated folder <code>public</code>.</p>
-<h2 id="Additional-Hexo-Usage"><a href="#Additional-Hexo-Usage" class="headerlink" title="Additional Hexo Usage"></a>Additional Hexo Usage</h2><h3 id="Update-blog-on-new-machines"><a href="#Update-blog-on-new-machines" class="headerlink" title="Update blog on new machines"></a>Update blog on new machines</h3><p>Since the codes generated for rendering the page are different from the original codes, they could be stored in different branches.</p>
-<p>The <code>public</code> folder is stored in <code>main</code> branch of the repository.</p>
-<p>The original codes are stored in <code>hexo</code> branch of the repository.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> -b hexo git@github.com:JoeyBling/hexo-theme-yilia-plus.git</span><br></pre></td></tr></table></figure>
-
-<p>Only clone the hexo branch and rerun</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ (sudo) npm install</span><br><span class="line">$ hexo g &amp;&amp; hexo s</span><br></pre></td></tr></table></figure>
-
-<h3 id="New-post"><a href="#New-post" class="headerlink" title="New post"></a>New post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new post testing</span><br></pre></td></tr></table></figure>
-<p>creates a new post.</p>
-<h3 id="Add-image-to-post"><a href="#Add-image-to-post" class="headerlink" title="Add image to post"></a>Add image to post</h3><p>Install <code>hexo-renderer-marked</code>.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ (sudo) npm install hexo-renderer-marked --save</span><br></pre></td></tr></table></figure>
-
-<p>Modify the <code>_config.yml</code> file in the root directory.</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">marked:</span></span><br><span class="line">  <span class="attr">prependRoot:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">postAsset:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-
-<p>Setting <code>post_asset_folder</code> to be <code>true</code> will create a folder with the same name as the post when creating a new post.</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![<span class="string">alt text</span>](<span class="link">GithubPage.png</span>)</span><br></pre></td></tr></table></figure>
-<p>will add image to the post.</p>
-<p><img src="/2023/06/06/hexo-deploy/insertimage.png" alt="insert image"></p>
-<h3 id="Change-theme"><a href="#Change-theme" class="headerlink" title="Change theme"></a>Change theme</h3><p>Here is a simple tutorial for how to change the default theme to <a target="_blank" rel="noopener" href="https://github.com/JoeyBling/hexo-theme-yilia-plus">yilia-plus</a> theme.</p>
-<p>Clone the repository to the <code>themes</code> folder.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/JoeyBling/hexo-theme-yilia-plus.git</span><br></pre></td></tr></table></figure>
-
-<p>Or try the following if cloning is too slow.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://gitclone.com/github.com/JoeyBling/hexo-theme-yilia-plus.git</span><br></pre></td></tr></table></figure>
-
-<p>Modify the <code>_config.yml</code> file in the root directory.</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">theme:</span> <span class="string">yilia-plus</span></span><br></pre></td></tr></table></figure>
-
-<p><font color='red' size=5>Delete all the <code>.git</code> folders inside the cloned themes folder! ! !</font></p>
-<p>Otherwise there will be conflicts when pusing into the repository.</p>
-<p><img src="/2023/06/06/hexo-deploy/finaldemo.png" alt="final demo"></p>
-
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tech</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/06/06/hexo-deploy/">Expand to view full text >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+    </nav>
   
 
 
@@ -1630,6 +1698,10 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">flask</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">fastapi</a>
               </li>
             
             <div class="clearfix"></div>
