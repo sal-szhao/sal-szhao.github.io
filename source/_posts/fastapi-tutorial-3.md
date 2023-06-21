@@ -158,3 +158,45 @@ pwd_context.verify(plain_password, hashed_password)
 ```
 
 Notice that a plain password can have several corresponding hashed passwords.
+
+
+## Testing
+
+We need to import `TestClient` as well as `app` from `main.py`.
+
+``` python
+from fastapi.testclient import TestClient
+from .main import app
+
+client = TestClient(app)
+
+def test_read_item():
+    response = client.get("/items/foo", headers={"X-Token": "coneofsilence"}, params={"token": "jessica"})
+    assert response.status_code == 200
+    assert response.json() == {
+        "id": "foo",
+        "title": "Foo",
+        "description": "There goes my hero",
+    }
+```
+
+There are keywords like `headers`, `params`, `json`, etc.
+Then run
+
+``` bash
+$ python -m pytest
+```
+
+to start the tests.
+
+## Debugging
+
+To debug the code, first one needs to select the python interpreter by using `control`/`command` + `shift` + `p`. In thisc case, conda environment will be selected.
+
+Then use `run and debug` function in the Visual Studio Code. Remember to add following codes to the configuration file.
+
+```
+"args": ["app.main:app", "--reload"]
+```
+
+Then one can debug the applciation by setting the breakpoints inside the codes.

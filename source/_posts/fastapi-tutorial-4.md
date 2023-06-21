@@ -147,3 +147,53 @@ $ uvicorn sqlapp.main:app --reload
 ```
 
 Then the code will automatically generate a database file in the top directory.
+
+## API Router
+
+For larger files, `API routers` can be needed to categorize path operations. We can define APIRouter as a normal router with several path operations.
+
+``` python
+from fastapi import APIRouter
+
+router = APIRouter(
+    prefix="/items",
+    tags=["items"],
+    dependencies=[Depends(get_token_header)],
+    responses={404: {"description": "Not found"}},
+)
+@router.get("/{item_id}")
+...
+```
+
+It is possible to add attributes to the API Routers like `prefix`, `tags`, `dependencies`, `responses`, etc.
+Then in `main.py`, including the routers will include all the 
+
+``` python
+from .routers import items, users
+
+app.include_router(users.router)
+app.include_router(items.router)
+```
+
+## Async Functions
+
+There are two basic implementation of `async` functions. 
+
+The first one is using `futures`. The tasks will be running after calling `asyncio.gather`.
+
+``` python
+import asyncio
+
+futures = [my_func_1(), my_func_2()]
+a,b = await asyncio.gather(*futures)
+```
+
+The second way is to use `create_task` first where the tasks will begin. And then use `await` to wait the task to be finished.
+
+``` python
+task1 = asyncio.create_task(my_func_1())
+task2 = asyncio.create_task(my_func_2())
+
+await task1
+await task2
+```
