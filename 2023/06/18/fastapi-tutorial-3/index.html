@@ -18,7 +18,7 @@
 <meta property="og:description" content="DependencyDependency in common parametersThe first usage of Depends will be common parameter inputs of the functions. 123456789101112131415161718from fastapi import Dependsasync def common_parameters(">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-06-17T23:51:11.000Z">
-<meta property="article:modified_time" content="2023-06-19T08:01:46.022Z">
+<meta property="article:modified_time" content="2023-06-20T09:36:46.244Z">
 <meta property="article:author" content="Shensong Zhao">
 <meta property="article:tag" content="fastapi">
 <meta property="article:tag" content="tech">
@@ -212,7 +212,7 @@
       <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
       <i class="icon-statistics"></i>
       <span class="post-meta-item-text"> Word Count:</span>
-      <span class="post-count">758</span>
+      <span class="post-count">777</span>
     </span>
   </span>
 
@@ -277,10 +277,10 @@
 
 <p>Notice that a plain password can have several corresponding hashed passwords.</p>
 <h2 id="Testing"><a href="#Testing" class="headerlink" title="Testing"></a>Testing</h2><p>We need to import <code>TestClient</code> as well as <code>app</code> from <code>main.py</code>.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> fastapi.testclient <span class="keyword">import</span> TestClient</span><br><span class="line"><span class="keyword">from</span> .main <span class="keyword">import</span> app</span><br><span class="line"></span><br><span class="line">client = TestClient(app)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test_read_item</span>():</span><br><span class="line">    response = client.get(<span class="string">&quot;/items/foo&quot;</span>, headers=&#123;<span class="string">&quot;X-Token&quot;</span>: <span class="string">&quot;coneofsilence&quot;</span>&#125;)</span><br><span class="line">    <span class="keyword">assert</span> response.status_code == <span class="number">200</span></span><br><span class="line">    <span class="keyword">assert</span> response.json() == &#123;</span><br><span class="line">        <span class="string">&quot;id&quot;</span>: <span class="string">&quot;foo&quot;</span>,</span><br><span class="line">        <span class="string">&quot;title&quot;</span>: <span class="string">&quot;Foo&quot;</span>,</span><br><span class="line">        <span class="string">&quot;description&quot;</span>: <span class="string">&quot;There goes my hero&quot;</span>,</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> fastapi.testclient <span class="keyword">import</span> TestClient</span><br><span class="line"><span class="keyword">from</span> .main <span class="keyword">import</span> app</span><br><span class="line"></span><br><span class="line">client = TestClient(app)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test_read_item</span>():</span><br><span class="line">    response = client.get(<span class="string">&quot;/items/foo&quot;</span>, headers=&#123;<span class="string">&quot;X-Token&quot;</span>: <span class="string">&quot;coneofsilence&quot;</span>&#125;, params=&#123;<span class="string">&quot;token&quot;</span>: <span class="string">&quot;jessica&quot;</span>&#125;)</span><br><span class="line">    <span class="keyword">assert</span> response.status_code == <span class="number">200</span></span><br><span class="line">    <span class="keyword">assert</span> response.json() == &#123;</span><br><span class="line">        <span class="string">&quot;id&quot;</span>: <span class="string">&quot;foo&quot;</span>,</span><br><span class="line">        <span class="string">&quot;title&quot;</span>: <span class="string">&quot;Foo&quot;</span>,</span><br><span class="line">        <span class="string">&quot;description&quot;</span>: <span class="string">&quot;There goes my hero&quot;</span>,</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
-<p>Then run</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pytest</span><br></pre></td></tr></table></figure>
+<p>There are keywords like <code>headers</code>, <code>params</code>, <code>json</code>, etc.<br>Then run</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python -m pytest</span><br></pre></td></tr></table></figure>
 
 <p>to start the tests.</p>
 <h2 id="Debugging"><a href="#Debugging" class="headerlink" title="Debugging"></a>Debugging</h2><p>To debug the code, first one needs to select the python interpreter by using <code>control</code>&#x2F;<code>command</code> + <code>shift</code> + <code>p</code>. In thisc case, conda environment will be selected.</p>
@@ -526,6 +526,10 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">diary</a>
               </li>
             
             <div class="clearfix"></div>

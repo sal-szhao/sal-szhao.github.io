@@ -185,6 +185,111 @@
             
 
   
+    <article id="post-diary20230721" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/07/21/diary20230721/" target="_blank">Some after thoughts about Talk Python.</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/07/21/diary20230721/" class="archive-article-date">
+        <time datetime="2023-07-21T06:01:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-07-21</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h2 id="Pydantic"><a href="#Pydantic" class="headerlink" title="Pydantic"></a>Pydantic</h2><ul>
+<li>Pydantic have updated to v2.</li>
+<li>Pydantic is extrememly fast in data validation.</li>
+<li>Automatic type conversion. </li>
+<li>Good model serialization – json&#x2F;xml.</li>
+</ul>
+<h2 id="FastAPI"><a href="#FastAPI" class="headerlink" title="FastAPI"></a>FastAPI</h2><ul>
+<li>ASGI, subclass of Starlette.</li>
+<li>Support Pydantic and SQLAlchemy.</li>
+<li>SQLModel – combines Pydantic &amp; SQLAlchemy.</li>
+</ul>
+<h2 id="Dask"><a href="#Dask" class="headerlink" title="Dask"></a>Dask</h2><ul>
+<li>Accelerate common python packages like numpy, pandas, scikit-learn.</li>
+<li>Distributed &#x2F; Parallel.</li>
+<li>Seems to be better supported in Jupyter Notebook (visualizations).</li>
+</ul>
+<h2 id="Ponder"><a href="#Ponder" class="headerlink" title="Ponder"></a>Ponder</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://ponder.io/">website</a></li>
+<li>Incrase the speed of dataframe operations?</li>
+</ul>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">diary</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/07/21/diary20230721/">Expand to view full text >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-fastapi-tutorial-4" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -247,7 +352,12 @@
 <p>It is possible to add attributes to the API Routers like <code>prefix</code>, <code>tags</code>, <code>dependencies</code>, <code>responses</code>, etc.<br>Then in <code>main.py</code>, including the routers will include all the </p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> .routers <span class="keyword">import</span> items, users</span><br><span class="line"></span><br><span class="line">app.include_router(users.router)</span><br><span class="line">app.include_router(items.router)</span><br></pre></td></tr></table></figure>
 
+<h2 id="Async-Functions"><a href="#Async-Functions" class="headerlink" title="Async Functions"></a>Async Functions</h2><p>There are two basic implementation of <code>async</code> functions. </p>
+<p>The first one is using <code>futures</code>. The tasks will be running after calling <code>asyncio.gather</code>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"></span><br><span class="line">futures = [my_func_1(), my_func_2()]</span><br><span class="line">a,b = <span class="keyword">await</span> asyncio.gather(*futures)</span><br></pre></td></tr></table></figure>
 
+<p>The second way is to use <code>create_task</code> first where the tasks will begin. And then use <code>await</code> to wait the task to be finished.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">task1 = asyncio.create_task(my_func_1())</span><br><span class="line">task2 = asyncio.create_task(my_func_2())</span><br><span class="line"></span><br><span class="line"><span class="keyword">await</span> task1</span><br><span class="line"><span class="keyword">await</span> task2</span><br></pre></td></tr></table></figure>
     
 
     
@@ -381,10 +491,10 @@
 
 <p>Notice that a plain password can have several corresponding hashed passwords.</p>
 <h2 id="Testing"><a href="#Testing" class="headerlink" title="Testing"></a>Testing</h2><p>We need to import <code>TestClient</code> as well as <code>app</code> from <code>main.py</code>.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> fastapi.testclient <span class="keyword">import</span> TestClient</span><br><span class="line"><span class="keyword">from</span> .main <span class="keyword">import</span> app</span><br><span class="line"></span><br><span class="line">client = TestClient(app)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test_read_item</span>():</span><br><span class="line">    response = client.get(<span class="string">&quot;/items/foo&quot;</span>, headers=&#123;<span class="string">&quot;X-Token&quot;</span>: <span class="string">&quot;coneofsilence&quot;</span>&#125;)</span><br><span class="line">    <span class="keyword">assert</span> response.status_code == <span class="number">200</span></span><br><span class="line">    <span class="keyword">assert</span> response.json() == &#123;</span><br><span class="line">        <span class="string">&quot;id&quot;</span>: <span class="string">&quot;foo&quot;</span>,</span><br><span class="line">        <span class="string">&quot;title&quot;</span>: <span class="string">&quot;Foo&quot;</span>,</span><br><span class="line">        <span class="string">&quot;description&quot;</span>: <span class="string">&quot;There goes my hero&quot;</span>,</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> fastapi.testclient <span class="keyword">import</span> TestClient</span><br><span class="line"><span class="keyword">from</span> .main <span class="keyword">import</span> app</span><br><span class="line"></span><br><span class="line">client = TestClient(app)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test_read_item</span>():</span><br><span class="line">    response = client.get(<span class="string">&quot;/items/foo&quot;</span>, headers=&#123;<span class="string">&quot;X-Token&quot;</span>: <span class="string">&quot;coneofsilence&quot;</span>&#125;, params=&#123;<span class="string">&quot;token&quot;</span>: <span class="string">&quot;jessica&quot;</span>&#125;)</span><br><span class="line">    <span class="keyword">assert</span> response.status_code == <span class="number">200</span></span><br><span class="line">    <span class="keyword">assert</span> response.json() == &#123;</span><br><span class="line">        <span class="string">&quot;id&quot;</span>: <span class="string">&quot;foo&quot;</span>,</span><br><span class="line">        <span class="string">&quot;title&quot;</span>: <span class="string">&quot;Foo&quot;</span>,</span><br><span class="line">        <span class="string">&quot;description&quot;</span>: <span class="string">&quot;There goes my hero&quot;</span>,</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
-<p>Then run</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pytest</span><br></pre></td></tr></table></figure>
+<p>There are keywords like <code>headers</code>, <code>params</code>, <code>json</code>, etc.<br>Then run</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python -m pytest</span><br></pre></td></tr></table></figure>
 
 <p>to start the tests.</p>
 <h2 id="Debugging"><a href="#Debugging" class="headerlink" title="Debugging"></a>Debugging</h2><p>To debug the code, first one needs to select the python interpreter by using <code>control</code>&#x2F;<code>command</code> + <code>shift</code> + <code>p</code>. In thisc case, conda environment will be selected.</p>
@@ -1415,165 +1525,6 @@
 
 
   
-    <article id="post-python-tutorial-official-3" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/06/08/python-tutorial-official-3/" target="_blank">Python Official Tutorial 3</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/06/08/python-tutorial-official-3/" class="archive-article-date">
-        <time datetime="2023-06-08T02:27:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-06-08</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>In this post basic python data structures will be included.</p>
-<h2 id="Strings"><a href="#Strings" class="headerlink" title="Strings"></a>Strings</h2><h3 id="Backslahes"><a href="#Backslahes" class="headerlink" title="Backslahes"></a>Backslahes</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">&#x27;doesn\&#x27;t&#x27;</span>  <span class="comment"># use \&#x27; to escape the single quote...</span></span><br><span class="line"><span class="string">&quot;doesn&#x27;t&quot;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">&quot;doesn&#x27;t&quot;</span>  <span class="comment"># ...or use double quotes instead</span></span><br><span class="line"><span class="string">&quot;doesn&#x27;t&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>to display single quotes inside the string output.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">&#x27;First line.\nSecond line.&#x27;</span>  <span class="comment"># \n means newline</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s  <span class="comment"># without print(), \n is included in the output</span></span><br><span class="line"><span class="string">&#x27;First line.\nSecond line.&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(s)  <span class="comment"># with print(), \n produces a new line</span></span><br><span class="line">First line.</span><br><span class="line">Second line.</span><br></pre></td></tr></table></figure>
-
-<p><code>print</code> will encode backslahes <code>\</code>. But variable will not.</p>
-<h3 id="Raw-string"><a href="#Raw-string" class="headerlink" title="Raw string"></a>Raw string</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(<span class="string">&#x27;C:\some\name&#x27;</span>)  <span class="comment"># here \n means newline!</span></span><br><span class="line">C:\some</span><br><span class="line">ame</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(<span class="string">r&#x27;C:\some\name&#x27;</span>)  <span class="comment"># note the r before the quote</span></span><br><span class="line">C:\some\name</span><br></pre></td></tr></table></figure>
-
-<p><code>raw string</code> with <code>r</code> before the string will disable encoding the backslashes <code>\</code>.</p>
-<h3 id="Multiple-lines"><a href="#Multiple-lines" class="headerlink" title="Multiple lines"></a>Multiple lines</h3><p>Use triple quotes <code>&quot;&quot;&quot;...&quot;&quot;&quot;</code> or <code>&#39;&#39;&#39;...&#39;&#39;&#39;</code> to display texts with multiple lines.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">Usage: thingy [OPTIONS]</span></span><br><span class="line"><span class="string">    -h                        Display this usage message</span></span><br><span class="line"><span class="string">    -H hostname               Hostname to connect to</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="Concatenation"><a href="#Concatenation" class="headerlink" title="Concatenation"></a>Concatenation</h3><p>Operators can be used between strings.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">3</span> * <span class="string">&#x27;un&#x27;</span> + <span class="string">&#x27;ium&#x27;</span></span><br><span class="line"><span class="string">&#x27;unununium&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<p>Automatic concatenation</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">&#x27;Py&#x27;</span> <span class="string">&#x27;thon&#x27;</span></span><br><span class="line"><span class="string">&#x27;Python&#x27;</span></span><br></pre></td></tr></table></figure>
-<p>can be useful when the strings are long. But will only work when both are strings.</p>
-<p>Concatenate a variable and a string using <code>+</code>.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>prefix = <span class="string">&#x27;py&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>prefix + <span class="string">&#x27;thon&#x27;</span></span><br><span class="line"><span class="string">&#x27;python&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="String-Assignment"><a href="#String-Assignment" class="headerlink" title="String Assignment"></a>String Assignment</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>word = <span class="string">&#x27;python&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>word[<span class="number">0</span>] = <span class="string">&#x27;a&#x27;</span></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">&quot;&lt;stdin&gt;&quot;</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">TypeError: <span class="string">&#x27;str&#x27;</span> <span class="built_in">object</span> does <span class="keyword">not</span> support item assignment</span><br></pre></td></tr></table></figure>
-
-<p>Python strings are immutable and cannot be assigned with new values.</p>
-<h3 id="Print"><a href="#Print" class="headerlink" title="Print"></a>Print</h3><p><code>print</code> has attribute <code>end</code> which will add to the end of the print result.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;abc&#x27;</span>, end=<span class="string">&#x27;---&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;xyz&#x27;</span>)</span><br><span class="line"><span class="comment"># abc---xyz</span></span><br></pre></td></tr></table></figure>
-
-<p><code>print</code> can print multiple objects with attribute <code>sep</code>.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">i = <span class="number">100</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;apple&#x27;</span>, i, <span class="number">0.123</span>, sep=<span class="string">&#x27;----&#x27;</span>)</span><br><span class="line"><span class="comment"># apple----100----0.123</span></span><br></pre></td></tr></table></figure>
-
-<p><code>*l</code> will print the list without square brackets. <code>.join</code> can concatenate all the elements inside the list.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">l = [<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(*l)</span><br><span class="line"><span class="comment"># a b c</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;-&#x27;</span>.join(l))</span><br><span class="line"><span class="comment"># a-b-c</span></span><br></pre></td></tr></table></figure>
-
-<p>Insert variables into the string using <code>%</code> or <code>format</code>.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">&#x27;Alice&#x27;</span></span><br><span class="line">i = <span class="number">25</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;%s is %d years old&#x27;</span> % (s, i))</span><br><span class="line"><span class="comment"># Alice is 25 years old</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;&#123;&#125; is &#123;&#125; years old&#x27;</span>.<span class="built_in">format</span>(s, i))</span><br><span class="line"><span class="comment"># Alice is 25 years old</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;<span class="subst">&#123;s&#125;</span> is <span class="subst">&#123;i&#125;</span> years old&#x27;</span>)</span><br><span class="line"><span class="comment"># Alice is 25 years old</span></span><br></pre></td></tr></table></figure>
-
-<p>The last method is also known as <code>f-strings</code>. <code>f-strings</code> can also be used in displaying numeric variables by certain number of digits.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">number = <span class="number">0.45</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;<span class="subst">&#123;number:<span class="number">.4</span>f&#125;</span> is <span class="subst">&#123;number:<span class="number">.2</span>%&#125;</span>&#x27;</span>)</span><br><span class="line"><span class="comment"># 0.4500 is 45.00%</span></span><br></pre></td></tr></table></figure>
-
-
-<h2 id="Lists"><a href="#Lists" class="headerlink" title="Lists"></a>Lists</h2><h3 id="Concatenation-1"><a href="#Concatenation-1" class="headerlink" title="Concatenation"></a>Concatenation</h3><p>Similar to strings, a list variable and a list can be concatenated using <code>+</code>.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>lst = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>lst + [<span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>] </span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>]</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="Delete-elements"><a href="#Delete-elements" class="headerlink" title="Delete elements"></a>Delete elements</h3><p>The following is a quick way of deleting specific elements in a list.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>lst[<span class="number">1</span>:<span class="number">3</span>] = []</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>lst</span><br><span class="line">[<span class="number">1</span>, <span class="number">4</span>]</span><br></pre></td></tr></table></figure>
-
-<p><code>clear</code> will clear all the elements in the list.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>list1.clear()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list1</span><br><span class="line">[]</span><br></pre></td></tr></table></figure>
-
-<p>Equivalent to <code>del</code>.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">del</span>(list1[:])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list1</span><br><span class="line">[]</span><br></pre></td></tr></table></figure>
-
-<h3 id="Using-lists-as-queue"><a href="#Using-lists-as-queue" class="headerlink" title="Using lists as queue"></a>Using lists as queue</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> collections <span class="keyword">import</span> deque</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>queue = deque([<span class="string">&quot;Eric&quot;</span>, <span class="string">&quot;John&quot;</span>, <span class="string">&quot;Michael&quot;</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>queue.append(<span class="string">&quot;Terry&quot;</span>)          </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>queue.append(<span class="string">&quot;Graham&quot;</span>)          </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>queue.popleft()</span><br><span class="line"><span class="string">&#x27;Eric&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>queue.popleft()    </span><br><span class="line"><span class="string">&#x27;John&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="Other-usage"><a href="#Other-usage" class="headerlink" title="Other usage"></a>Other usage</h3><p><code>map</code> can be used with <code>lambda</code> function to create a list.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers1 = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>numbers2 = [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">list</span>(<span class="built_in">map</span>(<span class="keyword">lambda</span> x, y: x + y, numbers1, numbers2))</span><br><span class="line">[<span class="number">5</span>, <span class="number">7</span>, <span class="number">9</span>]</span><br></pre></td></tr></table></figure>
-
-<p><code>extend</code> can be used to extend list, but is an in-place modification.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>list1 = [<span class="number">1</span>, <span class="number">2</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list2 = [<span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list1.extend(list2)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(list1)</span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br></pre></td></tr></table></figure>
-
-<h2 id="Tuples"><a href="#Tuples" class="headerlink" title="Tuples"></a>Tuples</h2><p><code>tuple</code> nesting can be done as following,</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>t = <span class="number">12345</span>, <span class="number">54321</span>, <span class="string">&#x27;hello!&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>u = t, (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>u</span><br><span class="line">((<span class="number">12345</span>, <span class="number">54321</span>, <span class="string">&#x27;hello!&#x27;</span>), (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>))</span><br></pre></td></tr></table></figure>
-
-<h2 id="Sets"><a href="#Sets" class="headerlink" title="Sets"></a>Sets</h2><p><code>set</code> can be initialized using curly braces or the set() function with no duplicate elements.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>basket = &#123;<span class="string">&#x27;apple&#x27;</span>, <span class="string">&#x27;orange&#x27;</span>, <span class="string">&#x27;apple&#x27;</span>, <span class="string">&#x27;pear&#x27;</span>, <span class="string">&#x27;orange&#x27;</span>, <span class="string">&#x27;banana&#x27;</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>basket</span><br><span class="line">&#123;<span class="string">&#x27;orange&#x27;</span>, <span class="string">&#x27;pear&#x27;</span>, <span class="string">&#x27;banana&#x27;</span>, <span class="string">&#x27;apple&#x27;</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = <span class="built_in">set</span>(<span class="string">&#x27;abracadabra&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a</span><br><span class="line">&#123;<span class="string">&#x27;c&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;r&#x27;</span>, <span class="string">&#x27;d&#x27;</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Dict"><a href="#Dict" class="headerlink" title="Dict"></a>Dict</h2><p>There are several ways of initializing a new <code>dict</code>.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>tel = &#123;<span class="string">&#x27;jack&#x27;</span>: <span class="number">4098</span>, <span class="string">&#x27;sape&#x27;</span>: <span class="number">4139</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">dict</span>([(<span class="string">&#x27;sape&#x27;</span>, <span class="number">4139</span>), (<span class="string">&#x27;guido&#x27;</span>, <span class="number">4127</span>), (<span class="string">&#x27;jack&#x27;</span>, <span class="number">4098</span>)])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>&#123;x: x**<span class="number">2</span> <span class="keyword">for</span> x <span class="keyword">in</span> (<span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>)&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">dict</span>(sape=<span class="number">4139</span>, guido=<span class="number">4127</span>, jack=<span class="number">4098</span>)</span><br></pre></td></tr></table></figure>
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tech</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/06/08/python-tutorial-official-3/">Expand to view full text >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
@@ -1720,6 +1671,10 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">diary</a>
               </li>
             
             <div class="clearfix"></div>
