@@ -225,14 +225,49 @@
 <li>Support Pydantic and SQLAlchemy.</li>
 <li>SQLModel – combines Pydantic &amp; SQLAlchemy.</li>
 </ul>
+<h2 id="Parallel-Computing"><a href="#Parallel-Computing" class="headerlink" title="Parallel Computing"></a>Parallel Computing</h2><ul>
+<li>Spark vs. Dask vs. RAPIDS<ul>
+<li>RAPIDS based on GPU parallel computing.</li>
+<li>Dask is python-native, more for data science.</li>
+<li>Spark arises from Hadoop, more SQL related operations.</li>
+</ul>
+</li>
+</ul>
 <h2 id="Dask"><a href="#Dask" class="headerlink" title="Dask"></a>Dask</h2><ul>
 <li>Accelerate common python packages like numpy, pandas, scikit-learn.</li>
 <li>Distributed &#x2F; Parallel.</li>
 <li>Seems to be better supported in Jupyter Notebook (visualizations).</li>
+<li>Scheduler to distribute the tasks.</li>
+<li>Delayed is an essential feature.</li>
 </ul>
 <h2 id="Ponder"><a href="#Ponder" class="headerlink" title="Ponder"></a>Ponder</h2><ul>
 <li><a target="_blank" rel="noopener" href="https://ponder.io/">website</a></li>
 <li>Incrase the speed of dataframe operations?</li>
+</ul>
+<h2 id="Spark"><a href="#Spark" class="headerlink" title="Spark"></a>Spark</h2><ul>
+<li>Spark based on Hadoop map reduce distributed system.</li>
+<li>sqlcontext have been deprecated in v2. Use spark session instead.</li>
+<li>Can either operate the dataframe using traditional dataframe methods or SQL statements.</li>
+<li>RDD – the distributed data object.</li>
+<li>Large RDD will be automatically partitioned.</li>
+</ul>
+<h2 id="Python3-10-Updates"><a href="#Python3-10-Updates" class="headerlink" title="Python3.10 Updates"></a>Python3.10 Updates</h2><ul>
+<li>Ctrl + Shift + P to select default python interpreter in VSCode.</li>
+<li>Generally faster.</li>
+<li>Add match-case function.</li>
+<li>Add parenthesized context manager.</li>
+<li>Add strict attribute to the zip function.</li>
+<li>Better error messages to show the specific location of the error.</li>
+<li>Explicit type alias and type abbreviations (&amp; &#x2F; |).</li>
+</ul>
+<h2 id="Python3-11-Updates"><a href="#Python3-11-Updates" class="headerlink" title="Python3.11 Updates"></a>Python3.11 Updates</h2><ul>
+<li>Generally faster.</li>
+<li>Fine-grained error messages.</li>
+<li>Add exception notes.</li>
+<li>Add exception group and except*.</li>
+<li>Add parsing for TOML files.</li>
+<li>Add Self type for python classes.</li>
+<li>Add StrEnum for enumeration class.</li>
 </ul>
 
     

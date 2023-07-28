@@ -18,7 +18,7 @@
 <meta property="og:description" content="Pydantic Pydantic have updated to v2. Pydantic is extrememly fast in data validation. Automatic type conversion.  Good model serialization – json&#x2F;xml.  FastAPI ASGI, subclass of Starlette. Suppor">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-07-21T06:01:16.000Z">
-<meta property="article:modified_time" content="2023-07-21T09:51:18.437Z">
+<meta property="article:modified_time" content="2023-07-28T05:42:02.466Z">
 <meta property="article:author" content="Shensong Zhao">
 <meta property="article:tag" content="diary">
 <meta name="twitter:card" content="summary">
@@ -211,7 +211,7 @@
       <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
       <i class="icon-statistics"></i>
       <span class="post-meta-item-text"> Word Count:</span>
-      <span class="post-count">66</span>
+      <span class="post-count">229</span>
     </span>
   </span>
 
@@ -242,14 +242,49 @@
 <li>Support Pydantic and SQLAlchemy.</li>
 <li>SQLModel – combines Pydantic &amp; SQLAlchemy.</li>
 </ul>
+<h2 id="Parallel-Computing"><a href="#Parallel-Computing" class="headerlink" title="Parallel Computing"></a>Parallel Computing</h2><ul>
+<li>Spark vs. Dask vs. RAPIDS<ul>
+<li>RAPIDS based on GPU parallel computing.</li>
+<li>Dask is python-native, more for data science.</li>
+<li>Spark arises from Hadoop, more SQL related operations.</li>
+</ul>
+</li>
+</ul>
 <h2 id="Dask"><a href="#Dask" class="headerlink" title="Dask"></a>Dask</h2><ul>
 <li>Accelerate common python packages like numpy, pandas, scikit-learn.</li>
 <li>Distributed &#x2F; Parallel.</li>
 <li>Seems to be better supported in Jupyter Notebook (visualizations).</li>
+<li>Scheduler to distribute the tasks.</li>
+<li>Delayed is an essential feature.</li>
 </ul>
 <h2 id="Ponder"><a href="#Ponder" class="headerlink" title="Ponder"></a>Ponder</h2><ul>
 <li><a target="_blank" rel="noopener" href="https://ponder.io/">website</a></li>
 <li>Incrase the speed of dataframe operations?</li>
+</ul>
+<h2 id="Spark"><a href="#Spark" class="headerlink" title="Spark"></a>Spark</h2><ul>
+<li>Spark based on Hadoop map reduce distributed system.</li>
+<li>sqlcontext have been deprecated in v2. Use spark session instead.</li>
+<li>Can either operate the dataframe using traditional dataframe methods or SQL statements.</li>
+<li>RDD – the distributed data object.</li>
+<li>Large RDD will be automatically partitioned.</li>
+</ul>
+<h2 id="Python3-10-Updates"><a href="#Python3-10-Updates" class="headerlink" title="Python3.10 Updates"></a>Python3.10 Updates</h2><ul>
+<li>Ctrl + Shift + P to select default python interpreter in VSCode.</li>
+<li>Generally faster.</li>
+<li>Add match-case function.</li>
+<li>Add parenthesized context manager.</li>
+<li>Add strict attribute to the zip function.</li>
+<li>Better error messages to show the specific location of the error.</li>
+<li>Explicit type alias and type abbreviations (&amp; &#x2F; |).</li>
+</ul>
+<h2 id="Python3-11-Updates"><a href="#Python3-11-Updates" class="headerlink" title="Python3.11 Updates"></a>Python3.11 Updates</h2><ul>
+<li>Generally faster.</li>
+<li>Fine-grained error messages.</li>
+<li>Add exception notes.</li>
+<li>Add exception group and except*.</li>
+<li>Add parsing for TOML files.</li>
+<li>Add Self type for python classes.</li>
+<li>Add StrEnum for enumeration class.</li>
 </ul>
 
     
@@ -315,7 +350,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Pydantic"><span class="toc-number">1.</span> <span class="toc-text">Pydantic</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FastAPI"><span class="toc-number">2.</span> <span class="toc-text">FastAPI</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dask"><span class="toc-number">3.</span> <span class="toc-text">Dask</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Ponder"><span class="toc-number">4.</span> <span class="toc-text">Ponder</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Pydantic"><span class="toc-number">1.</span> <span class="toc-text">Pydantic</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FastAPI"><span class="toc-number">2.</span> <span class="toc-text">FastAPI</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Parallel-Computing"><span class="toc-number">3.</span> <span class="toc-text">Parallel Computing</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dask"><span class="toc-number">4.</span> <span class="toc-text">Dask</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Ponder"><span class="toc-number">5.</span> <span class="toc-text">Ponder</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spark"><span class="toc-number">6.</span> <span class="toc-text">Spark</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Python3-10-Updates"><span class="toc-number">7.</span> <span class="toc-text">Python3.10 Updates</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Python3-11-Updates"><span class="toc-number">8.</span> <span class="toc-text">Python3.11 Updates</span></a></li></ol>
                     </div>
                 </span>
             </div>
