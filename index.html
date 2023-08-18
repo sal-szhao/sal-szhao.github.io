@@ -185,6 +185,138 @@
             
 
   
+    <article id="post-diary20230817" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/08/17/diary20230817/" target="_blank">Some after thoughts about Egon tutorial.</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/08/17/diary20230817/" class="archive-article-date">
+        <time datetime="2023-08-17T06:01:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-08-17</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h2 id="Network"><a href="#Network" class="headerlink" title="Network"></a>Network</h2><ul>
+<li><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/linhaifeng/articles/5937962.html">https://www.cnblogs.com/linhaifeng/articles/5937962.html</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/linhaifeng/articles/6129246.html">https://www.cnblogs.com/linhaifeng/articles/6129246.html</a></p>
+</li>
+<li><p>CS &#x2F; BS structure</p>
+<ul>
+<li>client-server &#x2F; browser-server</li>
+</ul>
+</li>
+<li><p>OSI (Open Systems Interconnection) 5(7) layers</p>
+<ul>
+<li>Physical Layer</li>
+<li>Data Link Layer – ethernet protocol (LAN) – MAC address, broadcast</li>
+<li>Network Layer – IP protocol – gateway, IP address</li>
+<li>Transport layer – TCP &#x2F; UDP protocol – Three handshakes.</li>
+<li>Application Layer</li>
+</ul>
+</li>
+<li><p>ARP protocol can transform IP address into MAC address.</p>
+</li>
+<li><p>IP address + netmask &#x3D; location of LAN.</p>
+</li>
+<li><p>IP address + port &#x3D; unique web application location</p>
+</li>
+<li><p>Socket combines all the layers other than application layer into one API.</p>
+</li>
+<li><p>Packet sticking problem</p>
+<ul>
+<li>only exists in TCP due to stream-based transmission - no data boundary.</li>
+<li>TCP will save the unreceived data in cache (reliable).</li>
+<li>UDP will lose all the data that can’t be received (irreliable). </li>
+<li>Happens when<ul>
+<li>sent data is too small and in short time intervals.</li>
+<li>data to receive cannot be received at once and another data is sent to receive.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Solution: send data size along with the data.</p>
+</li>
+</ul>
+<h2 id="Process"><a href="#Process" class="headerlink" title="Process"></a>Process</h2><ul>
+<li>Time slice in process scheduling.</li>
+<li>Three states for a process – ready state, running state &amp; blocked state.</li>
+<li>Data in different processes are independent.</li>
+</ul>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">diary</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/08/17/diary20230817/">Expand to view full text >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-diary20230721" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -250,6 +382,22 @@
 <li>Can either operate the dataframe using traditional dataframe methods or SQL statements.</li>
 <li>RDD – the distributed data object.</li>
 <li>Large RDD will be automatically partitioned.</li>
+</ul>
+<h2 id="Django"><a href="#Django" class="headerlink" title="Django"></a>Django</h2><ul>
+<li>Django long history with large community support, eg. DjangoCon.</li>
+<li>HTMX can substitute for simple javascripts, much easier for web developers to use.</li>
+</ul>
+<h2 id="Shiny"><a href="#Shiny" class="headerlink" title="Shiny"></a>Shiny</h2><ul>
+<li>Free data scientists from becoming web developers.</li>
+<li>Strike balance between simplicity and power.</li>
+<li>Steamlit is faster to use but with less functions (more like an interactive Jupyter notebook).</li>
+<li>Support R and Python.</li>
+</ul>
+<h2 id="Database-Isolations"><a href="#Database-Isolations" class="headerlink" title="Database Isolations"></a>Database Isolations</h2><ul>
+<li>Database isolation is for solving anomalies caused by concurrency.</li>
+<li>Four levels: Read Uncommitted, Read Committed, Repeatable Read, Serializable</li>
+<li>More efficiency in concurrency, less isolation.</li>
+<li>Deadlock</li>
 </ul>
 <h2 id="Python3-10-Updates"><a href="#Python3-10-Updates" class="headerlink" title="Python3.10 Updates"></a>Python3.10 Updates</h2><ul>
 <li>Ctrl + Shift + P to select default python interpreter in VSCode.</li>
@@ -1409,128 +1557,6 @@
     
     <p class="article-more-link">
       <a class="article-more-a" href="/2023/06/11/flask-tutorial-1/">Expand to view full text >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-python-tutorial-official-4" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/06/08/python-tutorial-official-4/" target="_blank">Python Official Tutorial 4</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/06/08/python-tutorial-official-4/" class="archive-article-date">
-        <time datetime="2023-06-08T06:07:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-06-08</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>This post is mainly set up for <code>classes</code> in python.</p>
-<h2 id="Namespace-and-Scope"><a href="#Namespace-and-Scope" class="headerlink" title="Namespace and Scope"></a>Namespace and Scope</h2><p><code>local</code> variables vs. <code>non-local</code> variables vs. <code>global</code> variables.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">scope_test</span>():</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">do_local</span>():</span><br><span class="line">        spam = <span class="string">&quot;local spam&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">do_nonlocal</span>():</span><br><span class="line">        <span class="keyword">nonlocal</span> spam</span><br><span class="line">        spam = <span class="string">&quot;nonlocal spam&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">do_global</span>():</span><br><span class="line">        <span class="keyword">global</span> spam</span><br><span class="line">        spam = <span class="string">&quot;global spam&quot;</span></span><br><span class="line"></span><br><span class="line">    spam = <span class="string">&quot;test spam&quot;</span></span><br><span class="line">    do_local()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;After local assignment:&quot;</span>, spam)</span><br><span class="line">    do_nonlocal()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;After nonlocal assignment:&quot;</span>, spam)</span><br><span class="line">    do_global()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;After global assignment:&quot;</span>, spam)</span><br><span class="line"></span><br><span class="line">scope_test()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;In global scope:&quot;</span>, spam)</span><br></pre></td></tr></table></figure>
-
-<p>The result is </p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">After local assignment: test spam</span><br><span class="line">After <span class="keyword">nonlocal</span> assignment: <span class="keyword">nonlocal</span> spam</span><br><span class="line">After <span class="keyword">global</span> assignment: <span class="keyword">nonlocal</span> spam</span><br><span class="line">In <span class="keyword">global</span> scope: <span class="keyword">global</span> spam</span><br></pre></td></tr></table></figure>
-
-<p>Note how the local assignment (which is default) didn’t change scope_test’s binding of spam. The nonlocal assignment changed scope_test’s binding of spam, and the global assignment changed the module-level binding.</p>
-<h2 id="Data-attributes"><a href="#Data-attributes" class="headerlink" title="Data attributes"></a>Data attributes</h2><p>Data attributes need not be declared; like local variables, they spring into existence when they are first assigned to.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">x.counter = <span class="number">1</span></span><br><span class="line"><span class="keyword">while</span> x.counter &lt; <span class="number">10</span>:</span><br><span class="line">    x.counter = x.counter * <span class="number">2</span></span><br><span class="line"><span class="built_in">print</span>(x.counter)</span><br><span class="line"><span class="comment"># 16</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="Class-and-Instance-Variabies"><a href="#Class-and-Instance-Variabies" class="headerlink" title="Class and Instance Variabies"></a>Class and Instance Variabies</h2><p>Class variables are shared among all instances of the class.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Dog</span>:</span><br><span class="line"></span><br><span class="line">    tricks = []             <span class="comment"># mistaken use of a class variable</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">add_trick</span>(<span class="params">self, trick</span>):</span><br><span class="line">        self.tricks.append(trick)</span><br><span class="line"></span><br><span class="line">d = Dog()</span><br><span class="line">e = Dog()</span><br><span class="line">d.add_trick(<span class="string">&#x27;roll over&#x27;</span>)</span><br><span class="line">e.add_trick(<span class="string">&#x27;play dead&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(d.tricks)                <span class="comment"># unexpectedly shared by all dogs</span></span><br><span class="line"><span class="comment"># [&#x27;roll over&#x27;, &#x27;play dead&#x27;]</span></span><br></pre></td></tr></table></figure>
-
-<p>Instance variable is unique to each instance.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Dog</span>:</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        self.tricks = []    <span class="comment"># creates a new empty list for each dog</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">add_trick</span>(<span class="params">self, trick</span>):</span><br><span class="line">        self.tricks.append(trick)</span><br><span class="line"></span><br><span class="line">d = Dog()</span><br><span class="line">e = Dog()</span><br><span class="line">d.add_trick(<span class="string">&#x27;roll over&#x27;</span>)</span><br><span class="line">e.add_trick(<span class="string">&#x27;play dead&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(d.tricks)</span><br><span class="line"><span class="comment"># [&#x27;roll over&#x27;]</span></span><br><span class="line"><span class="built_in">print</span>(e.tricks)</span><br><span class="line"><span class="comment"># [&#x27;play dead&#x27;]</span></span><br></pre></td></tr></table></figure>
-
-<p>If the same attribute name occurs in both an instance and in a class, then the instance variable is prioritized. </p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">w1 = Warehouse()</span><br><span class="line"><span class="built_in">print</span>(w1.purpose, w1.region)</span><br><span class="line"><span class="comment"># storage west</span></span><br><span class="line">w2 = Warehouse()</span><br><span class="line">w2.region = <span class="string">&#x27;east&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(w2.purpose, w2.region)</span><br><span class="line"><span class="comment"># storage east</span></span><br></pre></td></tr></table></figure>
-
-
-<p>In this case, assigning <code>region</code> will be treated as an instance variable.</p>
-<h2 id="Odds-and-Ends"><a href="#Odds-and-Ends" class="headerlink" title="Odds and Ends"></a>Odds and Ends</h2><p><code>dataclasses</code> are close to ‘struct’, which can be easier to implement.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> dataclasses <span class="keyword">import</span> dataclass</span><br><span class="line"></span><br><span class="line"><span class="meta">@dataclass</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Employee</span>:</span><br><span class="line">    name: <span class="built_in">str</span></span><br><span class="line">    dept: <span class="built_in">str</span></span><br><span class="line">    salary: <span class="built_in">int</span></span><br></pre></td></tr></table></figure>
-
-
-<h2 id="Generator"><a href="#Generator" class="headerlink" title="Generator"></a>Generator</h2><p><code>Generators</code> are written like regular functions but use the <code>yield</code> statement whenever users want to return data. </p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">reverse</span>(<span class="params">data</span>):</span><br><span class="line">    <span class="keyword">for</span> index <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(data)-<span class="number">1</span>, -<span class="number">1</span>, -<span class="number">1</span>):</span><br><span class="line">        <span class="keyword">yield</span> data[index]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> char <span class="keyword">in</span> reverse(<span class="string">&#x27;golf&#x27;</span>):</span><br><span class="line">    <span class="built_in">print</span>(char, end=<span class="string">&#x27;&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># flog</span></span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tech</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/06/08/python-tutorial-official-4/">Expand to view full text >></a>
     </p>
     
 

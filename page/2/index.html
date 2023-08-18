@@ -185,6 +185,128 @@
             
 
   
+    <article id="post-python-tutorial-official-4" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/06/08/python-tutorial-official-4/" target="_blank">Python Official Tutorial 4</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/06/08/python-tutorial-official-4/" class="archive-article-date">
+        <time datetime="2023-06-08T06:07:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-06-08</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>This post is mainly set up for <code>classes</code> in python.</p>
+<h2 id="Namespace-and-Scope"><a href="#Namespace-and-Scope" class="headerlink" title="Namespace and Scope"></a>Namespace and Scope</h2><p><code>local</code> variables vs. <code>non-local</code> variables vs. <code>global</code> variables.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">scope_test</span>():</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">do_local</span>():</span><br><span class="line">        spam = <span class="string">&quot;local spam&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">do_nonlocal</span>():</span><br><span class="line">        <span class="keyword">nonlocal</span> spam</span><br><span class="line">        spam = <span class="string">&quot;nonlocal spam&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">do_global</span>():</span><br><span class="line">        <span class="keyword">global</span> spam</span><br><span class="line">        spam = <span class="string">&quot;global spam&quot;</span></span><br><span class="line"></span><br><span class="line">    spam = <span class="string">&quot;test spam&quot;</span></span><br><span class="line">    do_local()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;After local assignment:&quot;</span>, spam)</span><br><span class="line">    do_nonlocal()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;After nonlocal assignment:&quot;</span>, spam)</span><br><span class="line">    do_global()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;After global assignment:&quot;</span>, spam)</span><br><span class="line"></span><br><span class="line">scope_test()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;In global scope:&quot;</span>, spam)</span><br></pre></td></tr></table></figure>
+
+<p>The result is </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">After local assignment: test spam</span><br><span class="line">After <span class="keyword">nonlocal</span> assignment: <span class="keyword">nonlocal</span> spam</span><br><span class="line">After <span class="keyword">global</span> assignment: <span class="keyword">nonlocal</span> spam</span><br><span class="line">In <span class="keyword">global</span> scope: <span class="keyword">global</span> spam</span><br></pre></td></tr></table></figure>
+
+<p>Note how the local assignment (which is default) didn’t change scope_test’s binding of spam. The nonlocal assignment changed scope_test’s binding of spam, and the global assignment changed the module-level binding.</p>
+<h2 id="Data-attributes"><a href="#Data-attributes" class="headerlink" title="Data attributes"></a>Data attributes</h2><p>Data attributes need not be declared; like local variables, they spring into existence when they are first assigned to.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">x.counter = <span class="number">1</span></span><br><span class="line"><span class="keyword">while</span> x.counter &lt; <span class="number">10</span>:</span><br><span class="line">    x.counter = x.counter * <span class="number">2</span></span><br><span class="line"><span class="built_in">print</span>(x.counter)</span><br><span class="line"><span class="comment"># 16</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Class-and-Instance-Variabies"><a href="#Class-and-Instance-Variabies" class="headerlink" title="Class and Instance Variabies"></a>Class and Instance Variabies</h2><p>Class variables are shared among all instances of the class.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Dog</span>:</span><br><span class="line"></span><br><span class="line">    tricks = []             <span class="comment"># mistaken use of a class variable</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">add_trick</span>(<span class="params">self, trick</span>):</span><br><span class="line">        self.tricks.append(trick)</span><br><span class="line"></span><br><span class="line">d = Dog()</span><br><span class="line">e = Dog()</span><br><span class="line">d.add_trick(<span class="string">&#x27;roll over&#x27;</span>)</span><br><span class="line">e.add_trick(<span class="string">&#x27;play dead&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(d.tricks)                <span class="comment"># unexpectedly shared by all dogs</span></span><br><span class="line"><span class="comment"># [&#x27;roll over&#x27;, &#x27;play dead&#x27;]</span></span><br></pre></td></tr></table></figure>
+
+<p>Instance variable is unique to each instance.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Dog</span>:</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        self.tricks = []    <span class="comment"># creates a new empty list for each dog</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">add_trick</span>(<span class="params">self, trick</span>):</span><br><span class="line">        self.tricks.append(trick)</span><br><span class="line"></span><br><span class="line">d = Dog()</span><br><span class="line">e = Dog()</span><br><span class="line">d.add_trick(<span class="string">&#x27;roll over&#x27;</span>)</span><br><span class="line">e.add_trick(<span class="string">&#x27;play dead&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(d.tricks)</span><br><span class="line"><span class="comment"># [&#x27;roll over&#x27;]</span></span><br><span class="line"><span class="built_in">print</span>(e.tricks)</span><br><span class="line"><span class="comment"># [&#x27;play dead&#x27;]</span></span><br></pre></td></tr></table></figure>
+
+<p>If the same attribute name occurs in both an instance and in a class, then the instance variable is prioritized. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">w1 = Warehouse()</span><br><span class="line"><span class="built_in">print</span>(w1.purpose, w1.region)</span><br><span class="line"><span class="comment"># storage west</span></span><br><span class="line">w2 = Warehouse()</span><br><span class="line">w2.region = <span class="string">&#x27;east&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(w2.purpose, w2.region)</span><br><span class="line"><span class="comment"># storage east</span></span><br></pre></td></tr></table></figure>
+
+
+<p>In this case, assigning <code>region</code> will be treated as an instance variable.</p>
+<h2 id="Odds-and-Ends"><a href="#Odds-and-Ends" class="headerlink" title="Odds and Ends"></a>Odds and Ends</h2><p><code>dataclasses</code> are close to ‘struct’, which can be easier to implement.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> dataclasses <span class="keyword">import</span> dataclass</span><br><span class="line"></span><br><span class="line"><span class="meta">@dataclass</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Employee</span>:</span><br><span class="line">    name: <span class="built_in">str</span></span><br><span class="line">    dept: <span class="built_in">str</span></span><br><span class="line">    salary: <span class="built_in">int</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Generator"><a href="#Generator" class="headerlink" title="Generator"></a>Generator</h2><p><code>Generators</code> are written like regular functions but use the <code>yield</code> statement whenever users want to return data. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">reverse</span>(<span class="params">data</span>):</span><br><span class="line">    <span class="keyword">for</span> index <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(data)-<span class="number">1</span>, -<span class="number">1</span>, -<span class="number">1</span>):</span><br><span class="line">        <span class="keyword">yield</span> data[index]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> char <span class="keyword">in</span> reverse(<span class="string">&#x27;golf&#x27;</span>):</span><br><span class="line">    <span class="built_in">print</span>(char, end=<span class="string">&#x27;&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># flog</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tech</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/06/08/python-tutorial-official-4/">Expand to view full text >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-python-tutorial-official-3" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
